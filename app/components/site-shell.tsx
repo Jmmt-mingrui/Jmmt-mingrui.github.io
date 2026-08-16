@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { PreferencesProvider, useSitePreferences } from "./site-preferences";
@@ -69,12 +70,12 @@ function SiteChrome({ children }: { children: ReactNode }) {
     <div className="site-frame">
       <div className="ambient-backdrop" aria-hidden="true" />
       <header className="site-header">
-        <a className="wordmark" href="/" aria-label={t.home} onClick={playTap}>
+        <Link className="wordmark" href="/" aria-label={t.home} onClick={playTap}>
           <span className="wordmark-dot" aria-hidden="true" />
           {t.name}
-        </a>
+        </Link>
         <nav aria-label={language === "zh" ? "主导航" : "Main navigation"}>
-          {navigation.map(([label, href]) => <a href={href} key={href} onClick={playTap}>{label}</a>)}
+          {navigation.map(([label, href]) => <Link href={href} key={href} onClick={playTap}>{label}</Link>)}
         </nav>
         <div className="header-tools">
           <button className="icon-button sound-button" type="button" onClick={toggleSound} aria-label={soundEnabled ? t.soundOn : t.soundOff} title={soundEnabled ? t.soundOn : t.soundOff}>
@@ -100,7 +101,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
         <div className="footer-name"><span className="wordmark-dot" aria-hidden="true" /> {t.name}</div>
         <p>{t.running}</p>
         <p>© {new Date().getFullYear()} {language === "zh" ? "[你的名字]" : "[your name]"} · {t.copyright}</p>
-        <a href="/archive" onClick={playTap}>Sitemap</a>
+        <Link href="/archive" onClick={playTap}>Sitemap</Link>
       </footer>
     </div>
   );
