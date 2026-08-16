@@ -1,10 +1,11 @@
 import { SiteShell } from "../components/site-shell";
 
-const directories = [
-  ["content/posts/", "正式文章：技术、随笔、教程、复盘"],
-  ["content/projects/", "项目说明、截图、链接和阶段记录"],
-  ["content/research/", "文献、实验、研究问题和调研"],
-  ["content/now/", "短更新、周记、正在做的事"],
+const directories: ReadonlyArray<{ path: string; description: string; id?: string }> = [
+  { path: "content/posts/", description: "正式文章：技术、随笔、教程、复盘" },
+  { path: "content/projects/", description: "项目说明、截图、链接和阶段记录" },
+  { path: "content/research/", description: "文献、实验、研究问题和调研" },
+  { path: "content/now/", description: "短更新、周记、正在做的事" },
+  { path: "content/friends/", description: "朋友站点、简介和 RSS 订阅地址", id: "friends" },
 ];
 
 export default function ArchivePage() {
@@ -15,7 +16,7 @@ export default function ArchivePage() {
         <h1>一个空站点，最好的开始方式。</h1>
         <p className="archive-intro">先按下面的目录把内容放进去。现在页面显示的是占位内容，后续只要把真实数据接进来即可。</p>
         <div className="directory-list">
-          {directories.map(([path, description]) => <article key={path}><code>{path}</code><p>{description}</p></article>)}
+          {directories.map(({ path, description, id }) => <article id={id} key={path}><code>{path}</code><p>{description}</p></article>)}
         </div>
         <section className="rss-note" id="rss">
           <span aria-hidden="true">◔</span>
