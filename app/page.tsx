@@ -21,6 +21,12 @@ const content = {
     projectName: "项目名称待补",
     projectDescription: "一句话描述待补",
     moreProjects: "查看所有项目",
+    friendsKicker: "我认识的人",
+    friends: "朋友链接",
+    friendsIntro: "这里留给那些值得常去看看的人和他们的站点。等你把链接补上，它会慢慢长成自己的小圈子。",
+    friendName: "朋友的名字",
+    friendDescription: "一句话介绍待补",
+    visitFriend: "去看看",
     read: "阅读：",
     posts: [
       ["第一篇文章的标题", "在 content/posts 中新建一篇 Markdown 后，把标题、摘要、日期和封面填到这里。"],
@@ -47,6 +53,12 @@ const content = {
     projectName: "Project name pending",
     projectDescription: "One-line description pending",
     moreProjects: "View all projects",
+    friendsKicker: "PEOPLE I KNOW",
+    friends: "Friend links",
+    friendsIntro: "A small corner for people and sites worth revisiting. Add your links here and let your own circle grow over time.",
+    friendName: "Friend name pending",
+    friendDescription: "One-line introduction pending",
+    visitFriend: "Visit",
     read: "Read: ",
     posts: [
       ["The title of your first post", "Create a Markdown file in content/posts, then add its title, excerpt, date, and cover here."],
@@ -122,6 +134,29 @@ function HomeContent() {
           ))}
         </div>
         <a className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section className="reference-section friend-section" id="friends">
+        <p className="section-kicker">{t.friendsKicker}</p>
+        <div className="friend-heading">
+          <div>
+            <h2>{t.friends}</h2>
+            <p>{t.friendsIntro}</p>
+          </div>
+          <span className="friend-count" aria-label={language === "zh" ? "朋友链接占位数量" : "Friend link placeholders"}>04</span>
+        </div>
+        <div className="friend-grid">
+          {Array.from({ length: 4 }, (_, index) => (
+            <article className="friend-card" key={index}>
+              <span className={`friend-avatar friend-avatar-${index + 1}`} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{t.friendName}</h3>
+                <p>{t.friendDescription}</p>
+                <a href="/archive#friends" onClick={playTap}>{t.visitFriend} <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </>
   );

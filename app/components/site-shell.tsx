@@ -10,7 +10,6 @@ const copy = {
     home: "首页",
     articles: "文章",
     projects: "项目",
-    friends: "友邻",
     about: "关于",
     soundOn: "关闭音效",
     soundOff: "开启音效",
@@ -25,7 +24,6 @@ const copy = {
     home: "Home",
     articles: "Articles",
     projects: "Projects",
-    friends: "Friends",
     about: "About",
     soundOn: "Disable sounds",
     soundOff: "Enable sounds",
@@ -59,7 +57,6 @@ function SiteChrome({ children }: { children: ReactNode }) {
     [t.home, "/"],
     [t.articles, "/writing"],
     [t.projects, "/projects"],
-    [t.friends, "/archive"],
     [t.about, "/about"],
   ] as const;
 
