@@ -54,10 +54,15 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     const savedLanguage = window.localStorage.getItem("archive-language");
     const savedTheme = window.localStorage.getItem("archive-theme");
     const savedSound = window.localStorage.getItem("archive-sound");
-    if (savedLanguage === "zh" || savedLanguage === "en") setLanguageState(savedLanguage);
-    if (savedTheme === "light" || savedTheme === "night") setTheme(savedTheme);
-    if (savedSound === "on" || savedSound === "off") setSoundEnabled(savedSound === "on");
-    setPreferencesLoaded(true);
+
+    const restorePreferences = window.requestAnimationFrame(() => {
+      if (savedLanguage === "zh" || savedLanguage === "en") setLanguageState(savedLanguage);
+      if (savedTheme === "light" || savedTheme === "night") setTheme(savedTheme);
+      if (savedSound === "on" || savedSound === "off") setSoundEnabled(savedSound === "on");
+      setPreferencesLoaded(true);
+    });
+
+    return () => window.cancelAnimationFrame(restorePreferences);
   }, []);
 
   useEffect(() => {
