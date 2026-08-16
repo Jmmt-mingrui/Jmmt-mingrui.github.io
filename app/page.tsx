@@ -1,106 +1,75 @@
 import { SiteShell } from "./components/site-shell";
 
-const emptySections = [
-  {
-    eyebrow: "01 / 写作",
-    title: "第一篇文章，还在路上",
-    description: "把 source 中的想法、踩坑和结论写进来。这里会自动成为你长期可检索的公开笔记。",
-    href: "/writing",
-    action: "查看文章目录",
-    tone: "sun",
-  },
-  {
-    eyebrow: "02 / 项目",
-    title: "项目集等待收录",
-    description: "每个项目只需要写清：它解决什么、你做了什么、现在走到了哪里。",
-    href: "/projects",
-    action: "整理项目入口",
-    tone: "blue",
-  },
-  {
-    eyebrow: "03 / 研究",
-    title: "研究与学习，慢慢沉淀",
-    description: "论文笔记、实验记录、问题清单和阶段复盘，都可以留在这里。",
-    href: "/research",
-    action: "打开研究目录",
-    tone: "pink",
-  },
+const posts = [
+  { title: "第一篇文章的标题", excerpt: "在 content/posts 中新建一篇 Markdown 后，把标题、摘要、日期和封面填到这里。", date: "日期待补", category: "分类待补", tone: "sky" },
+  { title: "一次项目记录的标题", excerpt: "可以记录做了什么、碰到什么问题，以及最终留下了什么结论。", date: "日期待补", category: "分类待补", tone: "lemon" },
+  { title: "一个值得回看的想法", excerpt: "不需要写得很正式。短笔记、清单、复盘和随手记录都可以成为文章。", date: "日期待补", category: "分类待补", tone: "violet" },
+  { title: "还没有发生的下一篇", excerpt: "这里是预留位置：等你开始发布内容后，它会替换成真正的文章列表。", date: "日期待补", category: "分类待补", tone: "rose" },
 ];
+
+const projects = ["项目名称待补", "项目名称待补", "项目名称待补", "项目名称待补", "项目名称待补", "项目名称待补"];
 
 export default function Home() {
   return (
     <SiteShell>
-      <section className="hero-grid">
-        <div className="hero-copy">
-          <p className="eyebrow">PERSONAL ARCHIVE / 01</p>
-          <h1>
-            把正在发生的事，
-            <br />
-            写成以后仍然想
-            <span className="headline-mark">回来的地方。</span>
-          </h1>
-          <p className="hero-text">
-            这里暂时还没有自我介绍、履历或文章。它已经准备好，等你把自己的问题、项目、研究和生活一点点放进来。
+      <section className="reference-hero">
+        <div className="reference-hero-copy">
+          <h1>Hi, [你的名字]</h1>
+          <p className="reference-tagline">在这里写下你想留住的事。</p>
+          <p className="reference-bio">
+            这是一段留给你的简短介绍：你在做什么、关心什么，或最近正在探索什么。没有准备好也没关系，直接把这行替换掉就行。
           </p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="/about">
-              从「关于」开始 <span aria-hidden="true">↗</span>
-            </a>
-            <a className="text-link" href="/archive">
-              看看站点目录 <span aria-hidden="true">→</span>
-            </a>
+          <div className="social-row" aria-label="社交链接占位">
+            <a href="/archive#rss" aria-label="RSS 占位">◔</a>
+            <a href="/about" aria-label="社交链接占位">𝕏</a>
+            <a href="/about" aria-label="GitHub 占位">⌘</a>
+            <a href="/about" aria-label="Telegram 占位">➤</a>
+            <a href="/about" aria-label="邮箱占位">✉</a>
           </div>
         </div>
-
-        <div className="hero-orbit" aria-label="一个等待被填充的个人档案">
-          <div className="orbit-sticker sticker-one">notes</div>
-          <div className="orbit-sticker sticker-two">work in progress</div>
-          <div className="sun-face">
-            <span className="sun-eye sun-eye-left" />
-            <span className="sun-eye sun-eye-right" />
-            <span className="sun-smile" />
-          </div>
-          <div className="orbit-ring orbit-ring-one" />
-          <div className="orbit-ring orbit-ring-two" />
-          <div className="orbit-dots" />
-          <p className="orbit-caption">
-            YOUR
-            <br />
-            LITTLE
-            <br />
-            UNIVERSE
-          </p>
+        <div className="avatar-stub" aria-label="头像待补">
+          <div className="avatar-stub-grid" />
+          <span>头像<br />待补</span>
         </div>
       </section>
 
-      <section className="index-section">
-        <div className="section-heading">
-          <p className="eyebrow">START HERE</p>
-          <h2>先把你的内容世界分成三块。</h2>
-          <p>不急着写得完整，先开始记录。后面的分类、归档、RSS 和站点地图都会从这里长出来。</p>
+      <section className="reference-section" id="articles">
+        <p className="section-kicker">我写的文章</p>
+        <h2>文章</h2>
+        <div className="taxonomy">
+          <p>分类：<a href="/writing">分类待补 (0)</a>、<a href="/writing">分类待补 (0)</a>、<a href="/writing">分类待补 (0)</a></p>
+          <p>标签：<a href="/writing">#标签待补 (0)</a>、<a href="/writing">#标签待补 (0)</a></p>
         </div>
-        <div className="empty-grid">
-          {emptySections.map((section) => (
-            <article className={`empty-card empty-card-${section.tone}`} key={section.title}>
-              <p>{section.eyebrow}</p>
-              <h3>{section.title}</h3>
-              <span className="card-squiggle" aria-hidden="true" />
-              <p className="card-description">{section.description}</p>
-              <a href={section.href}>{section.action} <span aria-hidden="true">↗</span></a>
+        <div className="post-list">
+          {posts.map((post, index) => (
+            <article className="post-preview" key={post.title}>
+              <div className="post-copy">
+                <h3><a href="/writing">{post.title}<span aria-hidden="true"> ↗</span></a></h3>
+                <p>{post.excerpt}</p>
+                <small>{post.date} · <a href="/writing">{post.category}</a>{index === 0 ? <> · <a href="/writing">#标签待补</a></> : null}</small>
+              </div>
+              <a className={`post-cover post-cover-${post.tone}`} href="/writing" aria-label={`阅读：${post.title}`}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+              </a>
             </article>
           ))}
         </div>
+        <a className="more-link" href="/writing">查看所有文章 <span aria-hidden="true">↗</span></a>
       </section>
 
-      <section className="archive-callout">
-        <div>
-          <p className="eyebrow">OPEN, NOT FINISHED</p>
-          <h2>这个博客不需要等“准备好了”才开始。</h2>
+      <section className="reference-section project-section" id="projects">
+        <p className="section-kicker">我做的项目</p>
+        <h2>项目</h2>
+        <div className="project-reference-grid">
+          {projects.map((name, index) => (
+            <a className="reference-project" href="/projects" key={`${name}-${index}`}>
+              <div className={`project-image project-image-${(index % 6) + 1}`}><span>项目封面待补</span></div>
+              <h3>{name} <span aria-hidden="true">↗</span></h3>
+              <p>一句话描述待补</p>
+            </a>
+          ))}
         </div>
-        <p>
-          每一条笔记、每一个项目和每次改变想法的时刻，都会成为未来回看时的坐标。
-          <a href="/archive">去查看填充指南 →</a>
-        </p>
+        <a className="more-link" href="/projects">查看所有项目 <span aria-hidden="true">↗</span></a>
       </section>
     </SiteShell>
   );
