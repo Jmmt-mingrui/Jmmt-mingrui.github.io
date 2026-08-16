@@ -143,19 +143,25 @@ function HomeContent() {
             <h2>{t.friends}</h2>
             <p>{t.friendsIntro}</p>
           </div>
-          <span className="friend-count" aria-label={language === "zh" ? "朋友链接占位数量" : "Friend link placeholders"}>04</span>
+          <span className="friend-count" aria-label={language === "zh" ? "朋友链接占位数量" : "Friend link placeholders"}><i aria-hidden="true" />04</span>
         </div>
-        <div className="friend-grid">
+        <div className="friend-board">
+          <p className="friend-board-label">GOOD PLACES ON THE INTERNET</p>
+          <div className="friend-grid">
           {Array.from({ length: 4 }, (_, index) => (
-            <article className="friend-card" key={index}>
-              <span className={`friend-avatar friend-avatar-${index + 1}`} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-              <div>
+            <article className={`friend-card friend-card-${index + 1}`} key={index}>
+              <div className="friend-card-top">
+                <span className={`friend-avatar friend-avatar-${index + 1}`} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <span className="friend-slot">FRIEND / 0{index + 1}</span>
+              </div>
+              <div className="friend-card-copy">
                 <h3>{t.friendName}</h3>
                 <p>{t.friendDescription}</p>
-                <a href="/archive#friends" onClick={playTap}>{t.visitFriend} <span aria-hidden="true">↗</span></a>
+                <a className="friend-visit" href="/archive#friends" onClick={playTap}><span>{t.visitFriend}</span> <b aria-hidden="true">↗</b></a>
               </div>
             </article>
           ))}
+          </div>
         </div>
       </section>
     </>
