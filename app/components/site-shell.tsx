@@ -6,7 +6,7 @@ import { PreferencesProvider, useSitePreferences } from "./site-preferences";
 
 const copy = {
   zh: {
-    name: "Hi, [你的名字]",
+    name: "[你的名字]",
     home: "首页",
     articles: "文章",
     projects: "项目",
@@ -20,7 +20,7 @@ const copy = {
     copyright: "内容与版权声明待补",
   },
   en: {
-    name: "Hi, [your name]",
+    name: "[your name]",
     home: "Home",
     articles: "Articles",
     projects: "Projects",
