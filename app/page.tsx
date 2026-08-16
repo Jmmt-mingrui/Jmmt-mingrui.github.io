@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { SiteShell } from "./components/site-shell";
 import { useSitePreferences } from "./components/site-preferences";
 
@@ -22,11 +23,20 @@ const content = {
     projectDescription: "一句话描述待补",
     moreProjects: "查看所有项目",
     friendsKicker: "我认识的人",
-    friends: "朋友链接",
-    friendsIntro: "这里留给那些值得常去看看的人和他们的站点。等你把链接补上，它会慢慢长成自己的小圈子。",
+    friends: "友链朋友圈",
+    friendsIntro: "这里会收集朋友们最新发布的文章。先把朋友站点和 RSS 补上，它就会慢慢变成一个会更新的小圈子。",
     friendName: "朋友的名字",
-    friendDescription: "一句话介绍待补",
-    visitFriend: "去看看",
+    friendDescription: "这是一篇来自朋友博客的文章摘要待补。",
+    friendPost: "朋友的最新文章标题",
+    friendTime: "刚刚 · 日期待补",
+    friendTabs: { subscribed: "订阅", active: "活跃", posts: "日志" },
+    friendTabHints: {
+      subscribed: "已收录的朋友站点",
+      active: "最近有更新的朋友站点",
+      posts: "朋友们最新发布的文章",
+    },
+    friendFooter: "等待第一位朋友的 RSS 更新……",
+    visitFriend: "查看原文",
     read: "阅读：",
     posts: [
       ["第一篇文章的标题", "在 content/posts 中新建一篇 Markdown 后，把标题、摘要、日期和封面填到这里。"],
@@ -54,11 +64,20 @@ const content = {
     projectDescription: "One-line description pending",
     moreProjects: "View all projects",
     friendsKicker: "PEOPLE I KNOW",
-    friends: "Friend links",
-    friendsIntro: "A small corner for people and sites worth revisiting. Add your links here and let your own circle grow over time.",
+    friends: "Friends’ circle",
+    friendsIntro: "A stream for your friends’ newest posts. Add their sites and RSS feeds first, then let this little circle update over time.",
     friendName: "Friend name pending",
-    friendDescription: "One-line introduction pending",
-    visitFriend: "Visit",
+    friendDescription: "An excerpt from a friend’s latest post goes here.",
+    friendPost: "The latest post from this friend",
+    friendTime: "Just now · Date pending",
+    friendTabs: { subscribed: "Subscribed", active: "Active", posts: "Posts" },
+    friendTabHints: {
+      subscribed: "Sites collected in your circle",
+      active: "Friends with recent updates",
+      posts: "The newest posts from friends",
+    },
+    friendFooter: "Waiting for the first friend RSS update…",
+    visitFriend: "Open post",
     read: "Read: ",
     posts: [
       ["The title of your first post", "Create a Markdown file in content/posts, then add its title, excerpt, date, and cover here."],
@@ -71,9 +90,12 @@ const content = {
 } as const;
 
 const tones = ["sky", "lemon", "violet", "rose"] as const;
+const friendModes = ["subscribed", "active", "posts"] as const;
+type FriendMode = (typeof friendModes)[number];
 
 function HomeContent() {
   const { language, playTap } = useSitePreferences();
+  const [friendMode, setFriendMode] = useState<FriendMode>("subscribed");
   const t = content[language];
 
   return (
@@ -143,25 +165,31 @@ function HomeContent() {
             <h2>{t.friends}</h2>
             <p>{t.friendsIntro}</p>
           </div>
-          <span className="friend-count" aria-label={language === "zh" ? "朋友链接占位数量" : "Friend link placeholders"}><i aria-hidden="true" />04</span>
+          <span className="friend-count" aria-label={language === "zh" ? "朋友链接占位数量" : "Friend link placeholders"}><i aria-hidden="true" />00</span>
         </div>
-        <div className="friend-board">
-          <p className="friend-board-label">GOOD PLACES ON THE INTERNET</p>
-          <div className="friend-grid">
-          {Array.from({ length: 4 }, (_, index) => (
-            <article className={`friend-card friend-card-${index + 1}`} key={index}>
-              <div className="friend-card-top">
-                <span className={`friend-avatar friend-avatar-${index + 1}`} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <span className="friend-slot">FRIEND / 0{index + 1}</span>
-              </div>
-              <div className="friend-card-copy">
-                <h3>{t.friendName}</h3>
-                <p>{t.friendDescription}</p>
-                <a className="friend-visit" href="/archive#friends" onClick={playTap}><span>{t.visitFriend}</span> <b aria-hidden="true">↗</b></a>
-              </div>
-            </article>
-          ))}
+        <div className="friend-circle">
+          <div className="friend-tabs" role="tablist" aria-label={t.friends}>
+            {friendModes.map((mode) => (
+              <button className={friendMode === mode ? "is-active" : ""} type="button" role="tab" aria-selected={friendMode === mode} key={mode} onClick={() => { playTap(); setFriendMode(mode); }}>
+                <span>{t.friendTabs[mode]}</span><b>00</b>
+              </button>
+            ))}
+            <p>{t.friendTabHints[friendMode]}</p>
           </div>
+          <div className="friend-feed" aria-live="polite">
+            {Array.from({ length: 4 }, (_, index) => (
+              <article className={`friend-feed-item friend-feed-item-${index + 1}`} key={index}>
+                <span className="friend-avatar" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <div className="friend-feed-copy">
+                  <p><strong>{t.friendName}</strong><time>{t.friendTime}</time></p>
+                  <h3>{t.friendPost}</h3>
+                  <small>{t.friendDescription}</small>
+                </div>
+                <a className="friend-visit" href="/archive#friends" aria-label={`${t.visitFriend}: ${t.friendPost}`} onClick={playTap}><b aria-hidden="true">↗</b></a>
+              </article>
+            ))}
+          </div>
+          <p className="friend-footer"><span aria-hidden="true">~</span>{t.friendFooter}</p>
         </div>
       </section>
     </>
