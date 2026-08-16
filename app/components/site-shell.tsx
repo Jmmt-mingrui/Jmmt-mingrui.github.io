@@ -89,7 +89,6 @@ function SiteChrome({ children }: { children: ReactNode }) {
           <div className="language-control">
             <button className="language-button" type="button" id="langToggle" aria-haspopup="true" aria-expanded={languageMenuOpen} aria-label={t.switchLanguage} onClick={() => { playTap(); setLanguageMenuOpen((open) => !open); }}>
               <LanguageIcon />
-              <span className="language-code">{language === "zh" ? "中" : "EN"}</span>
               <span className={`language-chevron ${languageMenuOpen ? "is-open" : ""}`} aria-hidden="true">⌄</span>
             </button>
             {languageMenuOpen ? <div className="language-menu" role="menu" aria-label={t.switchLanguage}>

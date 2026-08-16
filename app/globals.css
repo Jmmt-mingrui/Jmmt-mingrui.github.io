@@ -70,8 +70,8 @@ body { transition: background-color .42s ease, color .32s ease; }
 .icon-button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .sound-button svg { transition: transform .23s cubic-bezier(.2,.8,.2,1); }.sound-button:hover svg { transform: rotate(-5deg) scale(1.08); }
 .theme-button svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; transition: transform .36s cubic-bezier(.2,.8,.2,1); }.theme-button:hover svg { transform: rotate(20deg); }
-.language-control { position: relative; }.language-button { gap: 4px; width: auto; min-width: 58px; padding: 0 7px; font-weight: 560; font-size: 13px; }
-.language-button svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }.language-code { min-width: 16px; text-align: left; }.language-chevron { display: inline-block; margin-top: -4px; font-size: 16px; transition: transform .2s ease; }.language-chevron.is-open { transform: rotate(180deg); }
+.language-control { position: relative; }.language-button { gap: 2px; width: auto; min-width: 46px; padding: 0 6px; font-weight: 560; font-size: 13px; }
+.language-button svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }.language-chevron { display: inline-block; margin-top: -4px; font-size: 16px; transition: transform .2s ease; }.language-chevron.is-open { transform: rotate(180deg); }
 .language-menu { position: absolute; top: calc(100% + 6px); right: 0; display: grid; width: 110px; overflow: hidden; padding: 4px; border: 1px solid #e5e7eb; border-radius: 9px; background: #fff; box-shadow: 0 12px 28px rgba(15,23,42,.12); }
 .language-menu button { width: 100%; padding: 8px 10px; border: 0; border-radius: 6px; color: #52525b; background: transparent; cursor: pointer; font: inherit; font-size: 13px; text-align: left; }.language-menu button:hover { color: #18181b; background: #fafafa; }.language-menu button.is-active { color: #18181b; background: #f4f4f5; font-weight: 630; }
 
@@ -86,4 +86,4 @@ html[data-theme="night"] .inner-hero, html[data-theme="night"] .placeholder-list
 html[data-theme="night"] .project-placeholder, html[data-theme="night"] .rss-note, html[data-theme="night"] .project-template { color: #e4e4e7; border-color: #35363c; background: #202126; }
 
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .38s; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-@media (max-width: 700px) { .header-tools { gap: 2px; margin-left: auto; }.language-button { min-width: 54px; }.language-menu { right: 0; } }
+@media (max-width: 700px) { .header-tools { gap: 2px; margin-left: auto; }.language-button { min-width: 46px; }.language-menu { right: 0; } }
