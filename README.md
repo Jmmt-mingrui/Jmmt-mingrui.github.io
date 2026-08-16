@@ -44,6 +44,7 @@ npm test
 - `content/projects/`：项目
 - `content/research/`：研究与文献
 - `content/now/`：短更新与周记
+- `content/friends/`：朋友站点、简介与 RSS 地址
 
 ## 项目架构
 
@@ -61,6 +62,7 @@ content/                  你未来写入的 Markdown 内容
   projects/               项目资料
   research/               学习与研究笔记
   now/                    短更新与周记
+  friends/                朋友站点与 RSS 资料
 public/                   你将来放头像、文章封面、项目图片
 .openai/hosting.json      托管配置
 ```
