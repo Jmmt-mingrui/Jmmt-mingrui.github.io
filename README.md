@@ -2,6 +2,31 @@
 
 一个不带任何个人信息的独立博客起点。首页采用 `diygod.cc` 当前的结构语言：白底、896px 内容列、简介与头像位、文章列表、项目网格和简洁页脚；但没有复制其头像、文字、文章、项目或图片。
 
+## 技术栈
+
+- Next.js 16 与 React 19
+- Vinext、Vite 与 Cloudflare Workers
+- Tailwind CSS 4
+- Drizzle ORM（按需启用 D1）
+
+## 本地开发
+
+需要 Node.js 22.13 或更高版本。首次运行先按锁文件安装依赖：
+
+```bash
+npm run install:ci
+npm run dev
+```
+
+提交前可运行完整检查：
+
+```bash
+npm run lint
+npm test
+```
+
+`npm test` 会先构建生产产物、验证 Worker 与托管清单，再执行渲染测试。
+
 ## 页面
 
 - `/`：首页与内容入口
