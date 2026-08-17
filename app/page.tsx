@@ -5,6 +5,10 @@ import { SiteShell } from "./components/site-shell";
 import { ScrollReveal } from "./components/scroll-reveal";
 import { useSitePreferences } from "./components/site-preferences";
 import cover24 from "../content/posts/24-cloud-vm-network/趣谈网络协议.png?url";
+import cover25 from "../content/posts/25-software-defined-network/趣谈网络协议.png?url";
+import cover26 from "../content/posts/26-cloud-network-security/趣谈网络协议.png?url";
+import cover27 from "../content/posts/27-cloud-network-qos/趣谈网络协议.png?url";
+import cover28 from "../content/posts/28-gre-vxlan/趣谈网络协议.png?url";
 
 const content = {
   zh: {
@@ -99,6 +103,15 @@ const tones = ["sky", "lemon", "violet", "rose"] as const;
 const friendModes = ["subscribed", "active", "posts"] as const;
 type FriendMode = (typeof friendModes)[number];
 
+// 每篇文章的封面图（?url 打包出的静态资源地址）
+const covers: Record<string, string> = {
+  "24-cloud-vm-network": cover24,
+  "25-software-defined-network": cover25,
+  "26-cloud-network-security": cover26,
+  "27-cloud-network-qos": cover27,
+  "28-gre-vxlan": cover28,
+};
+
 function HomeContent() {
   const { language, playTap } = useSitePreferences();
   const [friendMode, setFriendMode] = useState<FriendMode>("subscribed");
@@ -146,7 +159,7 @@ function HomeContent() {
                     <small>{post.date} · <a href={`/writing/${post.slug}`} onClick={playTap}>{post.category}</a> · <a href={`/writing/${post.slug}`} onClick={playTap}>{post.tag}</a></small>
                   </div>
                   <a className={`post-cover post-cover-${tones[index % tones.length]}`} href={`/writing/${post.slug}`} aria-label={`${t.read}${post.title}`} onClick={playTap}>
-                    {post.slug === "24-cloud-vm-network" ? <img src={cover24} alt="" /> : <span>{String(index + 1).padStart(2, "0")}</span>}
+                    {covers[post.slug] ? <img src={covers[post.slug]} alt="" /> : <span>{String(index + 1).padStart(2, "0")}</span>}
                   </a>
                 </div>
               </article>
