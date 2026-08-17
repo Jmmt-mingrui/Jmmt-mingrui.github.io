@@ -60,4 +60,8 @@ test("renders article detail page from markdown", async () => {
   const html = await response.text();
   assert.match(html, /第24讲 云中网络：自己拿地成本高，购买公寓更灵活/); // 标题
   assert.match(html, /思考题深度解析/); // ReactMarkdown 渲染的正文小节
+  assert.doesNotMatch(html, /<img src="\.\//); // 正文图片全部解析为资源地址
+  assert.match(html, /class="article-cover"/); // 封面图已渲染
+  // 正文图片（含带空格文件名的）必须全部渲染并解析为资源地址，共 11 张
+  assert.equal([...html.matchAll(/<img src="\/assets\/[^"]+"/g)].length, 11);
 });

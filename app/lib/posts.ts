@@ -31,7 +31,11 @@ function parseFrontmatter(path: string, raw: string): Post | null {
   const match = FRONTMATTER_RE.exec(raw);
   if (!match) return null; // 无 frontmatter（如 README.md）直接过滤
   const frontmatter = match[1];
-  const body = match[2].replace(/^#\s+[^\n]+\n\n?/, ""); // 去掉与标题重复的 H1
+  // 去掉与标题重复的 H1；图片引用目标里的空格按 CommonMark 必须转义，
+  // 否则 `![a](./x/image 1.png)` 整行会被当成普通文本丢弃，这里统一编码为 %20。
+  const body = match[2]
+    .replace(/^#\s+[^\n]+\n\n?/, "")
+    .replace(/!\[[^\]]*\]\(([^)]*)\)/g, (ref, dest) => ref.replace(dest, dest.replace(/ /g, "%20")));
 
   const fields: Record<string, string> = {};
   const tags: string[] = [];
@@ -70,8 +74,8 @@ export function getPost(slug: string): Post | undefined {
 // markdown 里的图片引用形如 `./<slug>/image 1.png`，转成 glob 打包出的资源地址；
 // 未命中时原样透传，避免渲染时报错。
 export function resolveImage(slug: string, src: string): string {
-  const rest = src.replace(/^\.\//, "");
-  return imageFiles[`../../content/posts/${slug}/${rest}`] ?? src;
+  const rest = decodeURIComponent(src.replace(/^\.\//, "")); // %20 还原成文件名里的空格
+  return imageFiles[`../../content/posts/${rest}`] ?? imageFiles[`../../content/posts/${slug}/${rest}`] ?? src;
 }
 
 // 文章封面（目前只有第 24 讲有）。
