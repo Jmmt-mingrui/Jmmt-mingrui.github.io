@@ -12,10 +12,11 @@ const content = {
     writingKicker: "我写的文章",
     articles: "文章",
     categories: "分类：",
-    category: "分类待补",
+    category: "学习笔记",
     tags: "标签：",
-    tag: "#标签待补",
+    tag: "#网络协议",
     moreArticles: "查看所有文章",
+    collectionIntro: "《趣谈网络协议》云网络篇学习笔记：从虚拟网卡到 VXLAN，把云网络的四件大事（互通、SDN、安全、QoS、隔离）逐一拆开。",
     projectKicker: "我做的项目",
     projects: "项目",
     cover: "项目封面待补",
@@ -39,10 +40,11 @@ const content = {
     visitFriend: "查看原文",
     read: "阅读：",
     posts: [
-      ["第一篇文章的标题", "在 content/posts 中新建一篇 Markdown 后，把标题、摘要、日期和封面填到这里。"],
-      ["一次项目记录的标题", "可以记录做了什么、碰到什么问题，以及最终留下了什么结论。"],
-      ["一个值得回看的想法", "不需要写得很正式。短笔记、清单、复盘和随手记录都可以成为文章。"],
-      ["还没有发生的下一篇", "这里是预留位置：等你开始发布内容后，它会替换成真正的文章列表。"],
+      { title: "第24讲 云中网络：自己拿地成本高，购买公寓更灵活", summary: "云计算如何用虚拟化技术在物理机上“切出”虚拟机：从 TUN/TAP 虚拟网卡原理，到桥接与 NAT 两种互通方式，再到 VLAN 隔离的局限。", date: "2026-04-19", category: "学习笔记", tag: "虚拟化" },
+      { title: "第25讲 软件定义网络：共享基础设施的小区物业管理办法", summary: "软件定义网络（SDN）如何把网络的控制权集中起来：控制面与转发面分离、OpenFlow 与 OpenvSwitch 的流表机制，以及虚拟网络与物理网络的解耦。", date: "2026-04-19", category: "学习笔记", tag: "SDN" },
+      { title: "第26讲 云中的网络安全：虽然不是土豪，也需要基本安全和保障", summary: "云上虚拟机如何做基本的安全防护：安全组与 ACL 的由来、Netfilter 五个钩子与 iptables 四表五链，以及 SNAT / DNAT 实现内外网互通。", date: "2026-04-26", category: "学习笔记", tag: "网络安全" },
+      { title: "第27讲 云中的网络QoS：邻居疯狂下电影，我该怎么办？", summary: "邻居虚拟机疯狂下电影把带宽占满怎么办：QoS 流量控制原理，从 TC 排队规则（SFQ、TBF）到 HTB 分层令牌桶，再到 OVS 上精准限速。", date: "2026-05-19", category: "学习笔记", tag: "QoS" },
+      { title: "第28讲 云中网络的隔离GRE、VXLAN：虽然住一个小区，也要保护隐私", summary: "VLAN 只有 4096 个 ID，公有云百万租户怎么隔离：GRE 与 VXLAN 隧道封装、Overlay 网络、VTEP 的封装解封装，以及 OVS 多流表转发流水线。", date: "2026-05-20", category: "学习笔记", tag: "VXLAN" },
     ],
     pendingDate: "日期待补",
   },
@@ -57,6 +59,7 @@ const content = {
     tags: "Tags: ",
     tag: "#tag-pending",
     moreArticles: "View all articles",
+    collectionIntro: "Study notes for the cloud-network chapters of 《趣谈网络协议》: from virtual NICs to VXLAN, unpacking connectivity, SDN, security, QoS and isolation one by one.",
     projectKicker: "WHAT I MAKE",
     projects: "Projects",
     cover: "Project cover pending",
@@ -80,10 +83,11 @@ const content = {
     visitFriend: "Open post",
     read: "Read: ",
     posts: [
-      ["The title of your first post", "Create a Markdown file in content/posts, then add its title, excerpt, date, and cover here."],
-      ["The record of a project", "Write down what you built, the problems you met, and the conclusions that stayed with you."],
-      ["A thought worth revisiting", "It does not have to be formal. Notes, lists, recaps, and quick observations all belong here."],
-      ["The next post that has not happened yet", "This is a reserved spot. Once you publish, it will become a real entry in your article list."],
+      { title: "第24讲 云中网络：自己拿地成本高，购买公寓更灵活", summary: "How cloud computing carves VMs out of a physical host with virtualization: TUN/TAP virtual NICs, bridge vs NAT connectivity, and the limits of VLAN isolation.", date: "2026-04-19", category: "学习笔记", tag: "虚拟化" },
+      { title: "第25讲 软件定义网络：共享基础设施的小区物业管理办法", summary: "How SDN centralizes network control: control/forwarding plane separation, OpenFlow & OpenvSwitch flow tables, and decoupling virtual networks from physical ones.", date: "2026-04-19", category: "学习笔记", tag: "SDN" },
+      { title: "第26讲 云中的网络安全：虽然不是土豪，也需要基本安全和保障", summary: "Basic security for cloud VMs: security groups & ACLs, Netfilter's five hooks and iptables' four tables, plus SNAT / DNAT for private-to-public connectivity.", date: "2026-04-26", category: "学习笔记", tag: "网络安全" },
+      { title: "第27讲 云中的网络QoS：邻居疯狂下电影，我该怎么办？", summary: "What to do when a neighbour VM hogs all the bandwidth: QoS traffic shaping, TC queueing (SFQ, TBF), the HTB token bucket, and per-tenant shaping in OVS.", date: "2026-05-19", category: "学习笔记", tag: "QoS" },
+      { title: "第28讲 云中网络的隔离GRE、VXLAN：虽然住一个小区，也要保护隐私", summary: "How to isolate millions of tenants beyond VLAN's 4096 IDs: GRE & VXLAN tunnelling, overlay networks, VTEP encapsulation, and OVS multi-table pipelines.", date: "2026-05-20", category: "学习笔记", tag: "VXLAN" },
     ],
     pendingDate: "Date pending",
   },
@@ -122,19 +126,20 @@ function HomeContent() {
       <section className="reference-section" id="articles">
         <p className="section-kicker">{t.writingKicker}</p>
         <h2>{t.articles}</h2>
+        <p className="collection-intro">{t.collectionIntro}</p>
         <div className="taxonomy">
-          <p>{t.categories}<a href="/writing" onClick={playTap}>{t.category} (0)</a>、<a href="/writing" onClick={playTap}>{t.category} (0)</a>、<a href="/writing" onClick={playTap}>{t.category} (0)</a></p>
-          <p>{t.tags}<a href="/writing" onClick={playTap}>{t.tag} (0)</a>、<a href="/writing" onClick={playTap}>{t.tag} (0)</a></p>
+          <p>{t.categories}<a href="/writing" onClick={playTap}>学习笔记 (5)</a></p>
+          <p>{t.tags}<a href="/writing" onClick={playTap}>网络协议 (5)</a>、<a href="/writing" onClick={playTap}>云计算 (5)</a></p>
         </div>
         <div className="post-list">
-          {t.posts.map(([title, excerpt], index) => (
-            <article className="post-preview" key={title}>
+          {t.posts.map((post, index) => (
+            <article className="post-preview" key={post.title}>
               <div className="post-copy">
-                <h3><a href="/writing" onClick={playTap}>{title}<span aria-hidden="true"> ↗</span></a></h3>
-                <p>{excerpt}</p>
-                <small>{t.pendingDate} · <a href="/writing" onClick={playTap}>{t.category}</a>{index === 0 ? <> · <a href="/writing" onClick={playTap}>{t.tag}</a></> : null}</small>
+                <h3><a href="/writing" onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
+                <p>{post.summary}</p>
+                <small>{post.date} · <a href="/writing" onClick={playTap}>{post.category}</a> · <a href="/writing" onClick={playTap}>{post.tag}</a></small>
               </div>
-              <a className={`post-cover post-cover-${tones[index]}`} href="/writing" aria-label={`${t.read}${title}`} onClick={playTap}>
+              <a className={`post-cover post-cover-${tones[index % tones.length]}`} href="/writing" aria-label={`${t.read}${post.title}`} onClick={playTap}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
               </a>
             </article>
