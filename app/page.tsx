@@ -106,7 +106,7 @@ function HomeContent() {
     <>
       <section className="reference-hero">
         <div className="reference-hero-copy">
-          <h1>Hi, [{language === "zh" ? "你的名字" : "your name"}]</h1>
+          <h1>Hi, Jmmt-mingrui</h1>
           <p className="reference-tagline">{t.tagline}</p>
           <p className="reference-bio">{t.bio}</p>
           <div className="social-row" aria-label={language === "zh" ? "社交链接占位" : "Social link placeholders"}>

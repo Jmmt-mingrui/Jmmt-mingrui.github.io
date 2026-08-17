@@ -7,7 +7,7 @@ import { PreferencesProvider, useSitePreferences } from "./site-preferences";
 
 const copy = {
   zh: {
-    name: "Hi, [你的名字]",
+    name: "Hi, Jmmt-mingrui",
     home: "首页",
     articles: "文章",
     projects: "项目",
@@ -21,7 +21,7 @@ const copy = {
     copyright: "内容与版权声明待补",
   },
   en: {
-    name: "Hi, [your name]",
+    name: "Hi, Jmmt-mingrui",
     home: "Home",
     articles: "Articles",
     projects: "Projects",
@@ -100,7 +100,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
       <footer className="site-footer">
         <div className="footer-name"><span className="wordmark-dot" aria-hidden="true" /> {t.name}</div>
         <p>{t.running}</p>
-        <p>© {new Date().getFullYear()} {language === "zh" ? "[你的名字]" : "[your name]"} · {t.copyright}</p>
+        <p>© {new Date().getFullYear()} Jmmt-mingrui · {t.copyright}</p>
         <Link href="/archive" onClick={playTap}>Sitemap</Link>
       </footer>
     </div>
