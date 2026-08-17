@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SiteShell } from "./components/site-shell";
 import { ScrollReveal } from "./components/scroll-reveal";
 import { useSitePreferences } from "./components/site-preferences";
+import cover24 from "../content/posts/24-cloud-vm-network/趣谈网络协议.png?url";
 
 const content = {
   zh: {
@@ -41,11 +42,11 @@ const content = {
     visitFriend: "查看原文",
     read: "阅读：",
     posts: [
-      { title: "第24讲 云中网络：自己拿地成本高，购买公寓更灵活", summary: "云计算如何用虚拟化技术在物理机上“切出”虚拟机：从 TUN/TAP 虚拟网卡原理，到桥接与 NAT 两种互通方式，再到 VLAN 隔离的局限。", date: "2026-04-19", category: "学习笔记", tag: "虚拟化" },
-      { title: "第25讲 软件定义网络：共享基础设施的小区物业管理办法", summary: "软件定义网络（SDN）如何把网络的控制权集中起来：控制面与转发面分离、OpenFlow 与 OpenvSwitch 的流表机制，以及虚拟网络与物理网络的解耦。", date: "2026-04-19", category: "学习笔记", tag: "SDN" },
-      { title: "第26讲 云中的网络安全：虽然不是土豪，也需要基本安全和保障", summary: "云上虚拟机如何做基本的安全防护：安全组与 ACL 的由来、Netfilter 五个钩子与 iptables 四表五链，以及 SNAT / DNAT 实现内外网互通。", date: "2026-04-26", category: "学习笔记", tag: "网络安全" },
-      { title: "第27讲 云中的网络QoS：邻居疯狂下电影，我该怎么办？", summary: "邻居虚拟机疯狂下电影把带宽占满怎么办：QoS 流量控制原理，从 TC 排队规则（SFQ、TBF）到 HTB 分层令牌桶，再到 OVS 上精准限速。", date: "2026-05-19", category: "学习笔记", tag: "QoS" },
-      { title: "第28讲 云中网络的隔离GRE、VXLAN：虽然住一个小区，也要保护隐私", summary: "VLAN 只有 4096 个 ID，公有云百万租户怎么隔离：GRE 与 VXLAN 隧道封装、Overlay 网络、VTEP 的封装解封装，以及 OVS 多流表转发流水线。", date: "2026-05-20", category: "学习笔记", tag: "VXLAN" },
+      { title: "第24讲 云中网络：自己拿地成本高，购买公寓更灵活", slug: "24-cloud-vm-network", summary: "云计算如何用虚拟化技术在物理机上“切出”虚拟机：从 TUN/TAP 虚拟网卡原理，到桥接与 NAT 两种互通方式，再到 VLAN 隔离的局限。", date: "2026-04-19", category: "学习笔记", tag: "虚拟化" },
+      { title: "第25讲 软件定义网络：共享基础设施的小区物业管理办法", slug: "25-software-defined-network", summary: "软件定义网络（SDN）如何把网络的控制权集中起来：控制面与转发面分离、OpenFlow 与 OpenvSwitch 的流表机制，以及虚拟网络与物理网络的解耦。", date: "2026-04-19", category: "学习笔记", tag: "SDN" },
+      { title: "第26讲 云中的网络安全：虽然不是土豪，也需要基本安全和保障", slug: "26-cloud-network-security", summary: "云上虚拟机如何做基本的安全防护：安全组与 ACL 的由来、Netfilter 五个钩子与 iptables 四表五链，以及 SNAT / DNAT 实现内外网互通。", date: "2026-04-26", category: "学习笔记", tag: "网络安全" },
+      { title: "第27讲 云中的网络QoS：邻居疯狂下电影，我该怎么办？", slug: "27-cloud-network-qos", summary: "邻居虚拟机疯狂下电影把带宽占满怎么办：QoS 流量控制原理，从 TC 排队规则（SFQ、TBF）到 HTB 分层令牌桶，再到 OVS 上精准限速。", date: "2026-05-19", category: "学习笔记", tag: "QoS" },
+      { title: "第28讲 云中网络的隔离GRE、VXLAN：虽然住一个小区，也要保护隐私", slug: "28-gre-vxlan", summary: "VLAN 只有 4096 个 ID，公有云百万租户怎么隔离：GRE 与 VXLAN 隧道封装、Overlay 网络、VTEP 的封装解封装，以及 OVS 多流表转发流水线。", date: "2026-05-20", category: "学习笔记", tag: "VXLAN" },
     ],
     pendingDate: "日期待补",
   },
@@ -84,11 +85,11 @@ const content = {
     visitFriend: "Open post",
     read: "Read: ",
     posts: [
-      { title: "第24讲 云中网络：自己拿地成本高，购买公寓更灵活", summary: "How cloud computing carves VMs out of a physical host with virtualization: TUN/TAP virtual NICs, bridge vs NAT connectivity, and the limits of VLAN isolation.", date: "2026-04-19", category: "学习笔记", tag: "虚拟化" },
-      { title: "第25讲 软件定义网络：共享基础设施的小区物业管理办法", summary: "How SDN centralizes network control: control/forwarding plane separation, OpenFlow & OpenvSwitch flow tables, and decoupling virtual networks from physical ones.", date: "2026-04-19", category: "学习笔记", tag: "SDN" },
-      { title: "第26讲 云中的网络安全：虽然不是土豪，也需要基本安全和保障", summary: "Basic security for cloud VMs: security groups & ACLs, Netfilter's five hooks and iptables' four tables, plus SNAT / DNAT for private-to-public connectivity.", date: "2026-04-26", category: "学习笔记", tag: "网络安全" },
-      { title: "第27讲 云中的网络QoS：邻居疯狂下电影，我该怎么办？", summary: "What to do when a neighbour VM hogs all the bandwidth: QoS traffic shaping, TC queueing (SFQ, TBF), the HTB token bucket, and per-tenant shaping in OVS.", date: "2026-05-19", category: "学习笔记", tag: "QoS" },
-      { title: "第28讲 云中网络的隔离GRE、VXLAN：虽然住一个小区，也要保护隐私", summary: "How to isolate millions of tenants beyond VLAN's 4096 IDs: GRE & VXLAN tunnelling, overlay networks, VTEP encapsulation, and OVS multi-table pipelines.", date: "2026-05-20", category: "学习笔记", tag: "VXLAN" },
+      { title: "第24讲 云中网络：自己拿地成本高，购买公寓更灵活", slug: "24-cloud-vm-network", summary: "How cloud computing carves VMs out of a physical host with virtualization: TUN/TAP virtual NICs, bridge vs NAT connectivity, and the limits of VLAN isolation.", date: "2026-04-19", category: "学习笔记", tag: "虚拟化" },
+      { title: "第25讲 软件定义网络：共享基础设施的小区物业管理办法", slug: "25-software-defined-network", summary: "How SDN centralizes network control: control/forwarding plane separation, OpenFlow & OpenvSwitch flow tables, and decoupling virtual networks from physical ones.", date: "2026-04-19", category: "学习笔记", tag: "SDN" },
+      { title: "第26讲 云中的网络安全：虽然不是土豪，也需要基本安全和保障", slug: "26-cloud-network-security", summary: "Basic security for cloud VMs: security groups & ACLs, Netfilter's five hooks and iptables' four tables, plus SNAT / DNAT for private-to-public connectivity.", date: "2026-04-26", category: "学习笔记", tag: "网络安全" },
+      { title: "第27讲 云中的网络QoS：邻居疯狂下电影，我该怎么办？", slug: "27-cloud-network-qos", summary: "What to do when a neighbour VM hogs all the bandwidth: QoS traffic shaping, TC queueing (SFQ, TBF), the HTB token bucket, and per-tenant shaping in OVS.", date: "2026-05-19", category: "学习笔记", tag: "QoS" },
+      { title: "第28讲 云中网络的隔离GRE、VXLAN：虽然住一个小区，也要保护隐私", slug: "28-gre-vxlan", summary: "How to isolate millions of tenants beyond VLAN's 4096 IDs: GRE & VXLAN tunnelling, overlay networks, VTEP encapsulation, and OVS multi-table pipelines.", date: "2026-05-20", category: "学习笔记", tag: "VXLAN" },
     ],
     pendingDate: "Date pending",
   },
@@ -140,12 +141,12 @@ function HomeContent() {
                 <div className="post-preview-frame" aria-hidden="true" />
                 <div className="post-preview-inner">
                   <div className="post-copy">
-                    <h3><a href="/writing" onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
+                    <h3><a href={`/writing/${post.slug}`} onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
                     <p>{post.summary}</p>
-                    <small>{post.date} · <a href="/writing" onClick={playTap}>{post.category}</a> · <a href="/writing" onClick={playTap}>{post.tag}</a></small>
+                    <small>{post.date} · <a href={`/writing/${post.slug}`} onClick={playTap}>{post.category}</a> · <a href={`/writing/${post.slug}`} onClick={playTap}>{post.tag}</a></small>
                   </div>
-                  <a className={`post-cover post-cover-${tones[index % tones.length]}`} href="/writing" aria-label={`${t.read}${post.title}`} onClick={playTap}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  <a className={`post-cover post-cover-${tones[index % tones.length]}`} href={`/writing/${post.slug}`} aria-label={`${t.read}${post.title}`} onClick={playTap}>
+                    {post.slug === "24-cloud-vm-network" ? <img src={cover24} alt="" /> : <span>{String(index + 1).padStart(2, "0")}</span>}
                   </a>
                 </div>
               </article>
