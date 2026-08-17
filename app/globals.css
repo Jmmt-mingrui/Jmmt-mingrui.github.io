@@ -33,13 +33,13 @@ a { color: inherit; text-decoration: none; }
 .collection-intro { margin: 0; color: #737373; font-size: 14px; line-height: 1.8; }
 .taxonomy { margin: 23px 0 35px; color: #737373; font-size: 14px; line-height: 1.75; }
 .taxonomy p { margin: 0 0 4px; }.taxonomy a { color: #52525b; transition: color .18s ease; }
-.post-list { display: grid; gap: 24px; width: min(720px, 100%); margin: 0 auto; }
+.post-list { display: grid; gap: 24px; }
 /* 文章卡：双层纸张悬停（同参考站）——白色实面与内容向左上移 4px，虚线框向右下移 4px */
 .post-preview { position: relative; border: 1px dashed transparent; border-radius: 16px; padding: 21px 24px; }
 .post-preview-sheet, .post-preview-frame { position: absolute; inset: 0; border: 1px dashed #d4d4d8; border-radius: 16px; transition: transform .3s ease-out; }
 .post-preview-sheet { z-index: 2; background: #fff; }
 .post-preview-frame { z-index: 1; }
-.post-preview-inner { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(0, 1fr) 128px; gap: 28px; align-items: center; min-height: 214px; transition: transform .3s ease-out; }
+.post-preview-inner { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(0, 1fr) 128px; gap: 28px; align-items: center; min-height: 150px; transition: transform .3s ease-out; }
 .post-preview:hover .post-preview-sheet, .post-preview:hover .post-preview-inner { transform: translate(-4px, -4px); }
 .post-preview:hover .post-preview-frame { transform: translate(4px, 4px); }
 .post-copy { padding-top: 0; }
