@@ -136,14 +136,18 @@ function HomeContent() {
           <div className="post-list">
             {t.posts.map((post, index) => (
               <article className="post-preview" key={post.title}>
-                <div className="post-copy">
-                  <h3><a href="/writing" onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
-                  <p>{post.summary}</p>
-                  <small>{post.date} · <a href="/writing" onClick={playTap}>{post.category}</a> · <a href="/writing" onClick={playTap}>{post.tag}</a></small>
+                <div className="post-preview-sheet" aria-hidden="true" />
+                <div className="post-preview-frame" aria-hidden="true" />
+                <div className="post-preview-inner">
+                  <div className="post-copy">
+                    <h3><a href="/writing" onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
+                    <p>{post.summary}</p>
+                    <small>{post.date} · <a href="/writing" onClick={playTap}>{post.category}</a> · <a href="/writing" onClick={playTap}>{post.tag}</a></small>
+                  </div>
+                  <a className={`post-cover post-cover-${tones[index % tones.length]}`} href="/writing" aria-label={`${t.read}${post.title}`} onClick={playTap}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  </a>
                 </div>
-                <a className={`post-cover post-cover-${tones[index % tones.length]}`} href="/writing" aria-label={`${t.read}${post.title}`} onClick={playTap}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                </a>
               </article>
             ))}
           </div>
