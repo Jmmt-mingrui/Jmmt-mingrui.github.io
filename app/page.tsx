@@ -9,6 +9,10 @@ import cover25 from "../content/posts/25-software-defined-network/趣谈网络�
 import cover26 from "../content/posts/26-cloud-network-security/趣谈网络协议.png?url";
 import cover27 from "../content/posts/27-cloud-network-qos/趣谈网络协议.png?url";
 import cover28 from "../content/posts/28-gre-vxlan/趣谈网络协议.png?url";
+import projectEino from "../content/projects/eino-ext.png?url";
+import projectDoris from "../content/projects/doris-mcp-server.png?url";
+import projectVelo from "../content/projects/velodb-mcp-server.png?url";
+import projectMicro from "../content/projects/microservices-go-start.jpg?url";
 
 const content = {
   zh: {
@@ -25,9 +29,12 @@ const content = {
     collectionIntro: "《趣谈网络协议》云网络篇学习笔记：从虚拟网卡到 VXLAN，把云网络的四件大事（互通、SDN、安全、QoS、隔离）逐一拆开。",
     projectKicker: "我做的项目",
     projects: "项目",
-    cover: "项目封面待补",
-    projectName: "项目名称待补",
-    projectDescription: "一句话描述待补",
+    projectList: [
+      { key: "eino", name: "eino-ext", description: "Eino 框架的各类扩展组件：模型接入、工具集成与编排能力" },
+      { key: "doris", name: "doris-mcp-server", description: "Apache Doris 的 MCP Server，让 AI 应用通过标准接口查询 Doris" },
+      { key: "velodb", name: "velodb-mcp-server", description: "VeloDB Cloud 与 Enterprise 的 MCP Server，接入云原生实时分析数据库" },
+      { key: "microservices", name: "microservices-go-Start", description: "微服务实战 Go 完整示例代码，从零搭建一套微服务体系" },
+    ],
     moreProjects: "查看所有项目",
     friendsKicker: "我认识的人",
     friends: "友链朋友圈",
@@ -68,9 +75,12 @@ const content = {
     collectionIntro: "Study notes for the cloud-network chapters of 《趣谈网络协议》: from virtual NICs to VXLAN, unpacking connectivity, SDN, security, QoS and isolation one by one.",
     projectKicker: "WHAT I MAKE",
     projects: "Projects",
-    cover: "Project cover pending",
-    projectName: "Project name pending",
-    projectDescription: "One-line description pending",
+    projectList: [
+      { key: "eino", name: "eino-ext", description: "Various extensions for the Eino framework" },
+      { key: "doris", name: "doris-mcp-server", description: "Apache Doris MCP Server" },
+      { key: "velodb", name: "velodb-mcp-server", description: "MCP Server for VeloDB Cloud & Enterprise" },
+      { key: "microservices", name: "microservices-go-Start", description: "Complete code for the microservices-go" },
+    ],
     moreProjects: "View all projects",
     friendsKicker: "PEOPLE I KNOW",
     friends: "Friends’ circle",
@@ -110,6 +120,14 @@ const covers: Record<string, string> = {
   "26-cloud-network-security": cover26,
   "27-cloud-network-qos": cover27,
   "28-gre-vxlan": cover28,
+};
+
+// 项目卡的跳转地址与封面图（key 与 content.*.projectList 对应）
+const projectLinks: Record<string, { href: string; image: string }> = {
+  eino: { href: "https://github.com/cloudwego/eino-ext", image: projectEino },
+  doris: { href: "https://github.com/apache/doris-mcp-server", image: projectDoris },
+  velodb: { href: "https://github.com/velodb/velodb-mcp-server", image: projectVelo },
+  microservices: { href: "https://github.com/Jmmt-mingrui/microservices-go-Start", image: projectMicro },
 };
 
 function HomeContent() {
@@ -174,13 +192,16 @@ function HomeContent() {
           <p className="section-kicker">{t.projectKicker}</p>
           <h2>{t.projects}</h2>
           <div className="project-reference-grid">
-            {Array.from({ length: 6 }, (_, index) => (
-              <a className="reference-project" href="/projects" key={index} onClick={playTap}>
-                <div className={`project-image project-image-${(index % 6) + 1}`}><span>{t.cover}</span></div>
-                <h3>{t.projectName} <span aria-hidden="true">↗</span></h3>
-                <p>{t.projectDescription}</p>
-              </a>
-            ))}
+            {t.projectList.map((project) => {
+              const link = projectLinks[project.key];
+              return (
+                <a className="reference-project" href={link.href} target="_blank" rel="noopener noreferrer" key={project.key} onClick={playTap}>
+                  <div className="project-image"><img src={link.image} alt={`${project.name} logo`} loading="lazy" /></div>
+                  <h3>{project.name} <span aria-hidden="true">↗</span></h3>
+                  <p>{project.description}</p>
+                </a>
+              );
+            })}
           </div>
           <a className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></a>
         </section>

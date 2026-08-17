@@ -33,6 +33,11 @@ test("renders development preview metadata", async () => {
   assert.match(html, developmentPreviewMeta);
   // 首页五张文章卡片全部渲染真实封面图
   assert.equal([...html.matchAll(/<a class="post-cover[^"]*"[^>]*><img src="\/assets\//g)].length, 5);
+  // 首页项目区渲染四个真实项目卡，均链接到 GitHub 仓库（外链新开窗口）
+  assert.equal([...html.matchAll(/<a class="reference-project" href="https:\/\/github\.com\//g)].length, 4);
+  assert.equal([...html.matchAll(/<a class="reference-project"[^>]*target="_blank"/g)].length, 4);
+  // 四张项目封面图全部渲染（小图可能被 vite 内联为 data URI，两种形式都接受）
+  assert.equal([...html.matchAll(/<img src="(?:\/assets\/[^"]+|data:image\/[^"]+)" alt="[^"]* logo"/g)].length, 4);
 });
 
 test("renders article detail page from markdown", async () => {
