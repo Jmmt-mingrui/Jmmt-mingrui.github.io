@@ -18,7 +18,7 @@ const copy = {
     dark: "切换深色背景",
     light: "切换浅色背景",
     switchLanguage: "切换语言",
-    running: "站点已运行：从你发布第一篇文章那天开始计算",
+    running: (days: number) => `已运行 ${days} 天`,
     copyright: "内容与版权声明待补",
   },
   en: {
@@ -33,7 +33,7 @@ const copy = {
     dark: "Switch to dark background",
     light: "Switch to light background",
     switchLanguage: "Switch language",
-    running: "Running since your first published post",
+    running: (days: number) => `Running for ${days} days`,
     copyright: "Content and copyright notice pending",
   },
 } as const;
@@ -52,10 +52,15 @@ function ThemeIcon({ night }: { night: boolean }) {
     : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 15.4A8.5 8.5 0 0 1 8.6 3.3 8.5 8.5 0 1 0 20.7 15.4Z" /></svg>;
 }
 
+// 站点上线日：以仓库首个提交为准（2026-08-16）。
+const SITE_BIRTH = new Date("2026-08-16T00:00:00+08:00").getTime();
+const DAY_MS = 86_400_000;
+
 function SiteChrome({ children }: { children: ReactNode }) {
   const { language, setLanguage, theme, toggleTheme, soundEnabled, toggleSound, playTap } = useSitePreferences();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const t = copy[language];
+  const runningDays = Math.max(1, Math.floor((Date.now() - SITE_BIRTH) / DAY_MS));
   const navigation = [
     [t.home, "/"],
     [t.articles, "/writing"],
@@ -102,7 +107,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
       <main>{children}</main>
       <footer className="site-footer">
         <div className="footer-name"><span className="wordmark-dot" aria-hidden="true" /> {t.name}</div>
-        <p>{t.running}</p>
+        <p>{t.running(runningDays)}</p>
         <p>© {new Date().getFullYear()} Jmmt-mingrui · {t.copyright}</p>
         <Link href="/archive" onClick={playTap}>Sitemap</Link>
       </footer>
