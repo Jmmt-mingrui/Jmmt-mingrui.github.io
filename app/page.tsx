@@ -112,7 +112,7 @@ function HomeContent() {
           <div className="social-row" aria-label={language === "zh" ? "社交链接占位" : "Social link placeholders"}>
             <a href="/archive#rss" aria-label="RSS" onClick={playTap}>◔</a>
             <a href="/about" aria-label="X" onClick={playTap}>𝕏</a>
-            <a href="/about" aria-label="GitHub" onClick={playTap}>⌘</a>
+            <a href="https://github.com/Jmmt-mingrui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" onClick={playTap}>⌘</a>
             <a href="/about" aria-label="Telegram" onClick={playTap}>➤</a>
             <a href="/about" aria-label={language === "zh" ? "邮箱" : "Email"} onClick={playTap}>✉</a>
           </div>
