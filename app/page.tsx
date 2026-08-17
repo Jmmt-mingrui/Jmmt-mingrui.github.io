@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SiteShell } from "./components/site-shell";
+import { ScrollReveal } from "./components/scroll-reveal";
 import { useSitePreferences } from "./components/site-preferences";
 
 const content = {
@@ -123,47 +124,52 @@ function HomeContent() {
         </div>
       </section>
 
-      <section className="reference-section" id="articles">
-        <p className="section-kicker">{t.writingKicker}</p>
-        <h2>{t.articles}</h2>
-        <p className="collection-intro">{t.collectionIntro}</p>
-        <div className="taxonomy">
-          <p>{t.categories}<a href="/writing" onClick={playTap}>学习笔记 (5)</a></p>
-          <p>{t.tags}<a href="/writing" onClick={playTap}>网络协议 (5)</a>、<a href="/writing" onClick={playTap}>云计算 (5)</a></p>
-        </div>
-        <div className="post-list">
-          {t.posts.map((post, index) => (
-            <article className="post-preview" key={post.title}>
-              <div className="post-copy">
-                <h3><a href="/writing" onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
-                <p>{post.summary}</p>
-                <small>{post.date} · <a href="/writing" onClick={playTap}>{post.category}</a> · <a href="/writing" onClick={playTap}>{post.tag}</a></small>
-              </div>
-              <a className={`post-cover post-cover-${tones[index % tones.length]}`} href="/writing" aria-label={`${t.read}${post.title}`} onClick={playTap}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+      <ScrollReveal>
+        <section className="reference-section" id="articles">
+          <p className="section-kicker">{t.writingKicker}</p>
+          <h2>{t.articles}</h2>
+          <p className="collection-intro">{t.collectionIntro}</p>
+          <div className="taxonomy">
+            <p>{t.categories}<a href="/writing" onClick={playTap}>学习笔记 (5)</a></p>
+            <p>{t.tags}<a href="/writing" onClick={playTap}>网络协议 (5)</a>、<a href="/writing" onClick={playTap}>云计算 (5)</a></p>
+          </div>
+          <div className="post-list">
+            {t.posts.map((post, index) => (
+              <article className="post-preview" key={post.title}>
+                <div className="post-copy">
+                  <h3><a href="/writing" onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
+                  <p>{post.summary}</p>
+                  <small>{post.date} · <a href="/writing" onClick={playTap}>{post.category}</a> · <a href="/writing" onClick={playTap}>{post.tag}</a></small>
+                </div>
+                <a className={`post-cover post-cover-${tones[index % tones.length]}`} href="/writing" aria-label={`${t.read}${post.title}`} onClick={playTap}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </a>
+              </article>
+            ))}
+          </div>
+          <a className="more-link" href="/writing" onClick={playTap}>{t.moreArticles} <span aria-hidden="true">↗</span></a>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal delay={60}>
+        <section className="reference-section project-section" id="projects">
+          <p className="section-kicker">{t.projectKicker}</p>
+          <h2>{t.projects}</h2>
+          <div className="project-reference-grid">
+            {Array.from({ length: 6 }, (_, index) => (
+              <a className="reference-project" href="/projects" key={index} onClick={playTap}>
+                <div className={`project-image project-image-${(index % 6) + 1}`}><span>{t.cover}</span></div>
+                <h3>{t.projectName} <span aria-hidden="true">↗</span></h3>
+                <p>{t.projectDescription}</p>
               </a>
-            </article>
-          ))}
-        </div>
-        <a className="more-link" href="/writing" onClick={playTap}>{t.moreArticles} <span aria-hidden="true">↗</span></a>
-      </section>
+            ))}
+          </div>
+          <a className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></a>
+        </section>
+      </ScrollReveal>
 
-      <section className="reference-section project-section" id="projects">
-        <p className="section-kicker">{t.projectKicker}</p>
-        <h2>{t.projects}</h2>
-        <div className="project-reference-grid">
-          {Array.from({ length: 6 }, (_, index) => (
-            <a className="reference-project" href="/projects" key={index} onClick={playTap}>
-              <div className={`project-image project-image-${(index % 6) + 1}`}><span>{t.cover}</span></div>
-              <h3>{t.projectName} <span aria-hidden="true">↗</span></h3>
-              <p>{t.projectDescription}</p>
-            </a>
-          ))}
-        </div>
-        <a className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></a>
-      </section>
-
-      <section className="reference-section friend-section" id="friends">
+      <ScrollReveal delay={120}>
+        <section className="reference-section friend-section" id="friends">
         <p className="section-kicker">{t.friendsKicker}</p>
         <div className="friend-heading">
           <div>
@@ -196,7 +202,8 @@ function HomeContent() {
           </div>
           <p className="friend-footer"><span aria-hidden="true">~</span>{t.friendFooter}</p>
         </div>
-      </section>
+        </section>
+      </ScrollReveal>
     </>
   );
 }

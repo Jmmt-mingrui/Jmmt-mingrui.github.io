@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PreferencesProvider, useSitePreferences } from "./site-preferences";
 
 const copy = {
@@ -59,8 +59,16 @@ const DAY_MS = 86_400_000;
 function SiteChrome({ children }: { children: ReactNode }) {
   const { language, setLanguage, theme, toggleTheme, soundEnabled, toggleSound, playTap } = useSitePreferences();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const t = copy[language];
   const runningDays = Math.max(1, Math.floor((Date.now() - SITE_BIRTH) / DAY_MS));
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const navigation = [
     [t.home, "/"],
     [t.articles, "/writing"],
@@ -77,7 +85,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <div className="site-frame">
       <div className="ambient-backdrop" aria-hidden="true" />
-      <header className="site-header">
+      <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
         <Link className="wordmark" href="/" aria-label={t.home} onClick={playTap}>
           <span className="wordmark-dot" aria-hidden="true" />
           {t.name}
