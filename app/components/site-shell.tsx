@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore, useState } from "react";
 import { PreferencesProvider, useSitePreferences } from "./site-preferences";
 
 const copy = {
@@ -55,13 +55,17 @@ function ThemeIcon({ night }: { night: boolean }) {
 // 站点上线日：以仓库首个提交为准（2026-08-16）。
 const SITE_BIRTH = new Date("2026-08-16T00:00:00+08:00").getTime();
 const DAY_MS = 86_400_000;
+const noopSubscribe = () => () => {};
+
+// 运行天数：按天粒度变化，作为外部“时钟”读取，避免在渲染期调用不纯函数。
+const runningDaysSnapshot = () => Math.max(1, Math.floor((Date.now() - SITE_BIRTH) / DAY_MS));
 
 function SiteChrome({ children }: { children: ReactNode }) {
   const { language, setLanguage, theme, toggleTheme, soundEnabled, toggleSound, playTap } = useSitePreferences();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const t = copy[language];
-  const runningDays = Math.max(1, Math.floor((Date.now() - SITE_BIRTH) / DAY_MS));
+  const runningDays = useSyncExternalStore(noopSubscribe, runningDaysSnapshot, () => 1);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
