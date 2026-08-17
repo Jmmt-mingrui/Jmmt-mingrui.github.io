@@ -67,6 +67,16 @@ public/                   你将来放头像、文章封面、项目图片
 .openai/hosting.json      托管配置
 ```
 
+## 部署与自动同步
+
+博客部署在一台 VPS（Ubuntu）上，采用**安全方向**的同步方式：
+
+- VPS 上 `/home/ubuntu/minguri-blog` 是 git 仓库，用 **deploy key**（私钥只存在 VPS，GitHub 仓库只注册了公钥）拉取 `origin/main`。
+- VPS 定时任务（`crontab`，每 3 分钟）运行 `deploy-mingrui-blog.sh`：拉取 main，有更新时 `npm ci`（仅依赖变更时）→ `vinext build` → `systemctl restart minguri-blog`。
+- systemd 服务 `minguri-blog.service`：`vinext start` 监听 `127.0.0.1:8080`，开机自启 + 自动重启。
+- Caddy 反代：`:80` 与 `:8081` → `127.0.0.1:8080`。
+- GitHub Actions（`.github/workflows/ci.yml`）在 PR 和 push main 时跑 lint + build + 渲染测试；它不 SSH 到 VPS，部署由 VPS 主动拉取完成，因此 GitHub 侧不持有任何 VPS 凭据。
+
 ## 下一步
 
 1. 先把 `content/` 中对应目录的 README 看一遍，并把头像放到 `public/`。
