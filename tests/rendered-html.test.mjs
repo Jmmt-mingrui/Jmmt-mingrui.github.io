@@ -29,7 +29,10 @@ test("renders development preview metadata", async () => {
     response.headers.get("content-type") ?? "",
     /^text\/html\b/i,
   );
-  assert.match(await response.text(), developmentPreviewMeta);
+  const html = await response.text();
+  assert.match(html, developmentPreviewMeta);
+  // 首页五张文章卡片全部渲染真实封面图
+  assert.equal([...html.matchAll(/<a class="post-cover[^"]*"[^>]*><img src="\/assets\//g)].length, 5);
 });
 
 test("renders article detail page from markdown", async () => {
@@ -60,9 +63,9 @@ test("renders article detail page from markdown", async () => {
   const html = await response.text();
   assert.match(html, /第24讲 云中网络：自己拿地成本高，购买公寓更灵活/); // 标题
   assert.match(html, /思考题深度解析/); // ReactMarkdown 渲染的正文小节
-  assert.match(html, /class="article-cover"/); // 封面图已渲染
-  // 第 24 讲正文不放图片：正文图片数应为 0（封面不计入）
-  assert.equal([...html.matchAll(/<img src="\/assets\/[^"]+\.png"[^>]*loading="lazy"/g)].length, 0);
+  assert.doesNotMatch(html, /article-cover/); // 详情页不再有头图
+  // 正文图片（含带空格文件名的）必须全部渲染并解析为资源地址，共 11 张
+  assert.equal([...html.matchAll(/<img src="\/assets\/[^"]+\.png"[^>]*loading="lazy"/g)].length, 11);
 });
 
 test("renders body images for posts 25-28", async () => {

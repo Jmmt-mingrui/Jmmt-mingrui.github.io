@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { SiteShell } from "../../components/site-shell";
-import { getPost, getPostCoverUrl, getPosts, resolveImage } from "../../lib/posts";
+import { getPost, getPosts, resolveImage } from "../../lib/posts";
 
 export function generateStaticParams() {
   return getPosts().map((post) => ({ slug: post.slug }));
@@ -26,8 +26,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     );
   }
 
-  const cover = getPostCoverUrl(post.slug);
-
   return (
     <SiteShell>
       <section className="article-page">
@@ -36,7 +34,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <h1>{post.title}</h1>
           <p className="article-meta">{post.date} · {post.category} · {post.tags.join("、")}</p>
         </header>
-        {cover ? <img className="article-cover" src={cover} alt={post.title} /> : null}
         <div className="article-body">
           <ReactMarkdown
             components={{

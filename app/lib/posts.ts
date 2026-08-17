@@ -78,7 +78,3 @@ export function resolveImage(slug: string, src: string): string {
   return imageFiles[`../../content/posts/${rest}`] ?? imageFiles[`../../content/posts/${slug}/${rest}`] ?? src;
 }
 
-// 文章封面（目前只有第 24 讲有）。
-export function getPostCoverUrl(slug: string): string | undefined {
-  return imageFiles[`../../content/posts/${slug}/趣谈网络协议.png`];
-}
