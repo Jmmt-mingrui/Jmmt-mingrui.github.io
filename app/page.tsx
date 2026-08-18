@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { SiteShell } from "./components/site-shell";
 import { ScrollReveal } from "./components/scroll-reveal";
@@ -143,11 +144,11 @@ function HomeContent() {
           <p className="reference-tagline">{t.tagline}</p>
           <p className="reference-bio">{t.bio}</p>
           <div className="social-row" aria-label={language === "zh" ? "社交链接占位" : "Social link placeholders"}>
-            <a href="/archive#rss" aria-label="RSS" onClick={playTap}>◔</a>
-            <a href="/about" aria-label="X" onClick={playTap}>𝕏</a>
+            <Link href="/archive#rss" aria-label="RSS" onClick={playTap}>◔</Link>
+            <Link href="/about" aria-label="X" onClick={playTap}>𝕏</Link>
             <a href="https://github.com/Jmmt-mingrui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" onClick={playTap}>⌘</a>
-            <a href="/about" aria-label="Telegram" onClick={playTap}>➤</a>
-            <a href="/about" aria-label={language === "zh" ? "邮箱" : "Email"} onClick={playTap}>✉</a>
+            <Link href="/about" aria-label="Telegram" onClick={playTap}>➤</Link>
+            <Link href="/about" aria-label={language === "zh" ? "邮箱" : "Email"} onClick={playTap}>✉</Link>
           </div>
         </div>
         <div className="avatar-stub" aria-label={t.avatar.replace("\n", " ")}>
@@ -162,8 +163,8 @@ function HomeContent() {
           <h2>{t.articles}</h2>
           <p className="collection-intro">{t.collectionIntro}</p>
           <div className="taxonomy">
-            <p>{t.categories}<a href="/writing" onClick={playTap}>学习笔记 (5)</a></p>
-            <p>{t.tags}<a href="/writing" onClick={playTap}>网络协议 (5)</a>、<a href="/writing" onClick={playTap}>云计算 (5)</a></p>
+            <p>{t.categories}<Link href="/writing" onClick={playTap}>学习笔记 (5)</Link></p>
+            <p>{t.tags}<Link href="/writing" onClick={playTap}>网络协议 (5)</Link>、<Link href="/writing" onClick={playTap}>云计算 (5)</Link></p>
           </div>
           <div className="post-list">
             {t.posts.map((post, index) => (
@@ -172,18 +173,18 @@ function HomeContent() {
                 <div className="post-preview-frame" aria-hidden="true" />
                 <div className="post-preview-inner">
                   <div className="post-copy">
-                    <h3><a href={`/writing/${post.slug}`} onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></a></h3>
+                    <h3><Link href={`/writing/${post.slug}`} onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></Link></h3>
                     <p>{post.summary}</p>
-                    <small>{post.date} · <a href={`/writing/${post.slug}`} onClick={playTap}>{post.category}</a> · <a href={`/writing/${post.slug}`} onClick={playTap}>{post.tag}</a></small>
+                    <small>{post.date} · <Link href={`/writing/${post.slug}`} onClick={playTap}>{post.category}</Link> · <Link href={`/writing/${post.slug}`} onClick={playTap}>{post.tag}</Link></small>
                   </div>
-                  <a className={`post-cover post-cover-${tones[index % tones.length]}`} href={`/writing/${post.slug}`} aria-label={`${t.read}${post.title}`} onClick={playTap}>
+                  <Link className={`post-cover post-cover-${tones[index % tones.length]}`} href={`/writing/${post.slug}`} aria-label={`${t.read}${post.title}`} onClick={playTap}>
                     {covers[post.slug] ? <img src={covers[post.slug]} alt="" /> : <span>{String(index + 1).padStart(2, "0")}</span>}
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
           </div>
-          <a className="more-link" href="/writing" onClick={playTap}>{t.moreArticles} <span aria-hidden="true">↗</span></a>
+          <Link className="more-link" href="/writing" onClick={playTap}>{t.moreArticles} <span aria-hidden="true">↗</span></Link>
         </section>
       </ScrollReveal>
 
@@ -203,7 +204,7 @@ function HomeContent() {
               );
             })}
           </div>
-          <a className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></a>
+          <Link className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></Link>
         </section>
       </ScrollReveal>
 
@@ -235,7 +236,7 @@ function HomeContent() {
                   <h3>{t.friendPost}</h3>
                   <small>{t.friendDescription}</small>
                 </div>
-                <a className="friend-visit" href="/archive#friends" aria-label={`${t.visitFriend}: ${t.friendPost}`} onClick={playTap}><b aria-hidden="true">↗</b></a>
+                <Link className="friend-visit" href="/archive#friends" aria-label={`${t.visitFriend}: ${t.friendPost}`} onClick={playTap}><b aria-hidden="true">↗</b></Link>
               </article>
             ))}
           </div>

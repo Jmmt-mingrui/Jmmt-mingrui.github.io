@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiteShell } from "../components/site-shell";
 
 export default function ProjectsPage() {
@@ -15,7 +16,7 @@ export default function ProjectsPage() {
             <div className="project-shape" aria-hidden="true" />
             <h2>项目名称</h2>
             <p>这里写它为谁解决了什么问题，以及你最想让人看到的一个细节。</p>
-            <a href="/archive#projects">填写项目模板 ↗</a>
+            <Link href="/archive#projects">填写项目模板 ↗</Link>
           </article>
         ))}
       </section>

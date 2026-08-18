@@ -31,8 +31,8 @@ test("renders development preview metadata", async () => {
   );
   const html = await response.text();
   assert.match(html, developmentPreviewMeta);
-  // 首页五张文章卡片全部渲染真实封面图
-  assert.equal([...html.matchAll(/<a class="post-cover[^"]*"[^>]*><img src="\/assets\//g)].length, 5);
+  // 首页五张文章卡片全部渲染真实封面图（属性顺序不定，class 不一定紧跟 <a）
+  assert.equal([...html.matchAll(/<a[^>]*class="post-cover[^"]*"[^>]*><img src="\/assets\//g)].length, 5);
   // 首页项目区渲染四个真实项目卡，均链接到 GitHub 仓库（外链新开窗口）
   assert.equal([...html.matchAll(/<a class="reference-project" href="https:\/\/github\.com\//g)].length, 4);
   assert.equal([...html.matchAll(/<a class="reference-project"[^>]*target="_blank"/g)].length, 4);
