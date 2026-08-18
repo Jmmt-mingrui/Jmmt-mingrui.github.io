@@ -7,7 +7,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); font-family: ui-s
 a { color: inherit; text-decoration: none; }
 
 .site-frame { overflow: hidden; }
-.site-header { width: min(990px, calc(100% - 54px)); height: 80px; margin: 0 auto; display: flex; align-items: center; gap: 30px; }
+.site-header { width: min(1024px, calc(100% - 54px)); height: 80px; margin: 0 auto; display: flex; align-items: center; gap: 30px; }
 .wordmark, .footer-name { display: inline-flex; align-items: center; gap: 9px; font-weight: 650; font-size: 15px; white-space: nowrap; }
 .wordmark-dot { width: 20px; height: 20px; border-radius: 50%; background: #18181b; box-shadow: inset 0 0 0 4px #fff; }
 .site-header nav { display: flex; gap: 28px; margin-left: auto; color: #6b7280; font-size: 14px; }
@@ -32,20 +32,21 @@ a { color: inherit; text-decoration: none; }
 .taxonomy { margin: 23px 0 35px; color: #737373; font-size: 14px; line-height: 1.75; }
 .taxonomy p { margin: 0 0 4px; }.taxonomy a { color: #52525b; transition: color .18s ease; }
 /* 章节分隔带：虚线 + 居中胶囊徽章（对齐参考站 diygod.cc） */
-.section-divider { position: relative; display: flex; align-items: center; justify-content: center; margin: 64px 0 46px; }
+.section-divider { position: relative; display: flex; align-items: center; justify-content: center; margin: 80px 0 56px; }
 .section-divider-line { position: absolute; left: 0; right: 0; border-top: 1px dashed #d4d4d8; }
-.section-divider-badge { position: relative; display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px 7px 20px; border: 1px solid #e4e4e7; border-radius: 999px; background: #fff; color: #52525b; font-size: 12px; letter-spacing: .14em; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
-.section-divider-badge svg { width: 12px; height: 12px; color: #9ca3af; }
+.section-divider-badge { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px 6px 16px; border: 1px solid #e8e8ea; border-radius: 999px; background: #fff; color: #6b7280; font-size: 12px; letter-spacing: .1em; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+.section-divider-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 1px solid #e8e8ea; border-radius: 50%; color: #9ca3af; }
+.section-divider-icon svg { width: 12px; height: 12px; }
 
 /* 文章列表：全宽贴纸卡片（对齐参考站 diygod.cc）——白色实面与内容向左上移，虚线框向右下移 */
 .post-list { display: grid; gap: 28px; }
-.post-card { position: relative; border: 1px dashed transparent; border-radius: 20px; padding: 30px; }
-.post-card-sheet, .post-card-frame { position: absolute; inset: 0; border: 1px dashed #d4d4d8; border-radius: 20px; transition: transform .3s ease-out; }
+.post-card { position: relative; border: 1px dashed transparent; border-radius: 16px; padding: 28px; }
+.post-card-sheet, .post-card-frame { position: absolute; inset: 0; border: 1px dashed #d4d4d8; border-radius: 16px; transition: transform .3s ease-out; }
 .post-card-sheet { z-index: 2; background: #fff; }
 .post-card-frame { z-index: 1; }
 .post-card-inner { position: relative; z-index: 3; display: flex; align-items: center; gap: 34px; transition: transform .3s ease-out; }
-.post-card:hover .post-card-sheet, .post-card:hover .post-card-inner { transform: translate(-4px, -4px); }
-.post-card:hover .post-card-frame { transform: translate(4px, 4px); }
+.post-card:hover .post-card-sheet, .post-card:hover .post-card-inner { transform: translate(-1px, -1px); }
+.post-card:hover .post-card-frame { transform: translate(1px, 1px); }
 .post-card-copy { flex: 1; min-width: 0; }
 .post-card-title { margin: 0 0 12px; font-size: 19px; font-weight: 700; letter-spacing: -.025em; line-height: 1.45; }
 .post-card-title a { display: inline-flex; align-items: center; gap: 7px; transition: color .18s ease; }
@@ -56,7 +57,7 @@ a { color: inherit; text-decoration: none; }
 .post-card-meta { color: #737373; font-size: 12px; font-weight: 500; }
 .post-card-meta a { color: #52525b; text-decoration: underline; text-decoration-style: dashed; text-underline-offset: 3px; }
 .post-card-meta a:hover { color: #171717; }
-.post-card-thumb { display: block; flex-shrink: 0; width: 132px; height: 132px; overflow: hidden; border-radius: 12px; }
+.post-card-thumb { display: block; flex-shrink: 0; width: 128px; height: 128px; overflow: hidden; border-radius: 12px; }
 .post-card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
 .post-card:hover .post-card-thumb img { transform: scale(1.05); }
 .more-link-row { display: flex; justify-content: center; margin-top: 8px; }
@@ -67,17 +68,17 @@ a { color: inherit; text-decoration: none; }
 .project-section { padding-bottom: 78px; }.project-section > h2 { margin-bottom: 26px; }
 /* 项目卡：同文章卡的双层虚线贴纸悬停（对齐参考站 diygod.cc） */
 .project-reference-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.reference-project { position: relative; min-width: 0; padding: 16px; border: 1px dashed transparent; border-radius: 16px; }
+.reference-project { position: relative; min-width: 0; padding: 20px; border: 1px dashed transparent; border-radius: 16px; }
 .project-card-sheet, .project-card-frame { position: absolute; inset: 0; border: 1px dashed #d4d4d8; border-radius: 16px; transition: transform .3s ease-out; }
 .project-card-sheet { z-index: 2; background: #fff; }
 .project-card-frame { z-index: 1; }
 .project-card-inner { position: relative; z-index: 3; transition: transform .3s ease-out; }
-.reference-project:hover .project-card-sheet, .reference-project:hover .project-card-inner { transform: translate(-4px, -4px); }
-.reference-project:hover .project-card-frame { transform: translate(4px, 4px); }
+.reference-project:hover .project-card-sheet, .reference-project:hover .project-card-inner { transform: translate(-1px, -1px); }
+.reference-project:hover .project-card-frame { transform: translate(1px, 1px); }
 .project-image { display: grid; width: 100%; aspect-ratio: 16 / 9; place-items: center; overflow: hidden; border: 1px solid #ededf0; border-radius: 10px; background: #fafafa; }
 .project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
 .reference-project:hover .project-image img { transform: scale(1.045); }
-.reference-project h3 { margin: 15px 2px 4px; font-size: 14px; font-weight: 650; line-height: 1.4; transition: color .18s ease; }.reference-project p { margin: 0 2px; color: #737373; font-size: 12px; line-height: 1.55; }
+.reference-project h3 { margin: 15px 2px 4px; font-size: 16px; font-weight: 650; line-height: 1.4; transition: color .18s ease; }.reference-project p { margin: 0 2px; color: #6b7280; font-size: 13px; line-height: 1.55; }
 
 .friend-section { padding: 0 0 92px; }.project-section .more-link-row { margin-top: 4px; }
 .friends-intro { max-width: 555px; margin: 12px 0 26px; color: #71717a; font-size: 14px; line-height: 1.75; }
@@ -85,7 +86,7 @@ a { color: inherit; text-decoration: none; }
 .friend-feed { padding: 0 20px; }.friend-feed-item { display: grid; grid-template-columns: 43px minmax(0, 1fr) 32px; gap: 14px; align-items: center; min-height: 99px; border-bottom: 1px solid #eef0f2; transition: padding .2s ease, background .2s ease; }.friend-feed-item:last-child { border-bottom: 0; }.friend-feed-item:hover { padding-right: 8px; padding-left: 8px; background: #fafafa; }.friend-avatar { display: grid; width: 39px; height: 39px; place-items: center; border: 1px solid #d4d4d8; border-radius: 50%; color: #9ca3af; background: #fff; font-size: 10px; font-weight: 750; }
 .friend-feed-copy { min-width: 0; }.friend-feed-copy p { display: flex; align-items: center; gap: 9px; margin: 0 0 5px; color: #69717c; font-size: 11px; }.friend-feed-copy p strong { color: #39414b; font-weight: 680; }.friend-feed-copy time { color: #a0a5ad; font-size: 10px; }.friend-feed-copy h3 { overflow: hidden; margin: 0 0 5px; color: #252a31; font-size: 14px; font-weight: 680; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }.friend-feed-copy small { display: block; overflow: hidden; color: #848b94; font-size: 11px; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }.friend-visit { display: grid; width: 26px; height: 26px; place-items: center; border: 1px solid #d7dbe0; border-radius: 50%; color: #7c858f; transition: transform .2s ease, color .2s ease, border-color .2s ease, background .2s ease; }.friend-visit b { font-size: 12px; font-weight: 500; }.friend-feed-item:hover .friend-visit { border-color: #18181b; color: #fff; background: #18181b; transform: rotate(12deg); }.friend-footer { margin: 0; padding: 16px 20px 18px; border-top: 1px dashed #e5e7eb; color: #9ba1a9; font-size: 11px; }.friend-footer span { margin-right: 7px; color: #9ca3af; font-size: 16px; vertical-align: -1px; }
 
-.site-footer { display: grid; grid-template-columns: 1.4fr 1fr 1.6fr auto; align-items: center; gap: 18px; padding: 24px max(27px, calc((100vw - 896px) / 2)); border-top: 1px solid var(--line); color: #737373; font-size: 12px; }.site-footer p { margin: 0; }.site-footer a:hover { color: #171717; }.footer-name { color: #3f3f46; font-size: 13px; }
+.site-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0; margin-top: 80px; padding: 34px max(27px, calc((100vw - 896px) / 2)) 40px; border-top: 1px solid var(--line); color: #737373; font-size: 13px; }.site-footer p { margin: 0; }.site-footer a:hover { color: #171717; }.footer-name { color: #3f3f46; font-size: 13px; }.footer-item { margin-left: 18px; padding-left: 18px; border-left: 1px solid #e5e7eb; }
 
 /* 文章详情页：居中列 + 顶部/左右边框卡片（对齐参考站 diygod.cc） */
 .article-page { width: min(896px, calc(100% - 54px)); margin: 40px auto 110px; border-top: 1px solid #e8e8ea; border-left: 1px solid #e8e8ea; border-right: 1px solid #e8e8ea; border-radius: 20px 20px 0 0; overflow: hidden; }
@@ -138,30 +139,29 @@ html[data-theme="night"] .writing-search input:focus { border-color: #8a8d95; ba
 .inner-hero, .archive-page, .about-page { width: min(896px, calc(100% - 54px)); margin: 70px auto; }.inner-hero { padding: 48px 0; border-bottom: 1px solid var(--line); }.inner-hero h1, .about-page h1, .archive-page h1 { margin: 0; font-size: clamp(38px, 5vw, 58px); letter-spacing: -.06em; }.inner-hero > p:last-child, .archive-intro, .about-lead { color: #71717a; line-height: 1.8; }.placeholder-list, .project-grid, .research-board { width: min(896px, calc(100% - 54px)); margin: 40px auto 90px; }.placeholder-list article, .research-board article { padding: 23px 0; border-bottom: 1px solid var(--line); }
 .placeholder-list h2 a { display: inline-flex; align-items: center; gap: 6px; transition: color .18s ease; }.placeholder-list h2 a:hover { color: #171717; }.placeholder-list h2 a span { font-size: 12px; color: #737373; transition: transform .2s cubic-bezier(.2,.8,.2,1); }.placeholder-list h2 a:hover span { transform: translate(3px, -1px); }.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }.project-placeholder { padding: 20px; border: 1px solid var(--line); border-radius: 12px; }.about-page { display: block; }.about-stamp { display: none; }.about-prompts, .directory-list { border-top: 1px solid var(--line); }.about-prompts p, .directory-list article { padding: 15px 0; border-bottom: 1px solid var(--line); }.rss-note, .project-template { margin-top: 40px; padding: 25px; border-radius: 12px; background: #f5f5f5; }.project-template { color: #18181b; }
 
-@media (max-width: 700px) { .site-header { width: min(100% - 32px, 600px); height: 66px; }.site-header nav { display: none; }.header-tools { margin-left: auto; }.reference-hero { width: min(100% - 32px, 600px); min-height: 0; display: block; padding: 72px 0 78px; }.reference-hero h1 { font-size: 47px; }.reference-bio { font-size: 14px; }.avatar-image { width: min(100%, 320px); height: auto; aspect-ratio: 1; margin: 38px auto 0; display: block; }.reference-section { width: min(100% - 32px, 600px); }.post-list { margin-left: 0; }.post-card { padding: 20px 18px; }.post-card-inner { gap: 0; }.post-card-thumb { display: none; }.post-card-title { font-size: 16px; }.post-card-excerpt { -webkit-line-clamp: 2; font-size: 13px; }.section-divider { margin: 48px 0 38px; }.project-reference-grid { grid-template-columns: 1fr; gap: 18px; }.site-footer { grid-template-columns: 1fr; gap: 9px; padding: 24px 16px 32px; }.inner-hero, .archive-page, .about-page, .placeholder-list, .project-grid, .research-board { width: min(100% - 32px, 600px); }.project-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .site-header { width: min(100% - 32px, 600px); height: 66px; }.site-header nav { display: none; }.header-tools { margin-left: auto; }.reference-hero { width: min(100% - 32px, 600px); min-height: 0; display: block; padding: 72px 0 78px; }.reference-hero h1 { font-size: 47px; }.reference-bio { font-size: 14px; }.avatar-image { width: min(100%, 320px); height: auto; aspect-ratio: 1; margin: 38px auto 0; display: block; }.reference-section { width: min(100% - 32px, 600px); }.post-list { margin-left: 0; }.post-card { padding: 20px 24px; }.post-card-inner { gap: 0; }.post-card-thumb { display: none; }.post-card-title { font-size: 16px; }.post-card-excerpt { -webkit-line-clamp: 2; font-size: 13px; }.section-divider { margin: 56px 0 44px; }.project-reference-grid { grid-template-columns: 1fr; gap: 18px; }.site-footer { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 60px; padding: 26px 16px 34px; }.site-footer .footer-item { margin-left: 0; padding-left: 0; border-left: 0; }.inner-hero, .archive-page, .about-page, .placeholder-list, .project-grid, .research-board { width: min(100% - 32px, 600px); }.project-grid { grid-template-columns: 1fr; } }
 
 /* Header controls: inspired by the two reference patterns, implemented with original code. */
 body { transition: background-color .42s ease, color .32s ease; }
 .site-frame { position: relative; isolation: isolate; min-height: 100vh; }
-/* 背景：左上角虚线网格图案，向右下渐隐（对齐参考站 diygod.cc） */
-.ambient-backdrop {
+/* 背景：左右两个顶角虚线网格，向对角渐隐（对齐参考站 diygod.cc） */
+.ambient-backdrop, .ambient-backdrop-right {
   position: fixed;
   top: 0;
-  left: 0;
   z-index: -1;
-  width: min(64vw, 760px);
-  height: 500px;
+  width: 50vw;
+  height: 380px;
   pointer-events: none;
-  background-color: #f4f4f5;
+  background-color: #f5f5f5;
   background-image:
-    repeating-linear-gradient(90deg, #fff 0 50px, #f4f4f5 50px 56px),
-    repeating-linear-gradient(0deg, #fff 0 50px, #f4f4f5 50px 56px),
+    repeating-linear-gradient(90deg, #fff 0 54px, #f5f5f5 54px 56px),
+    repeating-linear-gradient(0deg, #fff 0 54px, #f5f5f5 54px 56px),
     repeating-linear-gradient(90deg, #d4d4d8 0 6px, transparent 6px 21px),
     repeating-linear-gradient(0deg, #d4d4d8 0 6px, transparent 6px 21px);
   background-size: 56px 56px, 56px 56px, 56px 56px, 56px 56px;
-  -webkit-mask-image: linear-gradient(to bottom right, #000 30%, transparent 72%);
-  mask-image: linear-gradient(to bottom right, #000 30%, transparent 72%);
 }
+.ambient-backdrop { left: 0; -webkit-mask-image: linear-gradient(to bottom right, #000 30%, transparent 72%); mask-image: linear-gradient(to bottom right, #000 30%, transparent 72%); }
+.ambient-backdrop-right { right: 0; -webkit-mask-image: linear-gradient(to bottom left, #000 30%, transparent 72%); mask-image: linear-gradient(to bottom left, #000 30%, transparent 72%); }
 .site-header { position: relative; z-index: 20; }
 .header-tools { position: relative; display: flex; align-items: center; gap: 5px; margin-left: 12px; color: #6b7280; }
 .icon-button, .language-button { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px; color: inherit; background: transparent; cursor: pointer; transition: color .18s ease, background-color .18s ease, transform .18s ease; }
@@ -175,16 +175,14 @@ body { transition: background-color .42s ease, color .32s ease; }
 .language-menu button { width: 100%; padding: 8px 10px; border: 0; border-radius: 6px; color: #52525b; background: transparent; cursor: pointer; font: inherit; font-size: 13px; text-align: left; }.language-menu button:hover { color: #18181b; background: #fafafa; }.language-menu button.is-active { color: #18181b; background: #f4f4f5; font-weight: 630; }
 
 html[data-theme="night"] { color-scheme: dark; --ink: #f4f4f5; --subtle: #a1a1aa; --line: #2f3035; --paper: #121317; }
-html[data-theme="night"] .ambient-backdrop {
+html[data-theme="night"] .ambient-backdrop, html[data-theme="night"] .ambient-backdrop-right {
   background-color: #1c1d21;
   background-image:
-    repeating-linear-gradient(90deg, #121317 0 50px, #1c1d21 50px 56px),
-    repeating-linear-gradient(0deg, #121317 0 50px, #1c1d21 50px 56px),
+    repeating-linear-gradient(90deg, #121317 0 54px, #1c1d21 54px 56px),
+    repeating-linear-gradient(0deg, #121317 0 54px, #1c1d21 54px 56px),
     repeating-linear-gradient(90deg, #4a4b52 0 6px, transparent 6px 21px),
     repeating-linear-gradient(0deg, #4a4b52 0 6px, transparent 6px 21px);
   background-size: 56px 56px, 56px 56px, 56px 56px, 56px 56px;
-  -webkit-mask-image: linear-gradient(to bottom right, #000 30%, transparent 72%);
-  mask-image: linear-gradient(to bottom right, #000 30%, transparent 72%);
 }
 html[data-theme="night"] .site-header nav, html[data-theme="night"] .header-tools, html[data-theme="night"] .reference-bio, html[data-theme="night"] .section-kicker, html[data-theme="night"] .taxonomy, html[data-theme="night"] .post-card-excerpt, html[data-theme="night"] .post-card-meta, html[data-theme="night"] .reference-project p, html[data-theme="night"] .site-footer { color: #a1a1aa; }
 html[data-theme="night"] .reference-hero h1, html[data-theme="night"] .reference-section > h2, html[data-theme="night"] .reference-tagline, html[data-theme="night"] .post-card-title a, html[data-theme="night"] .footer-name, html[data-theme="night"] .taxonomy a, html[data-theme="night"] .post-card-meta a { color: #f4f4f5; }
@@ -200,7 +198,7 @@ html[data-theme="night"] .friend-feed-item:hover .friend-visit { border-color: #
 html[data-theme="night"] .post-card-sheet { background: #121317; border-color: #52525b; }
 html[data-theme="night"] .post-card-frame { border-color: #52525b; }
 html[data-theme="night"] .section-divider-badge { background: #121317; border-color: #3b3c42; color: #b9bbc2; }
-html[data-theme="night"] .section-divider-badge svg { color: #8a8d95; }
+html[data-theme="night"] .section-divider-icon { border-color: #3b3c42; color: #8a8d95; }
 html[data-theme="night"] .friends-intro { color: #a1a1aa; }
 html[data-theme="night"] .project-card-sheet { background: #121317; border-color: #52525b; }
 html[data-theme="night"] .project-card-frame { border-color: #52525b; }
@@ -212,9 +210,11 @@ html[data-theme="night"] .reference-project h3 { color: #f4f4f5; }
 /* --- 动态效果：入场、滚动显现与 hover 微交互（对齐参考站） --- */
 
 /* 头部吸顶：滚动后半透明白 + 毛玻璃 */
-.site-header { position: sticky; top: 0; z-index: 30; transition: background-color .22s ease, box-shadow .22s ease, backdrop-filter .22s ease; }
+.site-header { position: sticky; top: 0; z-index: 30; transition: background-color .22s ease, box-shadow .22s ease, backdrop-filter .22s ease, border-color .22s ease; }
 .site-header.is-scrolled { background: rgba(255,255,255,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+@media (min-width: 1024px) { .site-header { border-left: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-radius: 0 0 14px 14px; } }
 html[data-theme="night"] .site-header.is-scrolled { background: rgba(18,19,23,.82); box-shadow: 0 1px 0 rgba(255,255,255,.07); }
+html[data-theme="night"] .site-header { border-color: #35363c; }
 
 /* 词标圆点 hover 旋转 */
 .wordmark-dot { transition: transform .5s ease; }

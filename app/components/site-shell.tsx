@@ -81,6 +81,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <div className="site-frame">
       <div className="ambient-backdrop" aria-hidden="true" />
+      <div className="ambient-backdrop-right" aria-hidden="true" />
       <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
         <Link className="wordmark" href="/" aria-label={t.home}>
           <span className="wordmark-dot" aria-hidden="true" />
@@ -108,9 +109,9 @@ function SiteChrome({ children }: { children: ReactNode }) {
       <main>{children}</main>
       <footer className="site-footer">
         <div className="footer-name"><span className="wordmark-dot" aria-hidden="true" /> {t.name}</div>
-        <p>{t.running(runningDays)}</p>
-        <p>© {new Date().getFullYear()} Jmmt-mingrui · {t.copyright}</p>
-        <Link href="/archive">Sitemap</Link>
+        <p className="footer-item">{t.running(runningDays)}</p>
+        <p className="footer-item">© {new Date().getFullYear()} Jmmt-mingrui · {t.copyright}</p>
+        <Link className="footer-item" href="/archive">Sitemap</Link>
       </footer>
     </div>
   );

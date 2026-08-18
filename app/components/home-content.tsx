@@ -86,7 +86,9 @@ function DividerBadge({ label }: { label: string }) {
       <span className="section-divider-line" aria-hidden="true" />
       <span className="section-divider-badge">
         {label}
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" /></svg>
+        <span className="section-divider-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" /></svg>
+        </span>
       </span>
     </div>
   );
