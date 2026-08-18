@@ -3,13 +3,11 @@
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import { PostCard } from "./post-card";
+import { ProjectCard } from "./project-card";
 import { ScrollReveal } from "./scroll-reveal";
 import { useSitePreferences } from "./site-preferences";
 import type { PostSummary } from "../lib/posts";
-import projectEino from "../../content/projects/eino-ext.jpg?url";
-import projectDoris from "../../content/projects/doris-mcp-server.jpg?url";
-import projectVelo from "../../content/projects/velodb-mcp-server.jpg?url";
-import projectMicro from "../../content/projects/microservices-go-start.jpg?url";
+import { projects } from "../lib/projects";
 
 const content = {
   zh: {
@@ -23,12 +21,6 @@ const content = {
     collectionIntro: "《趣谈网络协议》云网络篇学习笔记：从虚拟网卡到 VXLAN，把云网络的四件大事（互通、SDN、安全、QoS、隔离）逐一拆开。",
     projectKicker: "我做的项目",
     projects: "项目",
-    projectList: [
-      { key: "eino", name: "eino-ext", description: "Eino 框架的各类扩展组件：模型接入、工具集成与编排能力" },
-      { key: "doris", name: "doris-mcp-server", description: "Apache Doris 的 MCP Server，让 AI 应用通过标准接口查询 Doris" },
-      { key: "velodb", name: "velodb-mcp-server", description: "VeloDB Cloud 与 Enterprise 的 MCP Server，接入云原生实时分析数据库" },
-      { key: "microservices", name: "microservices-go", description: "微服务实战 Go 完整示例代码，从零搭建一套微服务体系" },
-    ],
     moreProjects: "查看所有项目",
     friendsKicker: "我认识的人",
     friends: "友邻",
@@ -57,12 +49,6 @@ const content = {
     collectionIntro: "Study notes for the cloud-network chapters of 《趣谈网络协议》: from virtual NICs to VXLAN, unpacking connectivity, SDN, security, QoS and isolation one by one.",
     projectKicker: "WHAT I MAKE",
     projects: "Projects",
-    projectList: [
-      { key: "eino", name: "eino-ext", description: "Various extensions for the Eino framework" },
-      { key: "doris", name: "doris-mcp-server", description: "Apache Doris MCP Server" },
-      { key: "velodb", name: "velodb-mcp-server", description: "MCP Server for VeloDB Cloud & Enterprise" },
-      { key: "microservices", name: "microservices-go", description: "Complete code for the microservices-go" },
-    ],
     moreProjects: "View all projects",
     friendsKicker: "PEOPLE I KNOW",
     friends: "Friends",
@@ -85,14 +71,6 @@ const content = {
 const tones = ["sky", "lemon", "violet", "rose"] as const;
 const friendModes = ["subscribed", "active", "posts"] as const;
 type FriendMode = (typeof friendModes)[number];
-
-// 项目卡的跳转地址与封面图（key 与 content.*.projectList 对应）
-const projectLinks: Record<string, { href: string; image: string }> = {
-  eino: { href: "https://github.com/cloudwego/eino-ext", image: projectEino },
-  doris: { href: "https://github.com/apache/doris-mcp-server", image: projectDoris },
-  velodb: { href: "https://github.com/velodb/velodb-mcp-server", image: projectVelo },
-  microservices: { href: "https://github.com/Jmmt-mingrui/microservices-go-Start", image: projectMicro },
-};
 
 function GitHubIcon() {
   return (
@@ -165,20 +143,7 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
         <section className="reference-section project-section" id="projects">
           <h2>{t.projects}</h2>
           <div className="project-reference-grid">
-            {t.projectList.map((project) => {
-              const link = projectLinks[project.key];
-              return (
-                <a className="reference-project" href={link.href} target="_blank" rel="noopener noreferrer" key={project.key}>
-                  <div className="project-card-sheet" aria-hidden="true" />
-                  <div className="project-card-frame" aria-hidden="true" />
-                  <div className="project-card-inner">
-                    <div className="project-image"><img src={link.image} alt={`${project.name} logo`} loading="lazy" /></div>
-                    <h3>{project.name} <span aria-hidden="true">↗</span></h3>
-                    <p>{project.description}</p>
-                  </div>
-                </a>
-              );
-            })}
+            {projects.map((project) => <ProjectCard key={project.key} project={project} />)}
           </div>
           <Link className="more-link" href="/projects">{t.moreProjects} <span aria-hidden="true">↗</span></Link>
         </section>
