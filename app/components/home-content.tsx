@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Fragment, useState } from "react";
+import { PostCard } from "./post-card";
 import { ScrollReveal } from "./scroll-reveal";
 import { useSitePreferences } from "./site-preferences";
 import type { PostSummary } from "../lib/posts";
@@ -30,7 +31,7 @@ const content = {
     ],
     moreProjects: "查看所有项目",
     friendsKicker: "我认识的人",
-    friends: "友链朋友圈",
+    friends: "友邻",
     friendsIntro: "这里会收集朋友们最新发布的文章。先把朋友站点和 RSS 补上，它就会慢慢变成一个会更新的小圈子。",
     friendName: "朋友的名字",
     friendDescription: "这是一篇来自朋友博客的文章摘要待补。",
@@ -44,7 +45,6 @@ const content = {
     },
     friendFooter: "等待第一位朋友的 RSS 更新……",
     visitFriend: "查看原文",
-    read: "阅读：",
   },
   en: {
     tagline: "A place for the things you want to keep.",
@@ -65,7 +65,7 @@ const content = {
     ],
     moreProjects: "View all projects",
     friendsKicker: "PEOPLE I KNOW",
-    friends: "Friends’ circle",
+    friends: "Friends",
     friendsIntro: "A stream for your friends’ newest posts. Add their sites and RSS feeds first, then let this little circle update over time.",
     friendName: "Friend name pending",
     friendDescription: "An excerpt from a friend’s latest post goes here.",
@@ -79,7 +79,6 @@ const content = {
     },
     friendFooter: "Waiting for the first friend RSS update…",
     visitFriend: "Open post",
-    read: "Read: ",
   },
 } as const;
 
@@ -95,6 +94,26 @@ const projectLinks: Record<string, { href: string; image: string }> = {
   microservices: { href: "https://github.com/Jmmt-mingrui/microservices-go-Start", image: projectMicro },
 };
 
+function GitHubIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+    </svg>
+  );
+}
+
+function DividerBadge({ label }: { label: string }) {
+  return (
+    <div className="section-divider" role="presentation">
+      <span className="section-divider-line" aria-hidden="true" />
+      <span className="section-divider-badge">
+        {label}
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" /></svg>
+      </span>
+    </div>
+  );
+}
+
 interface HomeContentProps {
   posts: PostSummary[];
   covers: Record<string, string>;
@@ -103,7 +122,7 @@ interface HomeContentProps {
 }
 
 export function HomeContent({ posts, covers, categories, tags }: HomeContentProps) {
-  const { language, playTap } = useSitePreferences();
+  const { language } = useSitePreferences();
   const [friendMode, setFriendMode] = useState<FriendMode>("subscribed");
   const t = content[language];
 
@@ -114,61 +133,42 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
           <h1>Hi, Jmmt-mingrui</h1>
           <p className="reference-tagline">{t.tagline}</p>
           <p className="reference-bio">{t.bio}</p>
-          <div className="social-row" aria-label={language === "zh" ? "社交链接占位" : "Social link placeholders"}>
-            <Link href="/archive#rss" aria-label="RSS" onClick={playTap}>◔</Link>
-            <Link href="/about" aria-label="X" onClick={playTap}>𝕏</Link>
-            <a href="https://github.com/Jmmt-mingrui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" onClick={playTap}>⌘</a>
-            <Link href="/about" aria-label="Telegram" onClick={playTap}>➤</Link>
-            <Link href="/about" aria-label={language === "zh" ? "邮箱" : "Email"} onClick={playTap}>✉</Link>
+          <div className="social-row" aria-label="社交链接">
+            <a href="https://github.com/Jmmt-mingrui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><GitHubIcon /></a>
           </div>
         </div>
         <img className="avatar-image" src="/avatar.png" alt="Jmmt-mingrui" width={460} height={460} />
       </section>
 
       <ScrollReveal>
+        <DividerBadge label={t.writingKicker} />
         <section className="reference-section" id="articles">
-          <p className="section-kicker">{t.writingKicker}</p>
           <h2>{t.articles}</h2>
           <p className="collection-intro">{t.collectionIntro}</p>
           <div className="taxonomy">
             <p>{t.categories}{categories.map(([name, count], i) => (
-              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing" onClick={playTap}>{name} ({count})</Link></Fragment>
+              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing">{name} ({count})</Link></Fragment>
             ))}</p>
             <p>{t.tags}{tags.map(([name, count], i) => (
-              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing" onClick={playTap}>{name} ({count})</Link></Fragment>
+              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing">#{name} ({count})</Link></Fragment>
             ))}</p>
           </div>
           <div className="post-list">
-            {posts.map((post, index) => (
-              <article className="post-preview" key={post.slug}>
-                <div className="post-preview-sheet" aria-hidden="true" />
-                <div className="post-preview-frame" aria-hidden="true" />
-                <div className="post-preview-inner">
-                  <div className="post-copy">
-                    <h3><Link href={`/writing/${post.slug}`} onClick={playTap}>{post.title}<span aria-hidden="true"> ↗</span></Link></h3>
-                    <p>{post.summary}</p>
-                    <small>{post.date} · <Link href={`/writing/${post.slug}`} onClick={playTap}>{post.category}</Link> · <Link href={`/writing/${post.slug}`} onClick={playTap}>{post.tags.join("、")}</Link></small>
-                  </div>
-                  <Link className={`post-cover post-cover-${tones[index % tones.length]}`} href={`/writing/${post.slug}`} aria-label={`${t.read}${post.title}`} onClick={playTap}>
-                    {covers[post.slug] ? <img src={covers[post.slug]} alt="" /> : <span>{String(index + 1).padStart(2, "0")}</span>}
-                  </Link>
-                </div>
-              </article>
-            ))}
+            {posts.map((post) => <PostCard key={post.slug} post={post} cover={covers[post.slug]} />)}
           </div>
-          <Link className="more-link" href="/writing" onClick={playTap}>{t.moreArticles} <span aria-hidden="true">↗</span></Link>
+          <Link className="more-link" href="/writing">{t.moreArticles} <span aria-hidden="true">↗</span></Link>
         </section>
       </ScrollReveal>
 
       <ScrollReveal delay={60}>
+        <DividerBadge label={t.projectKicker} />
         <section className="reference-section project-section" id="projects">
-          <p className="section-kicker">{t.projectKicker}</p>
           <h2>{t.projects}</h2>
           <div className="project-reference-grid">
             {t.projectList.map((project) => {
               const link = projectLinks[project.key];
               return (
-                <a className="reference-project" href={link.href} target="_blank" rel="noopener noreferrer" key={project.key} onClick={playTap}>
+                <a className="reference-project" href={link.href} target="_blank" rel="noopener noreferrer" key={project.key}>
                   <div className="project-card-sheet" aria-hidden="true" />
                   <div className="project-card-frame" aria-hidden="true" />
                   <div className="project-card-inner">
@@ -180,24 +180,19 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
               );
             })}
           </div>
-          <Link className="more-link" href="/projects" onClick={playTap}>{t.moreProjects} <span aria-hidden="true">↗</span></Link>
+          <Link className="more-link" href="/projects">{t.moreProjects} <span aria-hidden="true">↗</span></Link>
         </section>
       </ScrollReveal>
 
       <ScrollReveal delay={120}>
+        <DividerBadge label={t.friendsKicker} />
         <section className="reference-section friend-section" id="friends">
-        <p className="section-kicker">{t.friendsKicker}</p>
-        <div className="friend-heading">
-          <div>
-            <h2>{t.friends}</h2>
-            <p>{t.friendsIntro}</p>
-          </div>
-          <span className="friend-count" aria-label={language === "zh" ? "朋友链接占位数量" : "Friend link placeholders"}><i aria-hidden="true" />00</span>
-        </div>
+        <h2>{t.friends}</h2>
+        <p className="friends-intro">{t.friendsIntro}</p>
         <div className="friend-circle">
           <div className="friend-tabs" role="tablist" aria-label={t.friends}>
             {friendModes.map((mode) => (
-              <button className={friendMode === mode ? "is-active" : ""} type="button" role="tab" aria-selected={friendMode === mode} key={mode} onClick={() => { playTap(); setFriendMode(mode); }}>
+              <button className={friendMode === mode ? "is-active" : ""} type="button" role="tab" aria-selected={friendMode === mode} key={mode} onClick={() => setFriendMode(mode)}>
                 <span>{t.friendTabs[mode]}</span><b>00</b>
               </button>
             ))}
@@ -212,7 +207,7 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
                   <h3>{t.friendPost}</h3>
                   <small>{t.friendDescription}</small>
                 </div>
-                <Link className="friend-visit" href="/archive#friends" aria-label={`${t.visitFriend}: ${t.friendPost}`} onClick={playTap}><b aria-hidden="true">↗</b></Link>
+                <Link className="friend-visit" href="/archive#friends" aria-label={`${t.visitFriend}: ${t.friendPost}`}><b aria-hidden="true">↗</b></Link>
               </article>
             ))}
           </div>

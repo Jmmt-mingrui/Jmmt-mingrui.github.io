@@ -30,9 +30,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <SiteShell>
       <section className="article-page">
         <header className="article-header">
-          <p className="eyebrow">WRITING / 文章</p>
           <h1>{post.title}</h1>
-          <p className="article-meta">{post.date} · {post.category} · {post.tags.join("、")}</p>
+          <p className="article-meta">{post.date} · <Link href="/writing">{post.category}</Link>{post.tags.map((tag) => <span key={tag}> · <Link href="/writing">#{tag}</Link></span>)}</p>
         </header>
         <div className="article-body">
           <ReactMarkdown
