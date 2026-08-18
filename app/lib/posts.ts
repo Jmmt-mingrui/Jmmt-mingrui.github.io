@@ -16,13 +16,32 @@ const imageFiles = import.meta.glob("../../content/posts/*/*.png", {
   import: "default",
 }) as Record<string, string>;
 
+// 封面约定：content/posts/<slug>/cover.png（可选，缺省时首页回退到色块占位）
+const coverFiles = import.meta.glob("../../content/posts/*/cover.png", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
 export interface Post {
   slug: string;
   title: string;
   date: string;
   category: string;
   tags: string[];
+  summary: string;
   body: string;
+}
+
+// 首页/列表页用的轻量摘要，不含正文
+// （posts.ts 含 ?raw 正文，只能被服务端组件引用；客户端组件通过 props 接收这些数据）
+export interface PostSummary {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  tags: string[];
+  summary: string;
 }
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
@@ -54,6 +73,7 @@ function parseFrontmatter(path: string, raw: string): Post | null {
     date: fields.date ?? "",
     category: fields.category ?? "",
     tags,
+    summary: fields.summary ?? "",
     body,
   };
 }
@@ -65,6 +85,23 @@ const posts: Post[] = Object.entries(mdFiles)
 
 export function getPosts(): Post[] {
   return posts;
+}
+
+export function getPostSummaries(): PostSummary[] {
+  return posts.map(({ slug, title, date, category, tags, summary }) => ({
+    slug,
+    title,
+    date,
+    category,
+    tags,
+    summary,
+  }));
+}
+
+export function getPostCovers(): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(coverFiles).map(([path, url]) => [path.split("/").at(-2)!, url]),
+  );
 }
 
 export function getPost(slug: string): Post | undefined {
