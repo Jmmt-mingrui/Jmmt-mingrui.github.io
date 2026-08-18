@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { ScrollReveal } from "./scroll-reveal";
 import { useSitePreferences } from "./site-preferences";
 import type { PostSummary } from "../lib/posts";
@@ -136,8 +136,12 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
           <h2>{t.articles}</h2>
           <p className="collection-intro">{t.collectionIntro}</p>
           <div className="taxonomy">
-            <p>{t.categories}{categories.map(([name, count], i) => <Link href="/writing" onClick={playTap} key={name}>{name} ({count})</Link>).reduce((acc, el) => <>{acc}、{el}</>)}</p>
-            <p>{t.tags}{tags.map(([name, count], i) => <Link href="/writing" onClick={playTap} key={name}>{name} ({count})</Link>).reduce((acc, el) => <>{acc}、{el}</>)}</p>
+            <p>{t.categories}{categories.map(([name, count], i) => (
+              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing" onClick={playTap}>{name} ({count})</Link></Fragment>
+            ))}</p>
+            <p>{t.tags}{tags.map(([name, count], i) => (
+              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing" onClick={playTap}>{name} ({count})</Link></Fragment>
+            ))}</p>
           </div>
           <div className="post-list">
             {posts.map((post, index) => (
