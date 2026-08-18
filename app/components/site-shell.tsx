@@ -13,8 +13,6 @@ const copy = {
     projects: "项目",
     friends: "友邻",
     about: "关于",
-    soundOn: "关闭音效",
-    soundOff: "开启音效",
     dark: "切换深色背景",
     light: "切换浅色背景",
     switchLanguage: "切换语言",
@@ -28,8 +26,6 @@ const copy = {
     projects: "Projects",
     friends: "Friends",
     about: "About",
-    soundOn: "Disable sounds",
-    soundOff: "Enable sounds",
     dark: "Switch to dark background",
     light: "Switch to light background",
     switchLanguage: "Switch language",
@@ -40,10 +36,6 @@ const copy = {
 
 function LanguageIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7m-3.5-2v2m0 0c0 3-1.5 5.5-4 7m4-7c.9 2.7 2.4 5 4.5 7M13 19c1.1-3.3 2.5-6.4 4.1-9.2a1 1 0 0 1 1.8 0C20.5 12.6 21.9 15.7 23 19m-8-3h6" /></svg>;
-}
-
-function SoundIcon({ muted }: { muted: boolean }) {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" />{muted ? <path d="m16 9 5 5m0-5-5 5" /> : <><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18 6a8.5 8.5 0 0 1 0 12" /></>}</svg>;
 }
 
 function ThemeIcon({ night }: { night: boolean }) {
@@ -61,7 +53,7 @@ const noopSubscribe = () => () => {};
 const runningDaysSnapshot = () => Math.max(1, Math.floor((Date.now() - SITE_BIRTH) / DAY_MS));
 
 function SiteChrome({ children }: { children: ReactNode }) {
-  const { language, setLanguage, theme, toggleTheme, soundEnabled, toggleSound, playTap } = useSitePreferences();
+  const { language, setLanguage, theme, toggleTheme } = useSitePreferences();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const t = copy[language];
@@ -90,22 +82,19 @@ function SiteChrome({ children }: { children: ReactNode }) {
     <div className="site-frame">
       <div className="ambient-backdrop" aria-hidden="true" />
       <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
-        <Link className="wordmark" href="/" aria-label={t.home} onClick={playTap}>
+        <Link className="wordmark" href="/" aria-label={t.home}>
           <span className="wordmark-dot" aria-hidden="true" />
           {t.name}
         </Link>
         <nav aria-label={language === "zh" ? "主导航" : "Main navigation"}>
-          {navigation.map(([label, href]) => <Link href={href} key={href} onClick={playTap}>{label}</Link>)}
+          {navigation.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
         </nav>
         <div className="header-tools">
-          <button className="icon-button sound-button" type="button" onClick={toggleSound} aria-label={soundEnabled ? t.soundOn : t.soundOff} title={soundEnabled ? t.soundOn : t.soundOff}>
-            <SoundIcon muted={!soundEnabled} />
-          </button>
           <button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label={theme === "light" ? t.dark : t.light} title={theme === "light" ? t.dark : t.light}>
             <ThemeIcon night={theme === "night"} />
           </button>
           <div className="language-control">
-            <button className="language-button" type="button" id="langToggle" aria-haspopup="true" aria-expanded={languageMenuOpen} aria-label={t.switchLanguage} onClick={() => { playTap(); setLanguageMenuOpen((open) => !open); }}>
+            <button className="language-button" type="button" id="langToggle" aria-haspopup="true" aria-expanded={languageMenuOpen} aria-label={t.switchLanguage} onClick={() => setLanguageMenuOpen((open) => !open)}>
               <LanguageIcon />
               <span className={`language-chevron ${languageMenuOpen ? "is-open" : ""}`} aria-hidden="true">⌄</span>
             </button>
@@ -121,7 +110,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
         <div className="footer-name"><span className="wordmark-dot" aria-hidden="true" /> {t.name}</div>
         <p>{t.running(runningDays)}</p>
         <p>© {new Date().getFullYear()} Jmmt-mingrui · {t.copyright}</p>
-        <Link href="/archive" onClick={playTap}>Sitemap</Link>
+        <Link href="/archive">Sitemap</Link>
       </footer>
     </div>
   );
