@@ -144,32 +144,19 @@ html[data-theme="night"] .writing-search input:focus { border-color: #8a8d95; ba
 /* Header controls: inspired by the two reference patterns, implemented with original code. */
 body { transition: background-color .42s ease, color .32s ease; }
 .site-frame { position: relative; isolation: isolate; min-height: 100vh; }
-/* 背景：左右两个顶角虚线网格，用渐变覆盖层向对角渐隐（完全对齐参考站 diygod.cc） */
-.ambient-backdrop, .ambient-backdrop-right {
-  position: fixed;
-  top: 0;
-  z-index: -1;
-  width: 50vw;
-  height: 400px;
-  pointer-events: none;
-  background-color: #f5f5f5;
-  background-image:
-    repeating-linear-gradient(90deg, #fff 0 54px, #f5f5f5 54px 56px),
-    repeating-linear-gradient(0deg, #fff 0 54px, #f5f5f5 54px 56px),
-    repeating-linear-gradient(90deg, #d4d4d8 0 6px, transparent 6px 21px),
-    repeating-linear-gradient(0deg, #d4d4d8 0 6px, transparent 6px 21px);
-  background-size: 56px 56px, 56px 56px, 56px 56px, 56px 56px;
-}
-.ambient-backdrop { left: 0; border-top: 1px solid #d4d4d8; border-left: 1px solid #d4d4d8; }
-.ambient-backdrop-right { right: 0; border-top: 1px solid #d4d4d8; border-left: 1px solid #d4d4d8; }
-/* 渐变覆盖层：白→透明，网格从顶角露出、向中心渐隐（左右镜像） */
-.ambient-backdrop::after, .ambient-backdrop-right::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  background: linear-gradient(to top left, #fff 50%, transparent 90%);
-}
-.ambient-backdrop-right::after { background: linear-gradient(to top right, #fff 50%, transparent 90%); }
+/* 顶部背景：左右两个 50vw 虚线网格块（按 diygod.cc 的 HTML 结构重建：白色方块 + 虚线分隔 + 渐变覆盖层） */
+.grid-backdrop { position: fixed; top: 0; left: 0; right: 0; z-index: -1; height: 400px; pointer-events: none; }
+.grid-block { position: absolute; top: 0; width: 50vw; height: 100%; background: #f5f5f5; }
+.grid-block-left { left: 0; }
+.grid-block-right { right: 0; }
+.grid-block-mask { position: absolute; inset: 0; z-index: 2; }
+.grid-block-left .grid-block-mask { background: linear-gradient(to top left, #fff 50%, transparent 90%); }
+.grid-block-right .grid-block-mask { background: linear-gradient(to top right, #fff 50%, transparent 90%); }
+.grid-block-cells { position: absolute; inset: 0; display: flex; flex-direction: column; border-top: 1px solid #d4d4d8; border-left: 1px solid #d4d4d8; }
+.grid-row { display: flex; flex: 1; border-bottom: 1px dashed #d4d4d8; }
+.grid-row:last-child { border-bottom: 0; }
+.grid-cell { flex: 1; background: #fff; border-right: 1px dashed #d4d4d8; }
+.grid-cell:last-child { border-right: 0; }
 .site-header { position: relative; z-index: 20; }
 .header-tools { position: relative; display: flex; align-items: center; gap: 5px; margin-left: 12px; color: #6b7280; }
 .icon-button, .language-button { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px; color: inherit; background: transparent; cursor: pointer; transition: color .18s ease, background-color .18s ease, transform .18s ease; }
@@ -183,20 +170,12 @@ body { transition: background-color .42s ease, color .32s ease; }
 .language-menu button { width: 100%; padding: 8px 10px; border: 0; border-radius: 6px; color: #52525b; background: transparent; cursor: pointer; font: inherit; font-size: 13px; text-align: left; }.language-menu button:hover { color: #18181b; background: #fafafa; }.language-menu button.is-active { color: #18181b; background: #f4f4f5; font-weight: 630; }
 
 html[data-theme="night"] { color-scheme: dark; --ink: #f4f4f5; --subtle: #a1a1aa; --line: #2f3035; --paper: #121317; }
-html[data-theme="night"] .ambient-backdrop, html[data-theme="night"] .ambient-backdrop-right {
-  background-color: #1c1d21;
-  background-image:
-    repeating-linear-gradient(90deg, #121317 0 54px, #1c1d21 54px 56px),
-    repeating-linear-gradient(0deg, #121317 0 54px, #1c1d21 54px 56px),
-    repeating-linear-gradient(90deg, #4a4b52 0 6px, transparent 6px 21px),
-    repeating-linear-gradient(0deg, #4a4b52 0 6px, transparent 6px 21px);
-  background-size: 56px 56px, 56px 56px, 56px 56px, 56px 56px;
-  border-color: #4a4b52;
-}
-html[data-theme="night"] .ambient-backdrop::after, html[data-theme="night"] .ambient-backdrop-right::after {
-  background: linear-gradient(to top left, #121317 50%, transparent 90%);
-}
-html[data-theme="night"] .ambient-backdrop-right::after { background: linear-gradient(to top right, #121317 50%, transparent 90%); }
+html[data-theme="night"] .grid-block { background: #1c1d21; }
+html[data-theme="night"] .grid-cell { background: #121317; }
+html[data-theme="night"] .grid-block-cells { border-color: #4a4b52; }
+html[data-theme="night"] .grid-row, html[data-theme="night"] .grid-cell { border-color: #4a4b52; }
+html[data-theme="night"] .grid-block-left .grid-block-mask { background: linear-gradient(to top left, #121317 50%, transparent 90%); }
+html[data-theme="night"] .grid-block-right .grid-block-mask { background: linear-gradient(to top right, #121317 50%, transparent 90%); }
 html[data-theme="night"] .site-header nav, html[data-theme="night"] .header-tools, html[data-theme="night"] .reference-bio, html[data-theme="night"] .section-kicker, html[data-theme="night"] .taxonomy, html[data-theme="night"] .post-card-excerpt, html[data-theme="night"] .post-card-meta, html[data-theme="night"] .reference-project p, html[data-theme="night"] .site-footer { color: #a1a1aa; }
 html[data-theme="night"] .reference-hero h1, html[data-theme="night"] .reference-section > h2, html[data-theme="night"] .reference-tagline, html[data-theme="night"] .post-card-title a, html[data-theme="night"] .footer-name, html[data-theme="night"] .taxonomy a, html[data-theme="night"] .post-card-meta a { color: #f4f4f5; }
 html[data-theme="night"] .icon-button:hover, html[data-theme="night"] .language-button:hover { color: #fff; background: rgba(255,255,255,.09); }

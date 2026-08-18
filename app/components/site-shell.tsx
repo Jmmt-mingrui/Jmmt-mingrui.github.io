@@ -44,7 +44,34 @@ function ThemeIcon({ night }: { night: boolean }) {
     : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 15.4A8.5 8.5 0 0 1 8.6 3.3 8.5 8.5 0 1 0 20.7 15.4Z" /></svg>;
 }
 
-// 站点上线日：以仓库首个提交为准（2026-08-16）。
+// 顶部背景：左右两个 50vw 的虚线网格块，白色方块 + 虚线分隔（完全按 diygod.cc 的 HTML 结构重建）。
+const GRID_ROWS = 6;
+const GRID_CELLS = 9;
+
+function GridBlock({ side }: { side: "left" | "right" }) {
+  return (
+    <div className={`grid-block grid-block-${side}`}>
+      <div className="grid-block-mask" aria-hidden="true" />
+      <div className="grid-block-cells">
+        {Array.from({ length: GRID_ROWS }, (_, row) => (
+          <div className="grid-row" key={row}>
+            {Array.from({ length: GRID_CELLS }, (_, cell) => <div className="grid-cell" key={cell} />)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GridBackdrop() {
+  return (
+    <div className="grid-backdrop" aria-hidden="true">
+      <GridBlock side="left" />
+      <GridBlock side="right" />
+    </div>
+  );
+}
+
 const SITE_BIRTH = new Date("2026-08-16T00:00:00+08:00").getTime();
 const DAY_MS = 86_400_000;
 const noopSubscribe = () => () => {};
@@ -80,8 +107,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <div className="site-frame">
-      <div className="ambient-backdrop" aria-hidden="true" />
-      <div className="ambient-backdrop-right" aria-hidden="true" />
+      <GridBackdrop />
       <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
         <Link className="wordmark" href="/" aria-label={t.home}>
           <span className="wordmark-dot" aria-hidden="true" />
