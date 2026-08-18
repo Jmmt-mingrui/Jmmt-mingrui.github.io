@@ -134,7 +134,9 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
           <div className="post-list">
             {posts.map((post) => <PostCard key={post.slug} post={post} cover={covers[post.slug]} />)}
           </div>
-          <Link className="more-link" href="/writing">{t.moreArticles} <span aria-hidden="true">↗</span></Link>
+          <div className="more-link-row">
+            <Link className="more-link" href="/writing">{t.moreArticles}</Link>
+          </div>
         </section>
       </ScrollReveal>
 
@@ -145,7 +147,9 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
           <div className="project-reference-grid">
             {projects.map((project) => <ProjectCard key={project.key} project={project} />)}
           </div>
-          <Link className="more-link" href="/projects">{t.moreProjects} <span aria-hidden="true">↗</span></Link>
+          <div className="more-link-row">
+            <Link className="more-link" href="/projects">{t.moreProjects}</Link>
+          </div>
         </section>
       </ScrollReveal>
 
