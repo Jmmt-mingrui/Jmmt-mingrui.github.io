@@ -5,9 +5,9 @@ import { Fragment, useState } from "react";
 import { ScrollReveal } from "./scroll-reveal";
 import { useSitePreferences } from "./site-preferences";
 import type { PostSummary } from "../lib/posts";
-import projectEino from "../../content/projects/eino-ext.png?url";
-import projectDoris from "../../content/projects/doris-mcp-server.png?url";
-import projectVelo from "../../content/projects/velodb-mcp-server.png?url";
+import projectEino from "../../content/projects/eino-ext.jpg?url";
+import projectDoris from "../../content/projects/doris-mcp-server.jpg?url";
+import projectVelo from "../../content/projects/velodb-mcp-server.jpg?url";
 import projectMicro from "../../content/projects/microservices-go-start.jpg?url";
 
 const content = {

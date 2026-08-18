@@ -59,7 +59,8 @@ a { color: inherit; text-decoration: none; }
 .reference-project:hover .project-card-sheet, .reference-project:hover .project-card-inner { transform: translate(-4px, -4px); }
 .reference-project:hover .project-card-frame { transform: translate(4px, 4px); }
 .project-image { display: grid; width: 100%; aspect-ratio: 16 / 9; place-items: center; overflow: hidden; border: 1px solid #ededf0; border-radius: 10px; background: #fafafa; }
-.project-image img { width: 100%; height: 100%; padding: 17%; object-fit: contain; }
+.project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.reference-project:hover .project-image img { transform: scale(1.045); }
 .reference-project h3 { margin: 15px 2px 4px; font-size: 14px; font-weight: 650; line-height: 1.4; transition: color .18s ease; }.reference-project p { margin: 0 2px; color: #737373; font-size: 12px; line-height: 1.55; }
 
 .friend-section { padding: 0 0 92px; }.project-section .more-link { margin-bottom: 68px; }
