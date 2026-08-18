@@ -14,7 +14,6 @@ const content = {
   zh: {
     tagline: "在这里写下你想留住的事。",
     bio: "这是一段留给你的简短介绍：你在做什么、关心什么，或最近正在探索什么。没有准备好也没关系，直接把这行替换掉就行。",
-    avatar: "头像\n待补",
     writingKicker: "我写的文章",
     articles: "文章",
     categories: "分类：",
@@ -50,7 +49,6 @@ const content = {
   en: {
     tagline: "A place for the things you want to keep.",
     bio: "This is your short introduction: what you make, what you care about, or what you are exploring lately. You can replace it whenever you are ready.",
-    avatar: "Avatar\npending",
     writingKicker: "WHAT I WRITE",
     articles: "Articles",
     categories: "Categories: ",
@@ -124,10 +122,7 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
             <Link href="/about" aria-label={language === "zh" ? "邮箱" : "Email"} onClick={playTap}>✉</Link>
           </div>
         </div>
-        <div className="avatar-stub" aria-label={t.avatar.replace("\n", " ")}>
-          <div className="avatar-stub-grid" />
-          <span>{t.avatar.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</span>
-        </div>
+        <img className="avatar-image" src="/avatar.png" alt="Jmmt-mingrui" width={460} height={460} />
       </section>
 
       <ScrollReveal>
