@@ -174,9 +174,13 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
               const link = projectLinks[project.key];
               return (
                 <a className="reference-project" href={link.href} target="_blank" rel="noopener noreferrer" key={project.key} onClick={playTap}>
-                  <div className="project-image"><img src={link.image} alt={`${project.name} logo`} loading="lazy" /></div>
-                  <h3>{project.name} <span aria-hidden="true">↗</span></h3>
-                  <p>{project.description}</p>
+                  <div className="project-card-sheet" aria-hidden="true" />
+                  <div className="project-card-frame" aria-hidden="true" />
+                  <div className="project-card-inner">
+                    <div className="project-image"><img src={link.image} alt={`${project.name} logo`} loading="lazy" /></div>
+                    <h3>{project.name} <span aria-hidden="true">↗</span></h3>
+                    <p>{project.description}</p>
+                  </div>
                 </a>
               );
             })}

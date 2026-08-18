@@ -53,12 +53,18 @@ a { color: inherit; text-decoration: none; }
 .more-link { display: inline-block; margin: 4px 0 92px; color: #555; font-size: 14px; transition: color .18s ease; }.more-link span, .reference-project h3 span { color: #737373; font-size: 12px; }
 
 .project-section { padding-bottom: 78px; }.project-section > h2 { margin-bottom: 26px; }
-.project-reference-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 42px 52px; }
-.reference-project { min-width: 0; }.reference-project:hover .project-image { transform: translateY(-3px); filter: saturate(1.12); }
-.project-image { position: relative; display: grid; width: 100%; aspect-ratio: 16 / 9; place-items: center; overflow: hidden; border-radius: 9px; color: rgba(24,24,27,.52); transition: transform .22s ease, filter .22s ease; }.project-image span { position: relative; z-index: 2; padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,.68); font-size: 11px; }.project-image img { position: relative; z-index: 1; width: 100%; height: 100%; padding: 16px; object-fit: contain; }
-.project-image::before, .project-image::after { position: absolute; content: ""; }.project-image::before { width: 73%; height: 48%; border: 1.5px solid rgba(24,24,27,.35); border-radius: 8px; }.project-image::after { width: 38%; height: 38%; border: 1.5px solid rgba(24,24,27,.28); border-radius: 50%; transform: translate(46%, 35%); }
-.project-image-1 { background: #e0f2fe; }.project-image-2 { background: #fef3c7; }.project-image-3 { background: #f3e8ff; }.project-image-4 { background: #dcfce7; }.project-image-5 { background: #ffe4e6; }.project-image-6 { background: #e0e7ff; }
-.reference-project h3 { margin: 15px 0 5px; font-size: 14px; font-weight: 650; line-height: 1.4; transition: color .18s ease; }.reference-project p { margin: 0; color: #737373; font-size: 12px; line-height: 1.55; }
+/* 项目卡：同文章卡的双层虚线贴纸悬停（对齐参考站 diygod.cc） */
+.project-reference-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.reference-project { position: relative; min-width: 0; padding: 16px; border: 1px dashed transparent; border-radius: 16px; }
+.project-card-sheet, .project-card-frame { position: absolute; inset: 0; border: 1px dashed #d4d4d8; border-radius: 16px; transition: transform .3s ease-out; }
+.project-card-sheet { z-index: 2; background: #fff; }
+.project-card-frame { z-index: 1; }
+.project-card-inner { position: relative; z-index: 3; transition: transform .3s ease-out; }
+.reference-project:hover .project-card-sheet, .reference-project:hover .project-card-inner { transform: translate(-4px, -4px); }
+.reference-project:hover .project-card-frame { transform: translate(4px, 4px); }
+.project-image { display: grid; width: 100%; aspect-ratio: 16 / 9; place-items: center; overflow: hidden; border: 1px solid #ededf0; border-radius: 10px; background: #fafafa; }
+.project-image img { width: 100%; height: 100%; padding: 17%; object-fit: contain; }
+.reference-project h3 { margin: 15px 2px 4px; font-size: 14px; font-weight: 650; line-height: 1.4; transition: color .18s ease; }.reference-project p { margin: 0 2px; color: #737373; font-size: 12px; line-height: 1.55; }
 
 .friend-section { padding: 0 0 92px; }.project-section .more-link { margin-bottom: 68px; }
 .friend-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 26px; }.friend-heading h2 { margin: 0; color: #18181b; font-size: 24px; font-weight: 700; letter-spacing: -.035em; }.friend-heading p { max-width: 555px; margin: 12px 0 0; color: #71717a; font-size: 14px; line-height: 1.75; }
@@ -104,7 +110,7 @@ html[data-theme="night"] .article-body th { background: #202126; }
 .inner-hero, .archive-page, .about-page { width: min(896px, calc(100% - 54px)); margin: 70px auto; }.inner-hero { padding: 48px 0; border-bottom: 1px solid var(--line); }.inner-hero h1, .about-page h1, .archive-page h1 { margin: 0; font-size: clamp(38px, 5vw, 58px); letter-spacing: -.06em; }.inner-hero > p:last-child, .archive-intro, .about-lead { color: #71717a; line-height: 1.8; }.placeholder-list, .project-grid, .research-board { width: min(896px, calc(100% - 54px)); margin: 40px auto 90px; }.placeholder-list article, .research-board article { padding: 23px 0; border-bottom: 1px solid var(--line); }
 .placeholder-list h2 a { display: inline-flex; align-items: center; gap: 6px; transition: color .18s ease; }.placeholder-list h2 a:hover { color: #2563eb; }.placeholder-list h2 a span { font-size: 12px; color: #737373; transition: transform .2s cubic-bezier(.2,.8,.2,1); }.placeholder-list h2 a:hover span { transform: translate(3px, -1px); }.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }.project-placeholder { padding: 20px; border: 1px solid var(--line); border-radius: 12px; }.about-page { display: block; }.about-stamp { display: none; }.about-prompts, .directory-list { border-top: 1px solid var(--line); }.about-prompts p, .directory-list article { padding: 15px 0; border-bottom: 1px solid var(--line); }.rss-note, .project-template { margin-top: 40px; padding: 25px; border-radius: 12px; background: #f5f5f5; }.project-template { color: #18181b; }
 
-@media (max-width: 700px) { .site-header { width: min(100% - 32px, 600px); height: 66px; }.site-header nav { display: none; }.header-tools { margin-left: auto; }.reference-hero { width: min(100% - 32px, 600px); min-height: 0; display: block; padding: 72px 0 78px; }.reference-hero h1 { font-size: 47px; }.reference-bio { font-size: 14px; }.avatar-stub { width: min(100%, 320px); height: auto; aspect-ratio: 1; margin: 38px auto 0; }.reference-section { width: min(100% - 32px, 600px); }.post-list { margin-left: 0; }.post-preview { padding: 18px 16px; }.post-preview-inner { grid-template-columns: minmax(0, 1fr) 88px; gap: 16px; min-height: 0; }.post-cover { width: 88px; height: 88px; border-radius: 10px; font-size: 21px; }.post-cover::before { width: 61px; height: 61px; }.post-preview h3 { font-size: 15px; }.post-preview p { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 13px; }.more-link { margin-bottom: 68px; }.project-reference-grid { grid-template-columns: repeat(2, 1fr); gap: 27px 16px; }.site-footer { grid-template-columns: 1fr; gap: 9px; padding: 24px 16px 32px; }.inner-hero, .archive-page, .about-page, .placeholder-list, .project-grid, .research-board { width: min(100% - 32px, 600px); }.project-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .site-header { width: min(100% - 32px, 600px); height: 66px; }.site-header nav { display: none; }.header-tools { margin-left: auto; }.reference-hero { width: min(100% - 32px, 600px); min-height: 0; display: block; padding: 72px 0 78px; }.reference-hero h1 { font-size: 47px; }.reference-bio { font-size: 14px; }.avatar-stub { width: min(100%, 320px); height: auto; aspect-ratio: 1; margin: 38px auto 0; }.reference-section { width: min(100% - 32px, 600px); }.post-list { margin-left: 0; }.post-preview { padding: 18px 16px; }.post-preview-inner { grid-template-columns: minmax(0, 1fr) 88px; gap: 16px; min-height: 0; }.post-cover { width: 88px; height: 88px; border-radius: 10px; font-size: 21px; }.post-cover::before { width: 61px; height: 61px; }.post-preview h3 { font-size: 15px; }.post-preview p { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 13px; }.more-link { margin-bottom: 68px; }.project-reference-grid { grid-template-columns: 1fr; gap: 18px; }.site-footer { grid-template-columns: 1fr; gap: 9px; padding: 24px 16px 32px; }.inner-hero, .archive-page, .about-page, .placeholder-list, .project-grid, .research-board { width: min(100% - 32px, 600px); }.project-grid { grid-template-columns: 1fr; } }
 
 /* Header controls: inspired by the two reference patterns, implemented with original code. */
 body { transition: background-color .42s ease, color .32s ease; }
@@ -134,6 +140,10 @@ html[data-theme="night"] .project-placeholder, html[data-theme="night"] .rss-not
 html[data-theme="night"] .friend-heading h2, html[data-theme="night"] .friend-feed-copy h3 { color: #f4f4f5; } html[data-theme="night"] .friend-heading p, html[data-theme="night"] .friend-feed-copy small { color: #a1a1aa; } html[data-theme="night"] .friend-count { border-color: #3b3c42; color: #b9bbc2; background: #202126; } html[data-theme="night"] .friend-count i { box-shadow: 0 0 0 3px rgba(91,169,119,.16); } html[data-theme="night"] .friend-circle { border-color: #42434a; } html[data-theme="night"] .friend-tabs, html[data-theme="night"] .friend-tabs button, html[data-theme="night"] .friend-feed-item { border-color: #35363c; } html[data-theme="night"] .friend-tabs button { color: #a4a6ad; } html[data-theme="night"] .friend-tabs button:hover, html[data-theme="night"] .friend-tabs button.is-active { color: #aaccff; background: rgba(88,130,192,.12); } html[data-theme="night"] .friend-tabs > p, html[data-theme="night"] .friend-footer { color: #9a9ca4; } html[data-theme="night"] .friend-feed-item:hover { background: rgba(88,130,192,.09); } html[data-theme="night"] .friend-feed-copy p strong { color: #e4e4e7; } html[data-theme="night"] .friend-feed-copy p, html[data-theme="night"] .friend-feed-copy time { color: #999ba4; } html[data-theme="night"] .friend-avatar { border-color: rgba(244,244,245,.32); color: #e4e4e7; } html[data-theme="night"] .friend-visit { border-color: #4e5058; color: #d4d4d8; }
 html[data-theme="night"] .post-preview-sheet { background: #121317; border-color: #52525b; }
 html[data-theme="night"] .post-preview-frame { border-color: #52525b; } html[data-theme="night"] .friend-feed-item:hover .friend-visit { border-color: #79a9f0; background: #79a9f0; }
+html[data-theme="night"] .project-card-sheet { background: #121317; border-color: #52525b; }
+html[data-theme="night"] .project-card-frame { border-color: #52525b; }
+html[data-theme="night"] .project-image { background: #202126; border-color: #35363c; }
+html[data-theme="night"] .reference-project h3 { color: #f4f4f5; }
 
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .38s; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
 
@@ -168,9 +178,7 @@ html[data-theme="night"] .site-header.is-scrolled { background: rgba(18,19,23,.8
 .post-preview h3 a span, .reference-project h3 span, .more-link span { display: inline-block; transition: transform .2s cubic-bezier(.2,.8,.2,1); }
 .post-preview:hover h3 a span, .reference-project:hover h3 span, .more-link:hover span { transform: translate(3px, -1px); }
 
-/* 项目卡标题 hover 已有封面浮动，补整体过渡 */
-.reference-project { transition: transform .2s ease; }
-.reference-project:hover { transform: translateY(-2px); }
+/* 项目卡：悬停由双层虚线框位移实现（见上方 .project-card-sheet/.project-card-frame） */
 
 /* 减弱动效偏好：关闭全部动画 */
 @media (prefers-reduced-motion: reduce) {
@@ -178,5 +186,6 @@ html[data-theme="night"] .site-header.is-scrolled { background: rgba(18,19,23,.8
   .scroll-reveal { opacity: 1; transform: none; }
 }
 @media (max-width: 700px) { .header-tools { gap: 2px; margin-left: auto; }.language-button { min-width: 46px; }.language-menu { right: 0; } }
+@media (min-width: 701px) and (max-width: 880px) { .project-reference-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
 @media (max-width: 700px) { .article-page { width: min(100% - 32px, 600px); margin: 44px auto 80px; }.article-header { padding: 34px 0; }.article-header h1 { font-size: 27px; }.article-body { margin-top: 34px; }.article-body h2 { font-size: 19px; } }
 @media (max-width: 700px) { .friend-heading { display: block; }.friend-heading p { margin-bottom: 14px; }.friend-circle { margin-right: -2px; margin-left: -2px; }.friend-tabs { min-height: 63px; }.friend-tabs button { min-width: 0; flex: 1; padding: 0 12px; }.friend-tabs > p { display: none; }.friend-feed { padding: 0 13px; }.friend-feed-item { grid-template-columns: 36px minmax(0, 1fr) 25px; gap: 10px; min-height: 91px; }.friend-avatar { width: 33px; height: 33px; font-size: 9px; }.friend-feed-copy p { gap: 7px; font-size: 10px; }.friend-feed-copy time { font-size: 9px; }.friend-feed-copy h3 { font-size: 13px; }.friend-feed-copy small { font-size: 10px; }.friend-visit { width: 23px; height: 23px; }.friend-visit b { font-size: 10px; }.friend-footer { padding: 14px 13px 16px; font-size: 10px; } }
