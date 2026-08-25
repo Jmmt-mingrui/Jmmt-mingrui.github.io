@@ -28,6 +28,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Validate content and images
+        run: npm run content:check
+
+      - name: Validate deployment contract
+        run: npm run deploy:check
+
       - name: Build
         run: npm run build
 
