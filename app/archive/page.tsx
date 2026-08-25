@@ -12,15 +12,15 @@ export default function ArchivePage() {
   return (
     <SiteShell>
       <section className="archive-page">
-        <p className="eyebrow">ARCHIVE / 使用说明</p>
-        <h1>一个空站点，最好的开始方式。</h1>
-        <p className="archive-intro">先按下面的目录把内容放进去。现在页面显示的是占位内容，后续只要把真实数据接进来即可。</p>
+        <p className="eyebrow">ARCHIVE / 内容目录</p>
+        <h1>内容从 GitHub 出发，在这里汇合。</h1>
+        <p className="archive-intro">文章、项目和图片都由仓库里的内容文件生成；提交到主分支后会自动检查并更新站点。</p>
         <div className="directory-list">
           {directories.map(({ path, description, id }) => <article id={id} key={path}><code>{path}</code><p>{description}</p></article>)}
         </div>
         <section className="rss-note" id="rss">
           <span aria-hidden="true">◔</span>
-          <div><h2>RSS 留在这里</h2><p>等文章内容接入后，生成 <code>/feed.xml</code>；读者可以把它订阅到 Folo、Feedly 或 Inoreader。</p></div>
+          <div><h2>RSS 订阅</h2><p><a href="/feed">订阅 <code>/feed</code></a>，可在 Folo、Feedly 或 Inoreader 中持续接收新文章。</p></div>
         </section>
         <section className="project-template" id="projects">
           <p className="eyebrow">项目卡模板</p>

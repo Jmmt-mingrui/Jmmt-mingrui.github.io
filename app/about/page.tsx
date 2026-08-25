@@ -1,21 +1,52 @@
 import { SiteShell } from "../components/site-shell";
+import { siteConfig } from "../site-config";
+
+const startedYear = new Date(siteConfig.startedAt).getFullYear();
 
 export default function AboutPage() {
   return (
     <SiteShell>
-      <section className="about-page">
-        <div className="about-stamp" aria-hidden="true"><span>YOUR<br />STORY</span></div>
-        <div>
-          <p className="eyebrow">ABOUT / 关于</p>
-          <h1>这里留给你，而不是留给一份标准简历。</h1>
-          <p className="about-lead">可以写你在做什么、关心什么、如何联系，也可以只留一句现在的自我描述。</p>
-          <div className="about-prompts">
-            <p><span>01</span> 一句话：我是谁，正在做什么？</p>
-            <p><span>02</span> 三个入口：GitHub、邮箱、你愿意公开的社交链接。</p>
-            <p><span>03</span> 一段现在时：最近在学习、制作或寻找什么？</p>
+      <article className="about-page">
+        <h1>关于</h1>
+        <details className="article-toc about-toc">
+          <summary><span>目录</span><small>展开</small></summary>
+          <nav aria-label="关于页目录">
+            <a href="#profile">我</a>
+            <a href="#contact">找到我</a>
+            <a href="#site">本站</a>
+          </nav>
+        </details>
+
+        <section className="about-section" id="profile">
+          <h2>我</h2>
+          <ul>
+            <li>{siteConfig.title}</li>
+            <li>{siteConfig.description}</li>
+            <li>在这里记录技术学习、开源项目和长期思考。</li>
+          </ul>
+        </section>
+
+        <section className="about-section" id="contact">
+          <h2>找到我</h2>
+          <div className="about-contact-group">
+            <h3>🍃 动态与代码</h3>
+            <ul><li><a href={siteConfig.github} target="_blank" rel="noopener noreferrer">GitHub @{siteConfig.name}</a></li></ul>
           </div>
-        </div>
-      </section>
+          <div className="about-contact-group">
+            <h3>◔ 订阅</h3>
+            <ul><li><a href="/feed">博客 RSS</a></li></ul>
+          </div>
+        </section>
+
+        <section className="about-section" id="site">
+          <h2>本站</h2>
+          <ul>
+            <li>{startedYear} 年创建</li>
+            <li>使用 Markdown、Next.js、Vinext 与 Cloudflare Workers 构建</li>
+            <li>文章和图片提交到 GitHub 后自动检查、构建与发布</li>
+          </ul>
+        </section>
+      </article>
     </SiteShell>
   );
 }
