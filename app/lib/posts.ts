@@ -10,14 +10,14 @@ const mdFiles = import.meta.glob("../../content/posts/*.md", {
   import: "default",
 }) as Record<string, string>;
 
-const imageFiles = import.meta.glob("../../content/posts/*/*.png", {
+const imageFiles = import.meta.glob("../../content/posts/*/*.{png,jpg,jpeg,webp,gif,avif}", {
   eager: true,
   query: "?url",
   import: "default",
 }) as Record<string, string>;
 
-// 封面约定：content/posts/<slug>/cover.png（可选，缺省时首页回退到色块占位）
-const coverFiles = import.meta.glob("../../content/posts/*/cover.png", {
+// 封面约定：content/posts/<slug>/cover.<图片扩展名>（可选，缺省时首页回退到色块占位）
+const coverFiles = import.meta.glob("../../content/posts/*/cover.{png,jpg,jpeg,webp,avif}", {
   eager: true,
   query: "?url",
   import: "default",
@@ -42,6 +42,10 @@ export interface PostSummary {
   category: string;
   tags: string[];
   summary: string;
+}
+
+export interface SearchablePostSummary extends PostSummary {
+  searchText: string;
 }
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
@@ -98,6 +102,24 @@ export function getPostSummaries(): PostSummary[] {
   }));
 }
 
+export function getSearchablePostSummaries(): SearchablePostSummary[] {
+  return posts.map(({ slug, title, date, category, tags, summary, body }) => ({
+    slug,
+    title,
+    date,
+    category,
+    tags,
+    summary,
+    searchText: body
+      .replace(/```[\s\S]*?```/g, " ")
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      .replace(/[#>*_`|~-]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
+  }));
+}
+
 export function getPostCovers(): Record<string, string> {
   return Object.fromEntries(
     Object.entries(coverFiles).map(([path, url]) => [path.split("/").at(-2)!, url]),
@@ -114,4 +136,3 @@ export function resolveImage(slug: string, src: string): string {
   const rest = decodeURIComponent(src.replace(/^\.\//, "")); // %20 还原成文件名里的空格
   return imageFiles[`../../content/posts/${rest}`] ?? imageFiles[`../../content/posts/${slug}/${rest}`] ?? src;
 }
-
