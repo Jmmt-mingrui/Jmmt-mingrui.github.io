@@ -19,10 +19,10 @@ export default function Home() {
   return (
     <SiteShell>
       <HomeContent
-        posts={posts}
+        posts={posts.slice(0, 7)}
         covers={getPostCovers()}
-        categories={[...categoryCounts.entries()]}
-        tags={[...tagCounts.entries()]}
+        categories={[...categoryCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-CN"))}
+        tags={[...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-CN")).slice(0, 4)}
       />
     </SiteShell>
   );

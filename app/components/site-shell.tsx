@@ -4,33 +4,26 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useSyncExternalStore, useState } from "react";
 import { PreferencesProvider, useSitePreferences } from "./site-preferences";
+import { siteConfig } from "../site-config";
 
 const copy = {
   zh: {
-    name: "Hi, Jmmt-mingrui",
+    name: siteConfig.title,
     home: "首页",
-    articles: "文章",
-    projects: "项目",
-    friends: "友邻",
-    about: "关于",
     dark: "切换深色背景",
     light: "切换浅色背景",
     switchLanguage: "切换语言",
     running: (days: number) => `已运行 ${days} 天`,
-    copyright: "内容与版权声明待补",
+    copyright: "版权所有，转载与分享请注明出处",
   },
   en: {
-    name: "Hi, Jmmt-mingrui",
+    name: siteConfig.title,
     home: "Home",
-    articles: "Articles",
-    projects: "Projects",
-    friends: "Friends",
-    about: "About",
     dark: "Switch to dark background",
     light: "Switch to light background",
     switchLanguage: "Switch language",
     running: (days: number) => `Running for ${days} days`,
-    copyright: "Content and copyright notice pending",
+    copyright: "All rights reserved. Please credit when sharing.",
   },
 } as const;
 
@@ -72,7 +65,7 @@ function GridBackdrop() {
   );
 }
 
-const SITE_BIRTH = new Date("2026-08-16T00:00:00+08:00").getTime();
+const SITE_BIRTH = new Date(siteConfig.startedAt).getTime();
 const DAY_MS = 86_400_000;
 const noopSubscribe = () => () => {};
 
@@ -82,6 +75,7 @@ const runningDaysSnapshot = () => Math.max(1, Math.floor((Date.now() - SITE_BIRT
 function SiteChrome({ children }: { children: ReactNode }) {
   const { language, setLanguage, theme, toggleTheme } = useSitePreferences();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [languageSuggestionOpen, setLanguageSuggestionOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const t = copy[language];
   const runningDays = useSyncExternalStore(noopSubscribe, runningDaysSnapshot, () => 1);
@@ -92,17 +86,28 @@ function SiteChrome({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const navigation = [
-    [t.home, "/"],
-    [t.articles, "/writing"],
-    [t.projects, "/projects"],
-    [t.friends, "/#friends"],
-    [t.about, "/about"],
-  ] as const;
-
+  useEffect(() => {
+    const browserLanguage = window.navigator.language.toLowerCase();
+    const hasLanguageChoice = window.localStorage.getItem("archive-language");
+    const suggestionDismissed = window.localStorage.getItem("archive-language-suggestion-dismissed");
+    if (!browserLanguage.startsWith("zh") && !hasLanguageChoice && suggestionDismissed !== "true") {
+      const frame = window.requestAnimationFrame(() => setLanguageSuggestionOpen(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
+  }, []);
   const chooseLanguage = (nextLanguage: "zh" | "en") => {
     setLanguage(nextLanguage);
     setLanguageMenuOpen(false);
+  };
+
+  const acceptEnglishSuggestion = () => {
+    chooseLanguage("en");
+    setLanguageSuggestionOpen(false);
+  };
+
+  const dismissLanguageSuggestion = (forever: boolean) => {
+    if (forever) window.localStorage.setItem("archive-language-suggestion-dismissed", "true");
+    setLanguageSuggestionOpen(false);
   };
 
   return (
@@ -113,9 +118,6 @@ function SiteChrome({ children }: { children: ReactNode }) {
           <span className="wordmark-dot" aria-hidden="true" />
           {t.name}
         </Link>
-        <nav aria-label={language === "zh" ? "主导航" : "Main navigation"}>
-          {navigation.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-        </nav>
         <div className="header-tools">
           <button className="icon-button theme-button" type="button" onClick={toggleTheme} aria-label={theme === "light" ? t.dark : t.light} title={theme === "light" ? t.dark : t.light}>
             <ThemeIcon night={theme === "night"} />
@@ -136,9 +138,23 @@ function SiteChrome({ children }: { children: ReactNode }) {
       <footer className="site-footer">
         <div className="footer-name"><span className="wordmark-dot" aria-hidden="true" /> {t.name}</div>
         <p className="footer-item">{t.running(runningDays)}</p>
-        <p className="footer-item">© {new Date().getFullYear()} Jmmt-mingrui · {t.copyright}</p>
-        <Link className="footer-item" href="/archive">Sitemap</Link>
+        <p className="footer-item">© {new Date().getFullYear()} {siteConfig.name} · {t.copyright}</p>
+        <Link className="footer-item" href="/sitemap.xml">Sitemap</Link>
       </footer>
+      {languageSuggestionOpen ? (
+        <aside className="language-suggestion" role="dialog" aria-modal="true" aria-labelledby="language-suggestion-title">
+          <button className="language-suggestion-backdrop" type="button" aria-label="Close" onClick={() => dismissLanguageSuggestion(false)} />
+          <div className="language-suggestion-card">
+            <h2 id="language-suggestion-title">Switch to English?</h2>
+            <p>Your browser is not in Chinese.</p>
+            <div>
+              <button type="button" onClick={acceptEnglishSuggestion}>Yes</button>
+              <button type="button" onClick={() => dismissLanguageSuggestion(false)}>No</button>
+              <button type="button" onClick={() => dismissLanguageSuggestion(true)}>Don&apos;t ask again</button>
+            </div>
+          </div>
+        </aside>
+      ) : null}
     </div>
   );
 }

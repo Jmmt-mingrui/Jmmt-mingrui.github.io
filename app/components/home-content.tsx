@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { PostCard } from "./post-card";
 import { ProjectCard } from "./project-card";
 import { ScrollReveal } from "./scroll-reveal";
 import { useSitePreferences } from "./site-preferences";
 import type { PostSummary } from "../lib/posts";
 import { projects } from "../lib/projects";
+import { siteConfig } from "../site-config";
 
 const content = {
   zh: {
@@ -22,21 +23,6 @@ const content = {
     projectKicker: "我做的项目",
     projects: "项目",
     moreProjects: "查看所有项目",
-    friendsKicker: "我认识的人",
-    friends: "友邻",
-    friendsIntro: "这里会收集朋友们最新发布的文章。先把朋友站点和 RSS 补上，它就会慢慢变成一个会更新的小圈子。",
-    friendName: "朋友的名字",
-    friendDescription: "这是一篇来自朋友博客的文章摘要待补。",
-    friendPost: "朋友的最新文章标题",
-    friendTime: "刚刚 · 日期待补",
-    friendTabs: { subscribed: "订阅", active: "活跃", posts: "日志" },
-    friendTabHints: {
-      subscribed: "已收录的朋友站点",
-      active: "最近有更新的朋友站点",
-      posts: "朋友们最新发布的文章",
-    },
-    friendFooter: "等待第一位朋友的 RSS 更新……",
-    visitFriend: "查看原文",
   },
   en: {
     tagline: "A place for the things you want to keep.",
@@ -50,27 +36,8 @@ const content = {
     projectKicker: "WHAT I MAKE",
     projects: "Projects",
     moreProjects: "View all projects",
-    friendsKicker: "PEOPLE I KNOW",
-    friends: "Friends",
-    friendsIntro: "A stream for your friends’ newest posts. Add their sites and RSS feeds first, then let this little circle update over time.",
-    friendName: "Friend name pending",
-    friendDescription: "An excerpt from a friend’s latest post goes here.",
-    friendPost: "The latest post from this friend",
-    friendTime: "Just now · Date pending",
-    friendTabs: { subscribed: "Subscribed", active: "Active", posts: "Posts" },
-    friendTabHints: {
-      subscribed: "Sites collected in your circle",
-      active: "Friends with recent updates",
-      posts: "The newest posts from friends",
-    },
-    friendFooter: "Waiting for the first friend RSS update…",
-    visitFriend: "Open post",
   },
 } as const;
-
-const tones = ["sky", "lemon", "violet", "rose"] as const;
-const friendModes = ["subscribed", "active", "posts"] as const;
-type FriendMode = (typeof friendModes)[number];
 
 function GitHubIcon() {
   return (
@@ -103,21 +70,20 @@ interface HomeContentProps {
 
 export function HomeContent({ posts, covers, categories, tags }: HomeContentProps) {
   const { language } = useSitePreferences();
-  const [friendMode, setFriendMode] = useState<FriendMode>("subscribed");
   const t = content[language];
 
   return (
     <>
       <section className="reference-hero">
         <div className="reference-hero-copy">
-          <h1>Hi, Jmmt-mingrui</h1>
+          <h1>{siteConfig.title}</h1>
           <p className="reference-tagline">{t.tagline}</p>
           <p className="reference-bio">{t.bio}</p>
           <div className="social-row" aria-label="社交链接">
-            <a href="https://github.com/Jmmt-mingrui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><GitHubIcon /></a>
+            <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><GitHubIcon /></a>
           </div>
         </div>
-        <img className="avatar-image" src="/avatar.png" alt="Jmmt-mingrui" width={460} height={460} />
+        <img className="avatar-image" src={siteConfig.avatar} alt={siteConfig.name} width={460} height={460} />
       </section>
 
       <ScrollReveal>
@@ -127,14 +93,14 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
           <p className="collection-intro">{t.collectionIntro}</p>
           <div className="taxonomy">
             <p>{t.categories}{categories.map(([name, count], i) => (
-              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing">{name} ({count})</Link></Fragment>
+              <Fragment key={name}>{i > 0 ? "、" : null}<Link href={`/writing?category=${encodeURIComponent(name)}`}>{name} ({count})</Link></Fragment>
             ))}</p>
             <p>{t.tags}{tags.map(([name, count], i) => (
-              <Fragment key={name}>{i > 0 ? "、" : null}<Link href="/writing">#{name} ({count})</Link></Fragment>
+              <Fragment key={name}>{i > 0 ? "、" : null}<Link href={`/writing?tag=${encodeURIComponent(name)}`}>#{name} ({count})</Link></Fragment>
             ))}</p>
           </div>
           <div className="post-list">
-            {posts.map((post) => <PostCard key={post.slug} post={post} cover={covers[post.slug]} />)}
+            {posts.map((post) => <PostCard key={post.slug} post={post} cover={covers[post.slug]} language={language} />)}
           </div>
           <div className="more-link-row">
             <Link className="more-link" href="/writing">{t.moreArticles}</Link>
@@ -155,37 +121,6 @@ export function HomeContent({ posts, covers, categories, tags }: HomeContentProp
         </section>
       </ScrollReveal>
 
-      <ScrollReveal delay={120}>
-        <DividerBadge label={t.friendsKicker} />
-        <section className="reference-section friend-section" id="friends">
-        <h2>{t.friends}</h2>
-        <p className="friends-intro">{t.friendsIntro}</p>
-        <div className="friend-circle">
-          <div className="friend-tabs" role="tablist" aria-label={t.friends}>
-            {friendModes.map((mode) => (
-              <button className={friendMode === mode ? "is-active" : ""} type="button" role="tab" aria-selected={friendMode === mode} key={mode} onClick={() => setFriendMode(mode)}>
-                <span>{t.friendTabs[mode]}</span><b>00</b>
-              </button>
-            ))}
-            <p>{t.friendTabHints[friendMode]}</p>
-          </div>
-          <div className="friend-feed" aria-live="polite">
-            {Array.from({ length: 4 }, (_, index) => (
-              <article className={`friend-feed-item friend-feed-item-${index + 1}`} key={index}>
-                <span className="friend-avatar" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <div className="friend-feed-copy">
-                  <p><strong>{t.friendName}</strong><time>{t.friendTime}</time></p>
-                  <h3>{t.friendPost}</h3>
-                  <small>{t.friendDescription}</small>
-                </div>
-                <Link className="friend-visit" href="/archive#friends" aria-label={`${t.visitFriend}: ${t.friendPost}`}><b aria-hidden="true">↗</b></Link>
-              </article>
-            ))}
-          </div>
-          <p className="friend-footer"><span aria-hidden="true">~</span>{t.friendFooter}</p>
-        </div>
-        </section>
-      </ScrollReveal>
     </>
   );
 }
