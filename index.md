@@ -4,9 +4,8 @@ title: 首页
 ---
 
 <div class="hero">
-  <h1>Hi, 我是 Mingrui</h1>
-  <p>计算机专业的学生，2026 届秋季求职进行中。在这里记录技术笔记、开源项目，以及一些值得留住的思考。</p>
-  <p>最近在折腾 Go 微服务和 MCP Server，也在准备秋招。这段自我介绍改 <code>index.md</code> 就行。</p>
+  <h1>写代码是热爱，写到世界充满爱！</h1>
+  <p>计算机专业学生 · 2026 届秋招中 · 最近在折腾 Go 微服务和 MCP Server</p>
 </div>
 
 <div class="section">
