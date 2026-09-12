@@ -1,75 +1,100 @@
 # Mingrui Blog
 
-Jmmt-mingrui 的个人博客。页面结构与交互语言参考 `diygod.cc` 当前版本独立实现，保留本站自己的头像、简介、文章、项目和版权信息，不复制参考站内容或品牌素材。
+Jmmt-mingrui 的个人博客。**静态站，零依赖，没有构建脚本，没有 CI。**
 
-## 内容发布
+上一版是 Next.js 16 + Cloudflare Workers 的方案，依赖近 800MB、装包要十几分钟，对于一个写 Markdown 的博客来说太重了，所以换掉了。旧版本保留在 `nextjs-legacy` 分支。
 
-新增文章只需要提交 Markdown 和图片，不需要修改页面代码：
+## 发一篇新文章
+
+在 `_posts/` 下新建带日期的 Markdown 文件：
 
 ```text
-content/posts/<slug>.md
-content/posts/<slug>/cover.png
-content/posts/<slug>/image-1.png
+_posts/2026-09-12-文章标题.md
 ```
 
-Markdown frontmatter 示例：
+开头写 frontmatter：
 
-```md
+```markdown
 ---
-title: 文章标题
-date: 2026-08-25
-category: 学习笔记
+layout: post
+title: "文章标题"
+date: 2026-09-12
+category: 笔记
 tags:
-  - AI
-  - Agent
-summary: 首页、RSS 和分享卡片使用的摘要。
+  - 标签一
+  - 标签二
+summary: 一句话摘要，用于首页、RSS 和分享卡片。
+cover: /assets/images/cover.png
 ---
 ```
 
-提交后会自动完成：
+然后提交推送。GitHub Pages 会自动用 Jekyll 重新生成，一分钟内生效。
 
-1. CI 检查 frontmatter、本地图片路径、代码和构建产物。
-2. 构建器扫描 `content/posts/*.md`，生成首页卡片、文章列表和 `/writing/<slug>` 详情页。
-3. `cover.*` 自动成为列表缩略图和文章分享图；正文相对图片自动打包。
-4. RSS `/feed` 和站点地图 `/sitemap.xml` 自动包含新文章。
-5. VPS 拉取 `origin/main`，验证成功后重启站点。
+详细的写作说明见 [这篇示例文章](https://github.com/Jmmt-mingrui/mingrui-blog/blob/main/_posts/2026-09-12-hello-jekyll.md)。
 
-完整写作说明见 [`content/posts/README.md`](content/posts/README.md)。
+## 改个人信息
 
-## 个性化信息
+| 想改什么 | 改哪里 |
+|---|---|
+| 站名、头像、简介 | `_config.yml` |
+| 首页自我介绍 | `index.md` |
+| 导航栏 | `_config.yml` 的 `navigation` |
+| 项目列表 | `_data/projects.yml` |
+| 关于页文案 | `about.md` |
+| 样式 | `assets/css/style.css` |
 
-站名、GitHub、头像、站点起始日期等集中在 [`app/site-config.ts`](app/site-config.ts)。首页文案位于 [`app/components/home-content.tsx`](app/components/home-content.tsx)，项目数据位于 [`app/lib/projects.ts`](app/lib/projects.ts)。
+## 目录结构
 
-## 本地验证
+```text
+_config.yml          站点配置：站名、导航、permalink、插件
+_data/projects.yml   项目列表数据
+_layouts/            default.html / post.html
+_includes/           head、header、footer、文章卡片
+assets/css/style.css 全部样式（约 300 行，无外部依赖）
+assets/images/       头像、分享图、封面
+_posts/              Markdown 文章
+index.md             首页
+archive.md           文章归档
+projects.md          项目页
+about.md             关于页
+404.md               404 页
+```
 
-需要 Node.js 22.13 或更高版本：
+## 自动生成的东西
+
+不用配置，开箱就有：
+
+- `/feed.xml`：RSS，`jekyll-feed` 生成
+- `/sitemap.xml`：站点地图，`jekyll-sitemap` 生成
+
+## 自定义域名
+
+仓库根目录放一个 `CNAME` 文件，内容写域名：
+
+```text
+example.com
+```
+
+然后到域名 DNS 商那里加一条记录：
+
+| 主机记录 | 类型 | 记录值 |
+|---|---|---|
+| `@` | A | `185.199.108.153`（另有 .109/.110/.111 三条） |
+| `www` | CNAME | `Jmmt-mingrui.github.io` |
+
+设置完之后，把 `_config.yml` 里的 `url` 改成 `https://你的域名`，RSS 里的链接才会是绝对的。仓库 Settings → Pages → Custom domain 里也填一次，并勾选 Enforce HTTPS。
+
+## 本地预览（可选）
+
+日常直接推送看线上效果就行，不需要装 Ruby。想本地跑起来：
 
 ```bash
-npm ci --no-audit --no-fund
-npm run dev
-npm run lint
-npm test
+bundle install   # 需要有 Gemfile，或用 ruby -S gem install jekyll
+bundle exec jekyll serve
 ```
 
-`npm test` 会依次执行内容检查、生产构建、Worker 产物验证和渲染测试。
+打开 http://localhost:4000。
 
-## 自动发布
+## 为什么没有外部字体和 CDN
 
-GitHub Actions 在 PR 和 `main` 分支提交时执行 CI。生产 VPS 使用 pull 模式，不把 SSH 私钥交给 GitHub：
-
-- `deploy/deploy-mingrui-blog.sh`：拉取 `origin/main`，检查干净工作区，按需安装依赖，构建和测试成功后重启服务。
-- `deploy/mingrui-blog.service`：systemd 服务模板，监听 `127.0.0.1:8080`。
-- `deploy/Caddyfile`：Caddy 反向代理模板。
-- `deploy/crontab.example`：每三分钟触发一次部署检查。
-
-服务器安装方式见 [`deploy/README.md`](deploy/README.md)。部署标记与密钥只存在服务器，不提交到仓库。
-
-## 路由
-
-- `/`：简介、最新七篇文章、项目与页脚
-- `/writing`、`/writing/<slug>`：文章列表与详情
-- `/projects`：项目列表
-- `/about`：个性化关于页
-- `/archive`：内容目录与写作入口
-- `/feed`：RSS 2.0
-- `/sitemap.xml`：XML Sitemap
+样式全在本地，字体用系统自带的苹方 / 微软雅黑。引入 Google Fonts 之类会让国内访问卡在等待第三方资源上，不值得为了一点字形差异冒这个险。

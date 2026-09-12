@@ -1,0 +1,19 @@
+- name: eino-ext
+  description: Eino 框架的各类扩展组件，覆盖模型接入、工具集成与编排能力。
+  url: https://github.com/cloudwego/eino-ext
+  image: /assets/images/projects/eino-ext.jpg
+
+- name: doris-mcp-server
+  description: Apache Doris 的 MCP Server，让 AI 应用通过标准接口查询 Doris。
+  url: https://github.com/apache/doris-mcp-server
+  image: /assets/images/projects/doris-mcp-server.jpg
+
+- name: velodb-mcp-server
+  description: VeloDB Cloud 与 Enterprise 的 MCP Server，接入云原生实时分析数据库。
+  url: https://github.com/velodb/velodb-mcp-server
+  image: /assets/images/projects/velodb-mcp-server.jpg
+
+- name: microservices-go
+  description: 微服务实战 Go 完整示例代码，从零搭建一套微服务体系。
+  url: https://github.com/Jmmt-mingrui/microservices-go-Start
+  image: /assets/images/projects/microservices-go-start.jpg

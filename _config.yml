@@ -1,0 +1,62 @@
+# ---- 站点的基本信息 ----
+title: Mingrui
+tagline: 记录技术、项目与值得留住的思考
+description: Jmmt-mingrui 的个人博客：技术、项目与值得留住的思考。
+author: Jmmt-mingrui
+avatar: /assets/images/avatar.png
+started_at: 2026-08-16
+
+# ---- 站点地址 ----
+# 绑定自定义域名后，把 url 改成 https://你的域名 即可。
+# baseurl 保持为空：绑了域名后站点就跑在根路径上。
+url: ""
+baseurl: ""
+
+lang: zh-CN
+timezone: Asia/Shanghai
+
+# ---- Markdown 渲染 ----
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
+
+# 文章链接：/writing/文章标题
+permalink: /writing/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+include:
+  - assets
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+# ---- 导航 ----
+navigation:
+  - title: 首页
+    url: /
+  - title: 文章
+    url: /archive
+  - title: 项目
+    url: /projects
+  - title: 关于
+    url: /about
+
+# ---- 主页右侧的联系方式 ----
+social:
+  github: https://github.com/Jmmt-mingrui
+  rss: /feed.xml

@@ -1,1 +1,0 @@
-*/3 * * * * /usr/bin/flock -n /tmp/mingrui-blog-cron.lock /home/ubuntu/minguri-blog/deploy/deploy-mingrui-blog.sh >> /home/ubuntu/minguri-blog/.deploy.log 2>&1
