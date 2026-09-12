@@ -72,7 +72,7 @@ about.md             关于页
 
 不用配置，开箱就有：
 
-- `/feed.xml`：RSS，`jekyll-feed` 生成
+- `/feed.xml`：订阅源（Atom 格式），`jekyll-feed` 生成
 - `/sitemap.xml`：站点地图，`jekyll-sitemap` 生成
 
 ## 自定义域名
