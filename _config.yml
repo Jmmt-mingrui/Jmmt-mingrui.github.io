@@ -38,7 +38,13 @@ exclude:
   - Gemfile.lock
   - vendor
 
+# 所有页面默认套 default 布局，文章再覆盖成 post。
+# 这样即使某个 .md 忘了写 layout，也不会退化成裸 HTML。
 defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
   - scope:
       path: ""
       type: posts

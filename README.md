@@ -37,11 +37,19 @@ cover: /assets/images/cover.png
 | 想改什么 | 改哪里 |
 |---|---|
 | 站名、头像、简介 | `_config.yml` |
-| 首页自我介绍 | `index.md` |
+| 首页标语 | `index.md` |
 | 导航栏 | `_config.yml` 的 `navigation` |
 | 项目列表 | `_data/projects.yml` |
 | 关于页文案 | `about.md` |
 | 样式 | `assets/css/style.css` |
+
+### 改首页时注意
+
+frontmatter 里的 `layout: default` **别删**。删掉它页面就不会套用站点框架，CSS、导航、页脚和深色模式全都会消失，只剩一段裸 HTML。
+
+（保险起见，`_config.yml` 的 `defaults` 里已经给所有页面兜底设了 `default` 布局，但显式写上更清楚。）
+
+另一个坑：hero 的标题要用 `<h1>`，因为样式选择器写的是 `.hero h1`，改成 `h2` 会让字号和字距失效。
 
 ## 目录结构
 
