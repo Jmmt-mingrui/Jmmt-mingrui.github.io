@@ -5,7 +5,6 @@ title: 首页
 
 <div class="hero">
   <h1>写代码是热爱，写到世界充满爱！</h1>
-  <p>计算机专业学生 · 2026 届秋招中 · 最近在折腾 Go 微服务和 MCP Server</p>
 </div>
 
 <div class="section">
