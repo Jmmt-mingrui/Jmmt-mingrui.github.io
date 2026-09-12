@@ -5,6 +5,7 @@ title: 首页
 
 <div class="hero">
   <h1>写代码是热爱，写到世界充满爱！</h1>
+  <p class="hero-sub">Jmmt-mingrui 的个人博客</p>
 </div>
 
 <div class="section">
