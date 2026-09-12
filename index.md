@@ -41,7 +41,7 @@ title: 首页
 
 <div class="section">
   <div class="project-grid">
-    {% for project in site.data.projects limit:3 %}
+    {% for project in site.data.projects %}
     <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
       <img src="{{ project.image | relative_url }}" alt="{{ project.name }}" loading="lazy">
       <div class="project-card-body">
