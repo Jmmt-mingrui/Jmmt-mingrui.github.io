@@ -1,0 +1,21 @@
+{% if site.posts.size > 0 %}
+{% assign grouped = site.posts | group_by: "category" %}
+<div class="archive-grouped">
+{% for cat in grouped %}
+<section class="archive-section">
+<h2 class="archive-cat">{{ cat.name }}</h2>
+<ul class="archive-list">
+{% for post in cat.items %}
+<li>
+<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+<a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+{% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+</li>
+{% endfor %}
+</ul>
+</section>
+{% endfor %}
+</div>
+{% else %}
+<p class="empty-note">还没有文章。新建 <code>_posts/2026-09-12-标题.md</code>，写好 frontmatter 推送即可。</p>
+{% endif %}
