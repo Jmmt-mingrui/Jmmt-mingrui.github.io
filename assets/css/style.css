@@ -134,27 +134,96 @@ hr {
 [data-theme="light"] .icon-sun,
 [data-theme="dark"] .icon-moon { display: none; }
 
-/* ---------- Hero / 首页 ---------- */
+/* ---------- Hero / 首页开场 ---------- */
 
 .hero {
-  padding: 3rem 0 4rem;
-  border-bottom: 1px solid var(--line-soft);
-  margin-bottom: 3.5rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 2.5rem 0 3.5rem;
 }
-.hero h1 {
-  font-size: 2.25rem;
-  letter-spacing: -.035em;
-  line-height: 1.3;
-  margin: 0 auto .875rem;
+
+.hero-left { flex: 1 1 auto; min-width: 0; }
+
+.hero-hi {
+  font-size: 3rem;
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  margin: 0 0 1.125rem;
+  font-weight: 700;
+}
+
+.hero-slogan {
+  margin: 0 0 .875rem;
+  font-size: 1.0625rem;
   font-weight: 600;
-  max-width: 24em;
 }
-.hero-sub {
+
+.hero-desc {
   margin: 0;
-  color: var(--fg-faint);
-  font-size: .9375rem;
-  letter-spacing: .01em;
+  color: var(--fg-soft);
+  max-width: 34rem;
+  line-height: 1.8;
+}
+
+.hero-social {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.hero-social a {
+  display: inline-flex;
+  color: var(--fg-soft);
+  transition: color .15s var(--ease);
+}
+.hero-social a:hover { color: var(--fg); text-decoration: none; }
+.hero-social svg { width: 20px; height: 20px; }
+
+.hero-right { flex: 0 0 auto; }
+.hero-photo {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  aspect-ratio: 1;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+/* ---------- 虚线分隔 + 胶囊标签 ---------- */
+
+.divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem 0 2.5rem;
+}
+.divider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px dashed var(--line-hover);
+}
+.divider-label {
+  position: relative;
+  padding: .375rem .875rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg-soft);
+  font-size: .8125rem;
+  letter-spacing: .05em;
+}
+
+.section-more {
+  margin: 1.5rem 0 0;
+  text-align: right;
+  font-size: .875rem;
+  color: var(--fg-soft);
 }
 
 .site-main { min-height: 45vh; padding-bottom: 4rem; }
@@ -370,8 +439,10 @@ hr {
   .site { padding: 0 1.25rem; }
   .site-header { padding: 1.75rem 0 1.5rem; }
   .site-nav { gap: 1.125rem; }
-  .hero { padding: 2.5rem 0 3rem; margin-bottom: 2.5rem; }
-  .hero h1 { font-size: 1.75rem; }
+  .hero { flex-direction: column-reverse; gap: 1.75rem; padding: 1.5rem 0 2.5rem; }
+  .hero-hi { font-size: 2.25rem; }
+  .hero-photo { width: 140px; height: 140px; border-radius: 18px; }
+  .hero-right { align-self: flex-start; }
   .post-title { font-size: 1.625rem; }
   .post-card-body { padding: 1.25rem; }
   .project-grid { grid-template-columns: 1fr; }
