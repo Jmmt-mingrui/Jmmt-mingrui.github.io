@@ -1,15 +1,13 @@
-<article class="post-card">
-  <a class="post-card-link" href="{{ post.url | relative_url }}">
-    {% if post.cover %}
-      <img class="post-card-cover" src="{{ post.cover | relative_url }}" alt="" loading="lazy">
-    {% endif %}
-    <div class="post-card-body">
-      <h3>{{ post.title }}</h3>
-      {% if post.summary %}<p class="post-card-summary">{{ post.summary }}</p>{% endif %}
-      <div class="post-card-meta">
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-        {% if post.category %}<span>{{ post.category }}</span>{% endif %}
-      </div>
+<a class="post-card" href="{{ post.url | relative_url }}">
+  {% if post.cover %}
+    <img class="post-card-cover" src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy">
+  {% endif %}
+  <div class="post-card-body">
+    <h3>{{ post.title }}</h3>
+    {% if post.summary %}<p class="post-card-summary">{{ post.summary }}</p>{% endif %}
+    <div class="post-card-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      {% if post.category %}<span class="dot">·</span><span>{{ post.category }}</span>{% endif %}
     </div>
-  </a>
-</article>
+  </div>
+</a>

@@ -15,3 +15,18 @@
 {% assign og_image = page.cover | default: '/assets/images/og.png' %}
 <meta property="og:image" content="{{ og_image | absolute_url }}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+
+<script>
+  /* 在样式生效之前定好主题，避免刷新时闪一下白底 */
+  (function () {
+    var html = document.documentElement;
+    var theme;
+    try { theme = localStorage.getItem('theme'); } catch (e) {}
+    if (theme !== 'light' && theme !== 'dark') {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    html.setAttribute('data-theme', theme);
+  })();
+</script>

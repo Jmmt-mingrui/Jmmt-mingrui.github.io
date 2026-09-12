@@ -3,10 +3,10 @@ layout: default
 title: 首页
 ---
 
-<div class="intro">
+<div class="hero">
   <h1>Hi, 我是 Mingrui</h1>
   <p>计算机专业的学生，2026 届秋季求职进行中。在这里记录技术笔记、开源项目，以及一些值得留住的思考。</p>
-  <p>目前在做的事：准备秋招，折腾 Go 微服务和 MCP Server。这段自我介绍可以在 <code>index.md</code> 里随时改。</p>
+  <p>最近在折腾 Go 微服务和 MCP Server，也在准备秋招。这段自我介绍改 <code>index.md</code> 就行。</p>
 </div>
 
 <div class="section">
@@ -17,7 +17,7 @@ title: 首页
 
   {% if site.posts.size > 0 %}
   <div class="post-list">
-    {% for post in site.posts limit:7 %}
+    {% for post in site.posts limit:5 %}
       {% include post-card.html post=post %}
     {% endfor %}
   </div>
@@ -32,8 +32,8 @@ title: 首页
     <a href="{{ '/projects' | relative_url }}">全部项目</a>
   </div>
 
-  <div class="project-list">
-    {% for project in site.data.projects limit:4 %}
+  <div class="project-grid">
+    {% for project in site.data.projects limit:3 %}
     <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
       <img src="{{ project.image | relative_url }}" alt="{{ project.name }}" loading="lazy">
       <div class="project-card-body">
