@@ -54,12 +54,16 @@ defaults:
 # ---- 导航 ----
 navigation:
   - title: 首页
+    title_en: Home
     url: /
   - title: 文章
+    title_en: Writing
     url: /archive
   - title: 项目
+    title_en: Projects
     url: /projects
   - title: 关于
+    title_en: About
     url: /about
 
 # ---- 主页右侧的联系方式 ----

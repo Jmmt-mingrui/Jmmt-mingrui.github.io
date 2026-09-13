@@ -134,6 +134,13 @@ hr {
 [data-theme="light"] .icon-sun,
 [data-theme="dark"] .icon-moon { display: none; }
 
+/* ---------- 中英切换 ---------- */
+
+[data-lang="en"] .zh-only { display: none !important; }
+[data-lang="zh"] .en-only { display: none !important; }
+
+.lang-toggle { font-size: .6875rem; font-weight: 600; letter-spacing: .02em; line-height: 1; }
+
 /* ---------- Hero / 首页开场 ---------- */
 
 .hero {

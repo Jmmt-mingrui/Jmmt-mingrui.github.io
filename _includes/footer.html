@@ -4,8 +4,8 @@
     {% if site.social.rss %}<a href="{{ site.social.rss | relative_url }}">RSS</a>{% endif %}
   </div>
   <p class="footer-meta">
-    &copy; {% if site.started_at %}{{ site.started_at | slice: 0, 4 }}{% endif %} {{ site.author }}
-    {% if site.started_at %} · 自 {{ site.started_at }} 起{% endif %}
-    · 由 GitHub Pages 与 Jekyll 构建
+    &copy; {% if site.started_at %}{{ site.started_at | slice: 0, 4 }}{% endif %} {{ site.author }} ·
+    <span class="zh-only">自 {{ site.started_at }} 起 · 由 GitHub Pages 与 Jekyll 构建</span>
+    <span class="en-only">since {{ site.started_at }} · Built with GitHub Pages &amp; Jekyll</span>
   </p>
 </footer>

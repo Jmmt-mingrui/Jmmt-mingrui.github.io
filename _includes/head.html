@@ -1,7 +1,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>{% if page.title and page.title != site.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+{%- assign page_zh = page.title | default: '' -%}
+{%- assign page_en = page.title_en | default: page.title | default: '' -%}
+<title
+  data-zh="{% if page_zh != '' %}{{ page_zh }} · {% endif %}{{ site.title }}"
+  data-en="{% if page_en != '' %}{{ page_en }} · {% endif %}{{ site.title }}">
+  {% if page_en != '' %}{{ page_en }} · {% endif %}{{ site.title }}
+</title>
 <meta name="description" content="{{ page.summary | default: page.description | default: site.description }}">
 
 <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon-32.png' | relative_url }}">
@@ -18,3 +24,15 @@
 <meta property="og:image" content="{{ og_image | absolute_url }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffffff">
+
+<script>
+  /* 在样式生效之前定好语言（默认英文），避免切换闪动 */
+  (function () {
+    var lang = 'en';
+    try {
+      var s = localStorage.getItem('lang');
+      if (s === 'zh' || s === 'en') lang = s;
+    } catch (e) {}
+    document.documentElement.setAttribute('data-lang', lang);
+  })();
+</script>

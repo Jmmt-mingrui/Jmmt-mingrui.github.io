@@ -6,7 +6,14 @@
 
   <nav class="site-nav">
     {% for item in site.navigation %}
-      <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active"{% endif %}>{{ item.title }}</a>
+      <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active"{% endif %}>
+        <span class="zh-only">{{ item.title }}</span>
+        <span class="en-only">{{ item.title_en | default: item.title }}</span>
+      </a>
     {% endfor %}
+    <button class="theme-toggle lang-toggle" type="button" id="lang-toggle" aria-label="Switch language" title="Switch language">
+      <span class="zh-only">EN</span>
+      <span class="en-only">中</span>
+    </button>
   </nav>
 </header>
