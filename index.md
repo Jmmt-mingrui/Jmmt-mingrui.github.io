@@ -49,6 +49,7 @@ title_en: Home
   <div class="project-grid">
     {% for project in site.data.projects %}
     <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
+      {% if project.type == "production" %}<span class="project-badge"><span class="zh-only">生产</span><span class="en-only">LIVE</span></span>{% endif %}
       <img src="{{ project.image | relative_url }}" alt="{{ project.name }}" loading="lazy">
       <div class="project-card-body">
         <h3>{{ project.name }}</h3>

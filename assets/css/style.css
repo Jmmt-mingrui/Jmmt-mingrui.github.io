@@ -263,6 +263,7 @@ hr {
   transition: color .15s var(--ease);
 }
 .home-section .section-head a:hover { color: var(--fg); text-decoration: none; }
+.section-count { color: var(--fg-faint); font-size: .8125rem; font-variant-numeric: tabular-nums; }
 
 .empty-note {
   padding: 1.5rem;
@@ -338,12 +339,29 @@ hr {
 }
 
 .project-card {
+  position: relative;
   display: block;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--bg);
   transition: border-color .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+
+/* 生产项目角标 */
+.project-badge {
+  position: absolute;
+  top: .625rem;
+  left: .625rem;
+  z-index: 1;
+  padding: .1875rem .625rem;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  line-height: 1.5;
 }
 .project-card:hover {
   border-color: var(--line-hover);

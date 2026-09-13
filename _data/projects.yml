@@ -1,3 +1,18 @@
+# 加项目就在这个文件里加一条，四个字段：
+#   name        项目名（英文小写 + 短横线）
+#   description 一句话：它是干什么的、解决什么问题
+#   url         项目链接（开源填 GitHub，生产项目填能访问的地址）
+#   image       封面图，放在 assets/images/projects/ 下，路径以 /assets/ 开头
+#   type        写 production = 已交付 / 正在生产环境跑的项目；
+#               不写这一行 = 开源项目
+#
+# 生产项目模板（复制这段，去掉 # 号，换成你自己的内容）：
+# - name: order-platform
+#   description: 订单平台，日订单量 10w+，Go + MySQL + Redis。
+#   url: https://example.com
+#   image: /assets/images/projects/order-platform.jpg
+#   type: production
+
 - name: eino-ext
   description: Extension components for the Eino framework — model integrations, tool bindings, and orchestration.
   url: https://github.com/cloudwego/eino-ext
