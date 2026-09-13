@@ -47,15 +47,13 @@ title_en: Home
     <a href="{{ '/projects' | relative_url }}"><span class="zh-only">全部 →</span><span class="en-only">All →</span></a>
   </div>
   <div class="project-grid">
-    {% for project in site.data.projects %}
-    <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
-      {% if project.type == "production" %}<span class="project-badge"><span class="zh-only">生产</span><span class="en-only">LIVE</span></span>{% endif %}
-      <img src="{{ project.image | relative_url }}" alt="{{ project.name }}" loading="lazy">
-      <div class="project-card-body">
-        <h3>{{ project.name }}</h3>
-        <p>{{ project.description }}</p>
-      </div>
-    </a>
+    {% assign clientwork = site.data.projects | where: "type", "client" %}
+    {% assign opensource = site.data.projects | where_exp: "p", "p.type != 'client'" %}
+    {% for project in clientwork %}
+      {% include project-card.html project=project %}
+    {% endfor %}
+    {% for project in opensource %}
+      {% include project-card.html project=project %}
     {% endfor %}
   </div>
 </section>

@@ -1,0 +1,8 @@
+{% if project.url %}<a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">{% else %}<div class="project-card">{% endif %}
+  {% if project.type == "client" %}<span class="project-badge"><span class="zh-only">已交付</span><span class="en-only">DELIVERED</span></span>{% endif %}
+  <img src="{{ project.image | relative_url }}" alt="{{ project.name }}" loading="lazy">
+  <div class="project-card-body">
+    <h3>{{ project.name }}</h3>
+    <p>{{ project.description }}</p>
+  </div>
+{% if project.url %}</a>{% else %}</div>{% endif %}
