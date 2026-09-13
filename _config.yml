@@ -12,7 +12,7 @@ started_at: 2026-08-16
 url: ""
 baseurl: ""
 
-lang: zh-CN
+lang: en
 timezone: Asia/Shanghai
 
 # ---- Markdown 渲染 ----

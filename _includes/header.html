@@ -8,6 +8,5 @@
     {% for item in site.navigation %}
       <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active"{% endif %}>{{ item.title }}</a>
     {% endfor %}
-    {% include theme-toggle.html %}
   </nav>
 </header>
