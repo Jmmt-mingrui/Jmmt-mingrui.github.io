@@ -18,6 +18,7 @@ title_en: About
 ## 怎么找到我
 
 - GitHub：[{{ site.author }}]({{ site.social.github }})
+- LinkedIn：[Mingrui Li]({{ site.social.linkedin }})
 - 订阅：[RSS]({{ site.social.rss | relative_url }})
 
 ## 这个站是怎么搭的
@@ -39,6 +40,7 @@ This is where I write things down. Roughly three kinds of content:
 ## Find me
 
 - GitHub: [{{ site.author }}]({{ site.social.github }})
+- LinkedIn: [Mingrui Li]({{ site.social.linkedin }})
 - Subscribe: [RSS]({{ site.social.rss | relative_url }})
 
 ## How this site is built
