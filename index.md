@@ -17,28 +17,27 @@ title: 首页
   </div>
 </div>
 
-<div class="divider">
-  <span class="divider-label">我写的文章</span>
-</div>
-
-<div class="section">
+<section class="home-section">
+  <div class="section-head">
+    <h2>我写的文章</h2>
+    <a href="{{ '/archive' | relative_url }}">全部 →</a>
+  </div>
   {% if site.posts.size > 0 %}
   <div class="post-list">
     {% for post in site.posts limit:5 %}
       {% include post-card.html post=post %}
     {% endfor %}
   </div>
-  <p class="section-more"><a href="{{ '/archive' | relative_url }}">全部文章 →</a></p>
   {% else %}
   <p class="empty-note">还没有文章。把 Markdown 放进 <code>_posts/</code> 目录推送上来，它会立刻出现在这里。</p>
   {% endif %}
-</div>
+</section>
 
-<div class="divider">
-  <span class="divider-label">项目</span>
-</div>
-
-<div class="section">
+<section class="home-section">
+  <div class="section-head">
+    <h2>项目</h2>
+    <a href="{{ '/projects' | relative_url }}">全部 →</a>
+  </div>
   <div class="project-grid">
     {% for project in site.data.projects %}
     <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
@@ -50,5 +49,4 @@ title: 首页
     </a>
     {% endfor %}
   </div>
-  <p class="section-more"><a href="{{ '/projects' | relative_url }}">全部项目 →</a></p>
-</div>
+</section>
