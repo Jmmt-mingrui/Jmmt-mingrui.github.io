@@ -264,6 +264,7 @@ hr {
 }
 .home-section .section-head a:hover { color: var(--fg); text-decoration: none; }
 .section-count { color: var(--fg-faint); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.section-note { margin: -.5rem 0 1.5rem; color: var(--fg-soft); font-size: .875rem; }
 
 .empty-note {
   padding: 1.5rem;

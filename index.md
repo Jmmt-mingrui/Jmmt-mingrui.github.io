@@ -22,9 +22,12 @@ title_en: Home
   </div>
 </div>
 
+{% assign clientwork = site.data.projects | where: "type", "client" %}
+{% assign opensource = site.data.projects | where_exp: "p", "p.type != 'client'" %}
+
 <section class="home-section">
   <div class="section-head">
-    <h2><span class="zh-only">我写的文章</span><span class="en-only">Writing</span></h2>
+    <h2><span class="zh-only">写过的文章</span><span class="en-only">Writing</span></h2>
     <a href="{{ '/archive' | relative_url }}"><span class="zh-only">全部 →</span><span class="en-only">All →</span></a>
   </div>
   {% if site.posts.size > 0 %}
@@ -41,17 +44,30 @@ title_en: Home
   {% endif %}
 </section>
 
+{% if clientwork.size > 0 %}
 <section class="home-section">
   <div class="section-head">
-    <h2><span class="zh-only">项目</span><span class="en-only">Projects</span></h2>
+    <h2><span class="zh-only">交付项目</span><span class="en-only">Client Work</span></h2>
     <a href="{{ '/projects' | relative_url }}"><span class="zh-only">全部 →</span><span class="en-only">All →</span></a>
   </div>
+  <p class="section-note">
+    <span class="zh-only">别人找我做的项目，从需求到上线我一个人跑完。</span>
+    <span class="en-only">Commissioned projects I delivered end to end — from requirements to launch.</span>
+  </p>
   <div class="project-grid">
-    {% assign clientwork = site.data.projects | where: "type", "client" %}
-    {% assign opensource = site.data.projects | where_exp: "p", "p.type != 'client'" %}
     {% for project in clientwork %}
       {% include project-card.html project=project %}
     {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="home-section">
+  <div class="section-head">
+    <h2><span class="zh-only">开源项目</span><span class="en-only">Open Source</span></h2>
+    <a href="{{ '/projects' | relative_url }}"><span class="zh-only">全部 →</span><span class="en-only">All →</span></a>
+  </div>
+  <div class="project-grid">
     {% for project in opensource %}
       {% include project-card.html project=project %}
     {% endfor %}
