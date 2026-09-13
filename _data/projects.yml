@@ -13,6 +13,20 @@
 #   image: /assets/images/projects/order-platform.jpg
 #   type: production
 
+# ↓↓↓ 示例（先看效果用，等你给真实信息就替换掉）↓↓↓
+- name: order-platform
+  description: 订单中台服务，Go + MySQL + Redis，日订单量 10w+，支撑 3 条业务线。
+  url: https://github.com/Jmmt-mingrui/microservices-go-Start
+  image: /assets/images/projects/microservices-go-start.jpg
+  type: production
+
+- name: mcp-gateway
+  description: MCP 网关，统一接入 20+ 数据源，日均调用 50w+，P99 < 80ms。
+  url: https://github.com/Jmmt-mingrui/microservices-go-Start
+  image: /assets/images/projects/eino-ext.jpg
+  type: production
+# ↑↑↑ 示例结束 ↑↑↑
+
 - name: eino-ext
   description: Extension components for the Eino framework — model integrations, tool bindings, and orchestration.
   url: https://github.com/cloudwego/eino-ext
