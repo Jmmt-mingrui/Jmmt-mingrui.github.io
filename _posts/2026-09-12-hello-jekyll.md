@@ -1,172 +1,172 @@
 ---
 layout: post
-title: "How to Publish a Post: Images, Commits & Push, Explained Once"
+title: "发文章完整指南：图片、push、commit 一次讲清"
 date: 2026-09-12
-category: Notes
+category: 笔记
 tags:
-  - Blog
+  - 博客
   - Jekyll
   - Git
-summary: The complete flow from creating a Markdown file, uploading images, to committing and pushing it live. For my future self who will forget all of this in three months.
+summary: 从新建 Markdown、上传图片、到 commit 和 push 上线的完整流程。给三个月后忘了怎么发的自己。
 ---
 
-> This one is written for my future self. Next time I want to publish something, open this post and follow it.
+> 这篇是给未来的自己看的。以后想发文章，打开这篇照着走。
 
-## The Whole Pipeline
+## 整条链路
 
-It's really just four steps:
+其实就四步：
 
 ```text
-write Markdown  →  add images  →  commit  →  push  →  live in about a minute
+写 Markdown  →  放图片  →  commit  →  push  →  等一分钟上线
 ```
 
-No database, no CMS admin panel, no build configuration. Jekyll runs automatically on GitHub Pages — whatever you push is what gets served.
+没有数据库，没有 CMS 后台，没有构建配置。Jekyll 在 GitHub Pages 上自动跑，推什么上去就是什么。
 
-## 1. Create the File
+## 一、建文件
 
-Create a new `.md` file under `_posts/`. **The filename must include the date**:
+在 `_posts/` 下新建一个 `.md` 文件。**文件名必须带日期**：
 
 ```text
 _posts/2026-09-12-go-microservices.md
 ```
 
-The date determines sorting and the URL. Use lowercase English plus hyphens for the title part to get a clean URL: `/writing/go-microservices`. Don't use Chinese characters or spaces — the link becomes long and ugly.
+日期决定排序和链接。标题部分用英文小写 + 短横线，会得到干净的 URL：`/writing/go-microservices`。别用中文或空格，链接会变得又长又乱。
 
-## 2. Write the Frontmatter
+## 二、写 frontmatter
 
-The block between the two `---` lines at the top of the file is the configuration:
+文件最开头两行 `---` 之间是配置：
 
 ```yaml
 ---
 layout: post
-title: "Post Title"
+title: "文章标题"
 date: 2026-09-12
-category: Notes
+category: 笔记
 tags:
   - Go
-  - Microservices
-summary: A one-line summary, shown on the homepage list and in RSS.
-cover: /assets/images/posts/my-cover.png
+  - 微服务
+summary: 一句话摘要，显示在首页卡片和 RSS 里。
+cover: /assets/images/posts/我的封面.png
 ---
 ```
 
-| Field | Required | What it does |
+| 字段 | 必填 | 干什么 |
 |---|---|---|
-| `layout` | Yes | Always `post`. Delete it and the page renders unstyled — a pitfall I've hit before |
-| `title` | Yes | The post title |
-| `date` | Yes | Publish date, `YYYY-MM-DD` |
-| `category` | No | Category, displayed as a tag |
-| `tags` | No | List of tags |
-| `summary` | No | Summary for the homepage list and share cards |
-| `cover` | No | Cover image path; falls back to the site default if omitted |
+| `layout` | 是 | 固定写 `post`。删了文章页就没样式——这是个踩过的坑 |
+| `title` | 是 | 文章标题 |
+| `date` | 是 | 发布日期，`YYYY-MM-DD` |
+| `category` | 否 | 分类，显示成一个标签 |
+| `tags` | 否 | 标签列表 |
+| `summary` | 否 | 首页卡片和分享卡片的摘要 |
+| `cover` | 否 | 封面图路径，不写用站点默认图 |
 
-## 3. Images
+## 三、图片
 
-This is the step where things go wrong most often.
+这是最容易搞错的一步。
 
-### Where to put them
+### 放哪
 
-Keep images in the repo alongside the posts, under one directory:
+图片和文章一起放仓库里，统一丢这个目录：
 
 ```text
 assets/images/posts/
 ```
 
-Cover images and inline figures both go here.
+封面图和正文插图都放这。
 
-### How to upload
+### 怎么传
 
-**Drag and drop on the web** (easiest): repo page → Add file → Upload files → drag them in → Commit.
+**网页拖拽**（最省事）：仓库页面 → Add file → Upload files → 拖进去 → Commit。
 
-**Local copy**: copy the images into `assets/images/posts/` in your local clone and push them together with the post (see next step).
+**本地放文件夹**：把图片复制到本地仓库的 `assets/images/posts/`，和文章一起 push（见下一步）。
 
-### How to reference them
+### 怎么引用
 
-Use standard Markdown image syntax in the body, **the path must start with `/`**:
+正文里用 Markdown 图片语法，**路径最前面必须带 `/`**：
 
 ```markdown
-![alt text](/assets/images/posts/go-cover.png)
+![图片说明](/assets/images/posts/go-cover.png)
 ```
 
-For the cover, set the `cover` field in frontmatter:
+封面在 frontmatter 里写 `cover` 字段：
 
 ```yaml
 cover: /assets/images/posts/go-cover.png
 ```
 
-### Three pitfalls you WILL hit
+### 三个必踩的坑
 
-1. **Missing leading slash**: `assets/images/xxx.png` (no `/` at the start) gives a 404
-2. **Case mismatch**: the file is `go-cover.png` but you reference `go-cover.PNG` — also a 404
-3. **Referencing before uploading**: make sure the image is actually in the repo before you reference it, otherwise it stays a broken image forever
+1. **少写斜杠**：`assets/images/xxx.png`（没有开头的 `/`）会 404
+2. **大小写不一致**：文件是 `go-cover.png`，引用写成 `go-cover.PNG` 也会 404
+3. **图没传就引用**：先确认图片真的在仓库里，再引用，否则永远是个裂图
 
-## 4. Commit and Push
+## 四、commit 和 push
 
-Post written, images in place — time to send it to GitHub.
+文章写好了，图片也放了，接下来提交到 GitHub。
 
-### Command line (recommended)
+### 命令行（推荐）
 
 ```bash
 git add .
-git commit -m "post: published a post about Go microservices"
+git commit -m "post: 发了一篇 Go 微服务的文章"
 git push origin main
 ```
 
-What each command does:
+三条命令各干什么：
 
-- `git add .` — stage all changes (new post + new images)
-- `git commit` — freeze them into a local commit
-- `git push` — push to GitHub; the site only updates after this step
+- `git add .` — 把所有改动（新文章 + 新图片）加进暂存区
+- `git commit` — 固化成本地的一次提交
+- `git push` — 推到 GitHub，这一步之后网站才更新
 
-### Editing on the web
+### 网页编辑
 
-If you'd rather not touch the terminal:
+不想碰命令行也行：
 
-1. Repo → Add file → Create new file
-2. Name it `_posts/2026-09-12-title.md` (**the `_posts/` prefix is mandatory**)
-3. Paste the body
-4. Upload images separately via Upload files
+1. 仓库 → Add file → Create new file
+2. 文件名填 `_posts/2026-09-12-标题.md`（**一定要带 `_posts/` 前缀**）
+3. 粘正文
+4. 图片单独用 Upload files 传
 5. Commit changes
 
-### After pushing
+### push 之后
 
-GitHub Pages builds automatically — usually **live within a minute**. Build logs are under the repo's Actions tab.
+GitHub Pages 自动构建，**通常一分钟内**线上就能看到。构建日志在仓库的 Actions 标签页。
 
-> If the page still shows the old version after a push, wait a minute or two and refresh. Builds aren't instant.
+> 如果 push 后页面还是旧的，等一两分钟再刷新。构建不是瞬间的。
 
-## Extras
+## 补充
 
-### Table of contents
+### 文章目录
 
-To insert an auto-generated TOC in the body, add this where you want it:
+想在正文里插一段自动目录，在目标位置加：
 
 ```markdown
 * TOC
 {:toc}
 ```
 
-kramdown generates it from the `##` headings.
+kramdown 会根据 `##` 标题自动生成。
 
-### Local preview
+### 本地预览
 
-For day-to-day use, just push and check the live site. To run locally:
+日常直接 push 看线上就够了。想本地跑：
 
 ```bash
 gem install jekyll bundler
 jekyll serve
 ```
 
-Then open `http://localhost:4000`.
+打开 `http://localhost:4000`。
 
-## Recap
+## 总结
 
 ```text
-1. create file   _posts/date-title.md
-2. frontmatter   title / date / tags...
-3. add images    assets/images/posts/xxx.png
-4. reference     ![](/assets/images/posts/xxx.png)
-5. commit        git add . && git commit -m "..."
-6. push          git push origin main
+1. 建文件    _posts/日期-标题.md
+2. 写配置    frontmatter（title / date / tags…）
+3. 放图片    assets/images/posts/xxx.png
+4. 引用图    ![](/assets/images/posts/xxx.png)
+5. commit    git add . && git commit -m "..."
+6. push      git push origin main
 ```
 
-Six steps. There is no step seven.
+六步。没有第七步。
