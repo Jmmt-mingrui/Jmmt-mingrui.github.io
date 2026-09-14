@@ -27,7 +27,7 @@ title_en: Home
 
 <section class="home-section">
   <div class="section-head">
-    <h2><span class="zh-only">写过的文章</span><span class="en-only">Writing</span></h2>
+    <h2><span class="zh-only">我写的文章</span><span class="en-only">Writing</span></h2>
     <a href="{{ '/archive' | relative_url }}"><span class="zh-only">全部 →</span><span class="en-only">All →</span></a>
   </div>
   {% if site.posts.size > 0 %}
