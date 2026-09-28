@@ -13,7 +13,7 @@ summary:
 > recently I leave the selectdb company because I choose the chance to apply to polyU, but when I ask many people the options important for me what could I do next, there are various views for the future and the coding atmosphere. Then now I might be compele myself to focus on one thing that develop the abilities about code and exercies consistently to participate in many large company or open the life where I could go with the task due to remote work.
 
 
-### I do next what 
+### I do what next
 
 Maybe for someone there are many opportunities to work or mphil but for me nothing. Then I shoud know that study hard, learn hard, and work everday is the one way that enable me access the large company. Leecode and document I shoud repeatedly learn, and the open source need to consist on doing. 
 
