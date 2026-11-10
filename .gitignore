@@ -17,3 +17,8 @@ vendor/
 node_modules/
 .wrangler/
 .sites-runtime/
+
+
+.dist/
+.public/
+
